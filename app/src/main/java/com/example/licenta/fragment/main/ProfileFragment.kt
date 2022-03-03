@@ -1,8 +1,6 @@
 package com.example.licenta.fragment.main
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -44,11 +42,14 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
     private lateinit var nameTV: TextView
     private lateinit var logOut: ImageView
     private lateinit var infoTab: TabLayout
+    private lateinit var editPhotoDialog: AlertDialog
 
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
-            if (imageUri != null)
+            if (imageUri != null) {
                 profilePhoto.setImageURI(imageUri)
+                editPhotoDialog.cancel()
+            }
         }
 
     private lateinit var currentImageUri: Uri
@@ -121,7 +122,7 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
         cameraBtn.setOnClickListener(this)
         val galleryBtn: Button = view.findViewById(R.id.dialog_profile_open_gallery_btn)
         galleryBtn.setOnClickListener(this)
-        val dialog = AlertDialog
+        editPhotoDialog = AlertDialog
             .Builder(requireContext())
             .setTitle("Edit your profile photo")
             .setView(view)
@@ -131,7 +132,7 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
             .create()
 
         Log.d("ProfileFragment", "openEditPhotoDialog: ")
-        dialog.show()
+        editPhotoDialog.show()
     }
 
     private fun openCamera() {
