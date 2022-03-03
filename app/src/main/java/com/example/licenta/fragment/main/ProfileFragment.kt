@@ -1,6 +1,8 @@
 package com.example.licenta.fragment.main
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -23,7 +25,10 @@ import com.example.licenta.fragment.main.profile.GoalsFragment
 import com.example.licenta.fragment.main.profile.PostsFragment
 import com.example.licenta.fragment.main.profile.RecordsFragment
 import com.example.licenta.util.PermissionsChecker
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.io.File
 
 // TODO: Rename parameter arguments, choose names that match
@@ -43,12 +48,26 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
     private lateinit var logOut: ImageView
     private lateinit var infoTab: TabLayout
     private lateinit var editPhotoDialog: AlertDialog
+    private lateinit var savingPhotoPb: CircularProgressIndicator
+    private val storage: FirebaseStorage = FirebaseStorage.getInstance()
+    private val profilePhotoReference: StorageReference =
+        storage.reference.child("profile-pics/${LoggedUserData.getLoggedUser().uuid}.jpg")
 
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
             if (imageUri != null) {
-                profilePhoto.setImageURI(imageUri)
-                editPhotoDialog.cancel()
+                savingPhotoPb.visibility = View.VISIBLE
+                profilePhotoReference
+                    .putFile(imageUri)
+                    .addOnCompleteListener { isUploaded ->
+                        if (isUploaded.isSuccessful) {
+                            profilePhoto.setImageURI(imageUri)
+                            savingPhotoPb.visibility = View.INVISIBLE
+                            editPhotoDialog.cancel()
+                        } else {
+                            savingPhotoPb.visibility = View.INVISIBLE
+                        }
+                    }
             }
         }
 
@@ -69,8 +88,7 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
         fragmentFrameLayout = view.findViewById(R.id.fragment_profile_items_fragment)
         infoTab = view.findViewById(R.id.fragment_profile_tab_layout)
         infoTab.addOnTabSelectedListener(this)
-        profilePhoto = view.findViewById(R.id.fragment_profile_photo_profile_iv)
-        profilePhoto.setOnClickListener(this)
+        setProfilePhoto(view)
         logOut = view.findViewById(R.id.fragment_profile_button_log_out_btn)
         nameTV = view.findViewById(R.id.fragment_profile_name_tv)
         nameTV.text =
@@ -113,6 +131,19 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
         requireActivity().finish()
     }
 
+    private fun setProfilePhoto(view: View) {
+        profilePhoto = view.findViewById(R.id.fragment_profile_photo_profile_iv)
+        profilePhotoReference.getBytes(Long.MAX_VALUE)
+            .addOnSuccessListener { array ->
+                val photoBitmap = BitmapFactory.decodeByteArray(array, 0, array.size)
+                profilePhoto.setImageBitmap(photoBitmap)
+            }
+            .addOnFailureListener { exception ->
+                exception.printStackTrace()
+            }
+        profilePhoto.setOnClickListener(this)
+    }
+
     private fun openEditPhotoDialog() {
         val view = LayoutInflater
             .from(requireActivity())
@@ -122,6 +153,7 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
         cameraBtn.setOnClickListener(this)
         val galleryBtn: Button = view.findViewById(R.id.dialog_profile_open_gallery_btn)
         galleryBtn.setOnClickListener(this)
+        savingPhotoPb = view.findViewById(R.id.dialog_profile_uploading_pb)
         editPhotoDialog = AlertDialog
             .Builder(requireContext())
             .setTitle("Edit your profile photo")
