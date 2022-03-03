@@ -38,9 +38,15 @@ class ScanBarcodeActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
+        /*
+        previewView este suportul pentru cameră, care va scana codul de bare
+        executorService va executa scanarea pe un thread diferit, pentru a nu bloca
+        aplicația
+         */
         previewView = findViewById(R.id.activity_barcode_scanner_camera_preview)
         executorService = Executors.newSingleThreadExecutor()
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -90,15 +96,22 @@ class ScanBarcodeActivity : AppCompatActivity() {
         )
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get()
+            //configurarea camerei
+            val cameraProvider = cameraProviderFuture.get() //Future-ul este așteptat
             val previewUseCase = Preview.Builder()
                 .build()
                 .also {
+                    /*
+                    setează provider-ul de suprafață (activitate) pe care se
+                    găsește previewView-ul, în cazul nostru ScanBarcodeActivity
+                     */
                     it.setSurfaceProvider(previewView.surfaceProvider)
                 }
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA //selectam camera din spate
             try {
-                cameraProvider.bindToLifecycle(this, cameraSelector, previewUseCase, imageAnalysis)
+                //Încercăm să pornim camera, împreună cu analizatorul de imagini
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, previewUseCase, imageAnalysis)
             } catch (illegalStateException: IllegalStateException) {
                 Log.e("illegalException", illegalStateException.message.orEmpty())
             } catch (illegalArgumentException: IllegalArgumentException) {
@@ -114,14 +127,12 @@ class ScanBarcodeActivity : AppCompatActivity() {
             if (exists) {
                 bundle.putString(Food.ID, id)
                 bundle.putBoolean(IntentConstants.EXISTS, true)
-                intent.putExtra(IntentConstants.BUNDLE,bundle)
-                setResult(RESULT_OK,intent)
             } else {
                 bundle.putString(Food.BARCODE, barcode)
                 bundle.putBoolean(IntentConstants.EXISTS, false)
-                intent.putExtra(IntentConstants.BUNDLE,bundle)
-                setResult(RESULT_OK,intent)
             }
+            intent.putExtra(IntentConstants.BUNDLE,bundle)
+            setResult(RESULT_OK,intent)
             finish()
         }
     }
@@ -137,7 +148,7 @@ class ScanBarcodeActivity : AppCompatActivity() {
                     InputImage.fromMediaImage(
                         image,
                         imageProxy.imageInfo.rotationDegrees
-                    )
+                    ) //ajustarea corectă a imaginii
 
                 barcodeScanner.process(inputImage)
                     .addOnSuccessListener { barcodeList ->

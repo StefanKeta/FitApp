@@ -1,15 +1,20 @@
 package com.example.licenta.fragment.main
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.FileProvider
 import com.example.licenta.R
 import com.example.licenta.activity.auth.LoginActivity
 import com.example.licenta.data.LoggedUserData
@@ -19,7 +24,9 @@ import com.example.licenta.fragment.main.profile.ConnectionsFragment
 import com.example.licenta.fragment.main.profile.GoalsFragment
 import com.example.licenta.fragment.main.profile.PostsFragment
 import com.example.licenta.fragment.main.profile.RecordsFragment
+import com.example.licenta.util.PermissionsChecker
 import com.google.android.material.tabs.TabLayout
+import java.io.File
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,6 +45,21 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
     private lateinit var logOut: ImageView
     private lateinit var infoTab: TabLayout
 
+    private val galleryLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
+            if (imageUri != null)
+                profilePhoto.setImageURI(imageUri)
+        }
+
+    private lateinit var currentImageUri: Uri
+
+    private val cameraLauncher =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { isTaken ->
+            if (isTaken) {
+                profilePhoto.setImageURI(currentImageUri)
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -47,6 +69,7 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
         infoTab = view.findViewById(R.id.fragment_profile_tab_layout)
         infoTab.addOnTabSelectedListener(this)
         profilePhoto = view.findViewById(R.id.fragment_profile_photo_profile_iv)
+        profilePhoto.setOnClickListener(this)
         logOut = view.findViewById(R.id.fragment_profile_button_log_out_btn)
         nameTV = view.findViewById(R.id.fragment_profile_name_tv)
         nameTV.text =
@@ -73,13 +96,74 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
     }
 
     override fun onClick(view: View?) {
-        if (view!!.id == R.id.fragment_profile_button_log_out_btn) {
-            Auth.logUserOut()
-            LoggedUserData.setLoggedUser(null)
-            LoggedUserGoals.setGoals(null)
-            startActivity(Intent(context!!, LoginActivity::class.java))
-            activity!!.finish()
+        when (view?.id) {
+            R.id.fragment_profile_button_log_out_btn -> logOutUser()
+            R.id.fragment_profile_photo_profile_iv -> openEditPhotoDialog()
+            R.id.dialog_profile_open_camera_btn -> openCamera()
+            R.id.dialog_profile_open_gallery_btn -> openGallery()
         }
+    }
+
+    private fun logOutUser() {
+        Auth.logUserOut()
+        LoggedUserData.setLoggedUser(null)
+        LoggedUserGoals.setGoals(null)
+        startActivity(Intent(requireContext(), LoginActivity::class.java))
+        requireActivity().finish()
+    }
+
+    private fun openEditPhotoDialog() {
+        val view = LayoutInflater
+            .from(requireActivity())
+            .inflate(R.layout.dialog_profile_fragment_edit_photo, null, false)
+
+        val cameraBtn: Button = view.findViewById(R.id.dialog_profile_open_camera_btn)
+        cameraBtn.setOnClickListener(this)
+        val galleryBtn: Button = view.findViewById(R.id.dialog_profile_open_gallery_btn)
+        galleryBtn.setOnClickListener(this)
+        val dialog = AlertDialog
+            .Builder(requireContext())
+            .setTitle("Edit your profile photo")
+            .setView(view)
+            .setNegativeButton(
+                R.string.button_cancel
+            ) { dialog, _ -> dialog!!.dismiss() }
+            .create()
+
+        Log.d("ProfileFragment", "openEditPhotoDialog: ")
+        dialog.show()
+    }
+
+    private fun openCamera() {
+        if (PermissionsChecker.isCameraAndStoragePermissionAccepted(requireActivity())) {
+            val tempUri = FileProvider.getUriForFile(
+                requireContext(),
+                "file_provider",
+                createImage()
+            )
+            cameraLauncher.launch(tempUri)
+        } else if (!PermissionsChecker.isCameraPermissionAccepted(requireActivity())) {
+            PermissionsChecker.askForCameraPermission(requireActivity())
+        } else if (!PermissionsChecker.isStoragePermissionAccepted(requireActivity())) {
+            PermissionsChecker.askForStoragePermission(requireActivity())
+        }
+    }
+
+    private fun openGallery() {
+        if (PermissionsChecker.isStoragePermissionAccepted(requireActivity())) {
+            galleryLauncher.launch("image/*")
+        } else {
+            PermissionsChecker.askForStoragePermission(requireActivity())
+        }
+    }
+
+    private fun createImage(): File {
+        val workingDirectory = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "profile_${LoggedUserData.getLoggedUser().uuid}",
+            ".jpg",
+            workingDirectory
+        )
     }
 
     companion object {

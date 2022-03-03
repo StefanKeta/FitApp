@@ -54,7 +54,8 @@
                     android:layout_width="@dimen/fragment_profile_image_profile_size"
                     android:layout_height="@dimen/fragment_profile_image_profile_size"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_launcher_background"
+                    android:src="@drawable/ic_baseline_add_24"
+                    android:background="@color/quantum_grey"
                     app:shapeAppearanceOverlay="@style/ShapePhoto.Round"
                     app:layout_collapseMode = "parallax"
                     />
