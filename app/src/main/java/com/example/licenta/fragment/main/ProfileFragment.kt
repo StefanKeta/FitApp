@@ -15,6 +15,7 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
+import com.example.licenta.BuildConfig
 import com.example.licenta.R
 import com.example.licenta.activity.auth.LoginActivity
 import com.example.licenta.data.LoggedUserData
@@ -49,35 +50,19 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
     private lateinit var infoTab: TabLayout
     private lateinit var editPhotoDialog: AlertDialog
     private lateinit var savingPhotoPb: CircularProgressIndicator
+    private lateinit var currentImageUri: Uri
     private val storage: FirebaseStorage = FirebaseStorage.getInstance()
     private val profilePhotoReference: StorageReference =
         storage.reference.child("profile-pics/${LoggedUserData.getLoggedUser().uuid}.jpg")
 
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
-            if (imageUri != null) {
-                savingPhotoPb.visibility = View.VISIBLE
-                profilePhotoReference
-                    .putFile(imageUri)
-                    .addOnCompleteListener { isUploaded ->
-                        if (isUploaded.isSuccessful) {
-                            profilePhoto.setImageURI(imageUri)
-                            savingPhotoPb.visibility = View.INVISIBLE
-                            editPhotoDialog.cancel()
-                        } else {
-                            savingPhotoPb.visibility = View.INVISIBLE
-                        }
-                    }
-            }
+            if (imageUri != null) savePhotoToStorage(imageUri)
         }
-
-    private lateinit var currentImageUri: Uri
 
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { isTaken ->
-            if (isTaken) {
-                profilePhoto.setImageURI(currentImageUri)
-            }
+            if (isTaken) savePhotoToStorage(currentImageUri)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -169,12 +154,12 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
 
     private fun openCamera() {
         if (PermissionsChecker.isCameraAndStoragePermissionAccepted(requireActivity())) {
-            val tempUri = FileProvider.getUriForFile(
+            currentImageUri = FileProvider.getUriForFile(
                 requireContext(),
-                "file_provider",
+                BuildConfig.APPLICATION_ID + ".file_provider",
                 createImage()
             )
-            cameraLauncher.launch(tempUri)
+            cameraLauncher.launch(currentImageUri)
         } else if (!PermissionsChecker.isCameraPermissionAccepted(requireActivity())) {
             PermissionsChecker.askForCameraPermission(requireActivity())
         } else if (!PermissionsChecker.isStoragePermissionAccepted(requireActivity())) {
@@ -197,6 +182,21 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
             ".jpg",
             workingDirectory
         )
+    }
+
+    private fun savePhotoToStorage(uri: Uri) {
+        savingPhotoPb.visibility = View.VISIBLE
+        profilePhotoReference
+            .putFile(uri)
+            .addOnCompleteListener { isUploaded ->
+                if (isUploaded.isSuccessful) {
+                    profilePhoto.setImageURI(uri)
+                    savingPhotoPb.visibility = View.INVISIBLE
+                    editPhotoDialog.cancel()
+                } else {
+                    savingPhotoPb.visibility = View.INVISIBLE
+                }
+            }
     }
 
     companion object {
