@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.diary.AddFoodActivity"
+    tools:context=".activity.diary.food.AddFoodActivity"
     android:paddingVertical="@dimen/app_vertical_padding_standard">
 
     <LinearLayout

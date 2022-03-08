@@ -1,4 +1,4 @@
-package com.example.licenta.activity.diary
+package com.example.licenta.activity.diary.food
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +16,6 @@ import com.example.licenta.firebase.db.SelectedFoodDB
 import com.example.licenta.model.food.Food
 import com.example.licenta.model.food.FoodMeasureUnitEnum
 import com.example.licenta.model.food.SelectedFood
-import com.example.licenta.util.Date
 import com.example.licenta.util.IntentConstants
 import com.example.licenta.util.Util
 import com.google.android.material.button.MaterialButtonToggleGroup

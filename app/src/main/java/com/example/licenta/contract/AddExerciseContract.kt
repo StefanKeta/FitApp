@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
-import com.example.licenta.activity.diary.AddExerciseActivity
+import com.example.licenta.activity.diary.exercise.AddExerciseActivity
 import com.example.licenta.model.exercise.WeightExerciseRecord
 import com.example.licenta.util.IntentConstants
 

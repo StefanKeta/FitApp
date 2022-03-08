@@ -1,8 +1,7 @@
-package com.example.licenta.adapter
+package com.example.licenta.adapter.food
 
 import android.app.AlertDialog
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.licenta.R
 import com.example.licenta.firebase.db.SelectedFoodDB
-import com.example.licenta.model.food.Food
 import com.example.licenta.model.food.FoodMeasureUnitEnum
 import com.example.licenta.model.food.Meal
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter

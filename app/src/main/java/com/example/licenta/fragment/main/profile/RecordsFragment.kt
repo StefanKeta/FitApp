@@ -12,7 +12,7 @@ import android.widget.AutoCompleteTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.licenta.R
-import com.example.licenta.adapter.AddExerciseAdapter
+import com.example.licenta.adapter.exercise.AddExerciseAdapter
 import com.example.licenta.firebase.db.ExercisesDB
 import com.example.licenta.firebase.db.PersonalRecordsDB
 import com.example.licenta.model.exercise.Exercise

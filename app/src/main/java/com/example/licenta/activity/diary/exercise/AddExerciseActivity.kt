@@ -1,4 +1,4 @@
-package com.example.licenta.activity.diary
+package com.example.licenta.activity.diary.exercise
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.licenta.R
 import com.example.licenta.activity.MainActivity
-import com.example.licenta.adapter.AddExerciseAdapter
+import com.example.licenta.adapter.exercise.AddExerciseAdapter
 import com.example.licenta.contract.AddCustomExerciseContract
 import com.example.licenta.data.LoggedUserData
 import com.example.licenta.firebase.db.ExercisesDB

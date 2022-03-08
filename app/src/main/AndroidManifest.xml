@@ -48,7 +48,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".activity.diary.AddCustomExerciseActivity"
+            android:name=".activity.diary.exercise.AddCustomExerciseActivity"
             android:exported="false" />
 
         <meta-data
@@ -56,10 +56,10 @@
             android:value="barcode" />
 
         <activity
-            android:name=".activity.diary.RegisterFoodToDbActivity"
+            android:name=".activity.diary.food.RegisterFoodToDbActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.diary.FoodInfoActivity"
+            android:name=".activity.diary.food.FoodInfoActivity"
             android:exported="true" />
         <activity
             android:name=".activity.camera.ScanBarcodeActivity"
@@ -68,10 +68,10 @@
             android:name=".activity.SetGoalsActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.diary.AddFoodActivity"
+            android:name=".activity.diary.food.AddFoodActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.diary.AddExerciseActivity"
+            android:name=".activity.diary.exercise.AddExerciseActivity"
             android:exported="true" />
         <activity
             android:name=".activity.MainActivity"

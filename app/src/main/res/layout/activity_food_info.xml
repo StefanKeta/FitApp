@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/app_horizontal_padding_standard"
     android:paddingVertical="@dimen/app_vertical_padding_standard"
-    tools:context=".activity.diary.FoodInfoActivity">
+    tools:context=".activity.diary.food.FoodInfoActivity">
 
     <TextView
         android:id="@+id/activity_food_info_name_tv"

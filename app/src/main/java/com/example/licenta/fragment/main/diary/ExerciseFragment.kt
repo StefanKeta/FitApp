@@ -14,7 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.licenta.R
-import com.example.licenta.adapter.ExerciseAdapter
+import com.example.licenta.adapter.exercise.ExerciseAdapter
 import com.example.licenta.contract.AddExerciseContract
 import com.example.licenta.firebase.db.PersonalRecordsDB
 import com.example.licenta.firebase.db.WeightExerciseRecordDB

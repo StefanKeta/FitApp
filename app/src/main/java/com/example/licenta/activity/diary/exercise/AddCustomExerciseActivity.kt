@@ -1,4 +1,4 @@
-package com.example.licenta.activity.diary
+package com.example.licenta.activity.diary.exercise
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

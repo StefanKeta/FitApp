@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".activity.diary.RegisterFoodToDbActivity"
+    tools:context=".activity.diary.food.RegisterFoodToDbActivity"
     android:paddingHorizontal="@dimen/app_horizontal_padding_standard"
     android:paddingVertical="@dimen/app_vertical_padding_standard"
     >

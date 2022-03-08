@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.diary.AddExerciseActivity"
+    tools:context=".activity.diary.exercise.AddExerciseActivity"
     android:orientation="vertical"
     android:paddingVertical="@dimen/app_vertical_padding_standard"
     android:paddingHorizontal="@dimen/app_horizontal_padding_standard">

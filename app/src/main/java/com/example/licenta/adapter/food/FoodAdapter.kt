@@ -1,4 +1,4 @@
-package com.example.licenta.adapter
+package com.example.licenta.adapter.food
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -12,7 +12,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import com.example.licenta.R
-import com.example.licenta.activity.diary.AddFoodActivity
+import com.example.licenta.activity.diary.food.AddFoodActivity
 import com.example.licenta.firebase.db.FoodDB
 import com.example.licenta.model.food.Food
 import com.example.licenta.util.IntentConstants
@@ -22,7 +22,6 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
-import kotlinx.android.synthetic.main.activity_scan_barcode.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 

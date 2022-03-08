@@ -5,8 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContract
-import com.example.licenta.activity.diary.AddFoodActivity
-import com.example.licenta.model.food.SelectedFood
+import com.example.licenta.activity.diary.food.AddFoodActivity
 import com.example.licenta.util.IntentConstants
 
 class AddFoodForUserContract : ActivityResultContract<Bundle, Boolean>() {

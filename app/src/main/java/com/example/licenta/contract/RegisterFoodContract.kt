@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
-import com.example.licenta.activity.diary.RegisterFoodToDbActivity
+import com.example.licenta.activity.diary.food.RegisterFoodToDbActivity
 import com.example.licenta.model.food.Food
 import com.example.licenta.util.IntentConstants
 

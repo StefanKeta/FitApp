@@ -1,7 +1,6 @@
 package com.example.licenta.fragment.main.diary
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.licenta.R
-import com.example.licenta.adapter.FoodAdapter
-import com.example.licenta.adapter.MealsAdapter
+import com.example.licenta.adapter.food.FoodAdapter
+import com.example.licenta.adapter.food.MealsAdapter
 import com.example.licenta.animation.CircularProgressIndicatorAnimation
 import com.example.licenta.animation.LinearProgressIndicatorAnimation
 import com.example.licenta.contract.AddFoodForUserContract
