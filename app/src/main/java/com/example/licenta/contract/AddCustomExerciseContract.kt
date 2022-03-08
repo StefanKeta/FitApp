@@ -13,9 +13,9 @@ class AddCustomExerciseContract : ActivityResultContract<Unit, Boolean>() {
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Boolean {
-        if(resultCode == Activity.RESULT_OK){
-            if(intent != null){
-                return intent.getBooleanExtra(IntentConstants.IS_EXERCISE_ADDED,false)
+        if (resultCode == Activity.RESULT_OK) {
+            if (intent != null) {
+                return intent.getBooleanExtra(IntentConstants.IS_EXERCISE_ADDED, false)
             }
         }
         return false

@@ -111,7 +111,8 @@ class ScanBarcodeActivity : AppCompatActivity() {
             try {
                 //Încercăm să pornim camera, împreună cu analizatorul de imagini
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector, previewUseCase, imageAnalysis)
+                    this, cameraSelector, previewUseCase, imageAnalysis
+                )
             } catch (illegalStateException: IllegalStateException) {
                 Log.e("illegalException", illegalStateException.message.orEmpty())
             } catch (illegalArgumentException: IllegalArgumentException) {
@@ -131,8 +132,8 @@ class ScanBarcodeActivity : AppCompatActivity() {
                 bundle.putString(Food.BARCODE, barcode)
                 bundle.putBoolean(IntentConstants.EXISTS, false)
             }
-            intent.putExtra(IntentConstants.BUNDLE,bundle)
-            setResult(RESULT_OK,intent)
+            intent.putExtra(IntentConstants.BUNDLE, bundle)
+            setResult(RESULT_OK, intent)
             finish()
         }
     }
@@ -152,7 +153,7 @@ class ScanBarcodeActivity : AppCompatActivity() {
 
                 barcodeScanner.process(inputImage)
                     .addOnSuccessListener { barcodeList ->
-                        if(barcodeList.size == 1){
+                        if (barcodeList.size == 1) {
                             val barcodeRawValue = barcodeList[0].rawValue ?: ""
                             scanningCallback(barcodeRawValue)
                             imageProxy.image?.close()

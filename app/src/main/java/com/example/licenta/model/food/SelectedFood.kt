@@ -9,6 +9,7 @@ data class SelectedFood(
     val id: String = "",
     val foodId: String = "",
     val userId: String = "",
+    val mealId: String = "",
     val quantity: Double = 0.0,
     val unit: FoodMeasureUnitEnum = FoodMeasureUnitEnum.GRAM,
     val dateSelected: String = Date.setCurrentDay()
@@ -17,6 +18,7 @@ data class SelectedFood(
         const val ID = "id"
         const val FOOD_ID = "foodId"
         const val USER_ID = "userId"
+        const val MEAL_ID = "mealId"
         const val QUANTITY = "quantity"
         const val UNIT = "unit"
         const val DATE_SELECTED = "dateSelected"

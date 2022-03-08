@@ -86,12 +86,12 @@ class SetGoalsActivity : AppCompatActivity(), View.OnClickListener {
     private fun save(preference: PersonalWeightPreference, activity: Double) {
         val calories = CalorieCalculator.calculateCalories(preference, activity)
         val macros = MacroCalculator.calculateMacros(preference, calories)
-        if(isUpdate){
-            val id =LoggedUserGoals.getGoals().goalsID
-            GoalsDB.updateGoals(id,macros,calories){
-                goToMainActivityAttemptCallback(it,LoggedUserGoals.getGoals())
+        if (isUpdate) {
+            val id = LoggedUserGoals.getGoals().goalsID
+            GoalsDB.updateGoals(id, macros, calories) {
+                goToMainActivityAttemptCallback(it, LoggedUserGoals.getGoals())
             }
-        }else {
+        } else {
             val goals = Goals(
                 UUID.randomUUID().toString(),
                 LoggedUserData.getLoggedUser().uuid,

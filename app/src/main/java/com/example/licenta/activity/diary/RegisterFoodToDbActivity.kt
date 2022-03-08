@@ -70,31 +70,31 @@ class RegisterFoodToDbActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             if (areAllFieldsFilled()) {
                 val barcode = getIntent()
-                        .getStringExtra(Food.BARCODE)
+                    .getStringExtra(Food.BARCODE)
                 val food = Food(
-                        UUID.randomUUID().toString(),
-                        nameET.text.toString().trim(),
-                        barcode ?: "",
-                        caloriesET.text.toString().trim().toInt(),
-                        proteinET.text.toString().trim().toInt(),
-                        carbsET.text.toString().trim().toInt(),
-                        fatET.text.toString().trim().toInt()
+                    UUID.randomUUID().toString(),
+                    nameET.text.toString().trim(),
+                    barcode ?: "",
+                    caloriesET.text.toString().trim().toInt(),
+                    proteinET.text.toString().trim().toInt(),
+                    carbsET.text.toString().trim().toInt(),
+                    fatET.text.toString().trim().toInt()
                 )
                 FoodDB.saveFood(food) { isSaved ->
                     intent.putExtra(IntentConstants.IS_FOOD_SAVED, isSaved)
                 }
             }
-            setResult(RESULT_OK,intent)
+            setResult(RESULT_OK, intent)
             finish()
         }
     }
 
     private fun areAllFieldsFilled(): Boolean {
         if (nameET.text!!.isNotEmpty() &&
-                caloriesET.text!!.isNotEmpty() &&
-                fatET.text!!.isNotEmpty() &&
-                carbsET.text!!.isNotEmpty() &&
-                proteinET.text!!.isNotEmpty()
+            caloriesET.text!!.isNotEmpty() &&
+            fatET.text!!.isNotEmpty() &&
+            carbsET.text!!.isNotEmpty() &&
+            proteinET.text!!.isNotEmpty()
         ) return true
         if (nameET.text!!.isEmpty())
             nameTIL.error = "Please enter food name"

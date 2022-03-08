@@ -6,12 +6,12 @@ import com.google.firebase.firestore.DocumentId
 data class CardioExerciseRecord(
     @DocumentId
     val id: String,
-    val exerciseId:String,
+    val exerciseId: String,
     val distance: Double,
     val time: Long,
     val date: String = Date.setCurrentDay()
-){
-    companion object{
+) {
+    companion object {
         const val ID = "id"
         const val EXERCISE_ID = "exerciseId"
         const val DISTANCE = "distance"

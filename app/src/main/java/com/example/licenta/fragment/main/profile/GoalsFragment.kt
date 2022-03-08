@@ -27,7 +27,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [GoalsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class GoalsFragment : Fragment(),View.OnClickListener {
+class GoalsFragment : Fragment(), View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -55,12 +55,12 @@ class GoalsFragment : Fragment(),View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =  inflater.inflate(R.layout.fragment_goals, container, false)
+        val view = inflater.inflate(R.layout.fragment_goals, container, false)
         initComponents(view)
         return view
     }
 
-    private fun initComponents(view: View){
+    private fun initComponents(view: View) {
         heightTV = view.findViewById(R.id.fragment_goals_height_tv)
         weightTV = view.findViewById(R.id.fragment_goals_weight_tv)
         proteinTV = view.findViewById(R.id.fragment_goals_protein_tv)
@@ -74,10 +74,10 @@ class GoalsFragment : Fragment(),View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        if(view!!.id == R.id.fragment_goals_update_weight_btn){
-            val intent = Intent(context!!,SetGoalsActivity::class.java)
-                .also { it.putExtra(IntentConstants.EXISTS,true) }
-            if(!weightET.text.isNullOrEmpty()) {
+        if (view!!.id == R.id.fragment_goals_update_weight_btn) {
+            val intent = Intent(context!!, SetGoalsActivity::class.java)
+                .also { it.putExtra(IntentConstants.EXISTS, true) }
+            if (!weightET.text.isNullOrEmpty()) {
                 val newWeight = weightET.text.toString().trim().toInt()
                 UsersDB.updateWeight(newWeight) { user ->
                     if (user != null) {
@@ -86,14 +86,14 @@ class GoalsFragment : Fragment(),View.OnClickListener {
                         activity!!.finish()
                     }
                 }
-            }else{
+            } else {
                 startActivity(intent)
                 activity!!.finish()
             }
         }
     }
 
-    private fun fillTextViews(){
+    private fun fillTextViews() {
         heightTV.text = "${LoggedUserData.getLoggedUser().height}cm"
         weightTV.text = "${LoggedUserData.getLoggedUser().weight}kg"
         proteinTV.text = LoggedUserGoals.getGoals().protein.toString()

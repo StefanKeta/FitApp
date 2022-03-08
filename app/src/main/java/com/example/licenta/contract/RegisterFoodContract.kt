@@ -11,7 +11,7 @@ import com.example.licenta.util.IntentConstants
 class RegisterFoodContract : ActivityResultContract<String, Boolean>() {
     override fun createIntent(context: Context, input: String): Intent {
         return Intent(context, RegisterFoodToDbActivity::class.java).apply {
-            this.putExtra(Food.BARCODE,input)
+            this.putExtra(Food.BARCODE, input)
         }
     }
 

@@ -9,7 +9,7 @@ import java.util.*
 object Date {
     private const val DATE_PATTERN = "dd MMMM yyyy"
     fun getTimestampFromDate(date: String): Long {
-       val parsedDate = LocalDate
+        val parsedDate = LocalDate
             .parse(date, DateTimeFormatter.ofPattern(DATE_PATTERN))
         return parsedDate.atStartOfDay(ZoneId.systemDefault())
             .toInstant()
@@ -18,7 +18,7 @@ object Date {
 
     fun getDateFromTimestamp(timestamp: Long): String {
         val date = Date(timestamp * 1000)
-        val formatter = SimpleDateFormat(DATE_PATTERN,Locale.getDefault())
+        val formatter = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
         return formatter.format(date)
     }
 
@@ -51,13 +51,13 @@ object Date {
         return getDateFromTimestamp(dayBeforeTimestamp)
     }
 
-    fun parseAge(timestamp: Long):Int{
+    fun parseAge(timestamp: Long): Int {
         val todayTimestamp = LocalDate
             .now()
             .atStartOfDay(ZoneId.systemDefault())
             .toInstant()
             .epochSecond
-        return ((todayTimestamp - timestamp)/60/60/24/365).toInt()
+        return ((todayTimestamp - timestamp) / 60 / 60 / 24 / 365).toInt()
     }
 
 }

@@ -22,7 +22,7 @@ class MealsFoodAdapter(
         return MealsFoodViewHolder(
             LayoutInflater
                 .from(ctx)
-                .inflate(R.layout.meal_food_item_holder, parent, false)
+                .inflate(R.layout.item_holder_meal_food, parent, false)
         )
     }
 

@@ -1,6 +1,5 @@
 package com.example.licenta.firebase.db
 
-import android.util.Log
 import com.example.licenta.data.LoggedUserData
 import com.example.licenta.model.food.FoodMeasureUnitEnum
 import com.example.licenta.model.food.SelectedFood
@@ -26,7 +25,7 @@ object SelectedFoodDB {
             }
     }
 
-    fun getSelectedFoodByDateAndId(
+    fun getUserSelectedFoodByDate(
         date: String,
         callback: (List<SelectedFood>) -> Unit
     ) {
@@ -55,8 +54,19 @@ object SelectedFoodDB {
     fun getSelectedFoodsOption(date: String): FirestoreRecyclerOptions<SelectedFood> {
         val query = db
             .collection(CollectionsName.SELECTED_FOOD)
-            .whereEqualTo(SelectedFood.USER_ID,LoggedUserData.getLoggedUser().uuid)
+            .whereEqualTo(SelectedFood.USER_ID, LoggedUserData.getLoggedUser().uuid)
             .whereEqualTo(SelectedFood.DATE_SELECTED, date)
+
+        return FirestoreRecyclerOptions.Builder<SelectedFood>()
+            .setQuery(query, SelectedFood::class.java)
+            .build()
+    }
+
+    fun getSelectedFoodsInMealOption(mealId: String): FirestoreRecyclerOptions<SelectedFood> {
+        val query = db
+            .collection(CollectionsName.SELECTED_FOOD)
+            .whereEqualTo(SelectedFood.USER_ID, LoggedUserData.getLoggedUser().uuid)
+            .whereEqualTo(SelectedFood.MEAL_ID, mealId)
 
         return FirestoreRecyclerOptions.Builder<SelectedFood>()
             .setQuery(query, SelectedFood::class.java)

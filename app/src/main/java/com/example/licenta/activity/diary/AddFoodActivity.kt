@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +27,7 @@ import com.example.licenta.util.IntentConstants
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import java.lang.RuntimeException
 
 class AddFoodActivity : AppCompatActivity(), View.OnClickListener,
     AddFoodAdapter.OnAddFoodItemClickListener {
@@ -32,12 +35,13 @@ class AddFoodActivity : AppCompatActivity(), View.OnClickListener,
     private lateinit var searchFoodET: TextInputEditText
     private lateinit var barcodeBtn: Button
     private lateinit var addCustomFoodBtn: Button
-    private var date: String = Date.setCurrentDay()
     private lateinit var foodRV: RecyclerView
     private lateinit var adapter: AddFoodAdapter
-    private lateinit var barcodeScannerActivityResult : ActivityResultLauncher<Unit>
+    private lateinit var barcodeScannerActivityResult: ActivityResultLauncher<Unit>
     private lateinit var foodInfoActivityResult: ActivityResultLauncher<Bundle>
     private lateinit var registerFoodActivityResult: ActivityResultLauncher<String>
+    private lateinit var mealId: String
+    private lateinit var date: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_food)
@@ -53,14 +57,14 @@ class AddFoodActivity : AppCompatActivity(), View.OnClickListener,
         addCustomFoodBtn = findViewById(R.id.activity_add_food_add_btn)
         addCustomFoodBtn.setOnClickListener(this)
         searchFoodET.addTextChangedListener(setTextWatcher())
-        date = intent.getStringExtra(SelectedFood.DATE_SELECTED)?:Date.setCurrentDay()
         foodRV = findViewById(R.id.activity_add_food_rv)
         setInitialFoods()
     }
 
-    private fun initContracts(){
+    private fun initContracts() {
         registerFoodActivityResult =
-            registerForActivityResult(RegisterFoodContract()
+            registerForActivityResult(
+                RegisterFoodContract()
             ) { isAdded ->
                 if (isAdded)
                     setInitialFoods()
@@ -68,7 +72,7 @@ class AddFoodActivity : AppCompatActivity(), View.OnClickListener,
 
         foodInfoActivityResult = registerForActivityResult(
             FoodInfoContract()
-        ){ isAdded ->
+        ) { isAdded ->
             handleResponseFromFoodInfoActivity(isAdded)
         }
 
@@ -88,7 +92,14 @@ class AddFoodActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     override fun onAdapterItemClick(food: Food) {
-        launchFoodInfoActivity(food.id)
+        val bundle = intent.getBundleExtra(IntentConstants.BUNDLE)
+        if (bundle != null) {
+            val mealId = bundle.getString(SelectedFood.MEAL_ID)
+            val date = bundle.getString(SelectedFood.DATE_SELECTED)
+            launchFoodInfoActivity(food.id, mealId!!, date!!)
+        } else {
+            throw RuntimeException("The data about meal is not available!")
+        }
     }
 
     private fun setTextWatcher(): TextWatcher {
@@ -131,7 +142,9 @@ class AddFoodActivity : AppCompatActivity(), View.OnClickListener,
         if (foodExists) {
             if (extras.getString(Food.ID) != null) {
                 val id = extras.getString(Food.ID)
-                launchFoodInfoActivity(id!!)
+                val mealId = extras.getString(SelectedFood.MEAL_ID)
+                val date = extras.getString(SelectedFood.DATE_SELECTED)
+                launchFoodInfoActivity(id!!, mealId!!, date!!)
             }
         } else {
             if (extras.getString(Food.BARCODE) != null) {
@@ -160,14 +173,15 @@ class AddFoodActivity : AppCompatActivity(), View.OnClickListener,
         foodRV.adapter = adapter
     }
 
-    private fun launchFoodInfoActivity(foodID: String) {
+    private fun launchFoodInfoActivity(foodID: String, mealId: String, date: String) {
         val bundle = Bundle()
-        bundle.putString(Food.ID,foodID)
-        bundle.putString(SelectedFood.DATE_SELECTED,date)
+        bundle.putString(Food.ID, foodID)
+        bundle.putString(SelectedFood.DATE_SELECTED, date)
+        bundle.putString(SelectedFood.MEAL_ID, mealId)
         foodInfoActivityResult.launch(bundle)
     }
 
-    private fun launchRegisterFoodActivity(barcode:String=""){
+    private fun launchRegisterFoodActivity(barcode: String = "") {
         registerFoodActivityResult.launch(barcode)
     }
 

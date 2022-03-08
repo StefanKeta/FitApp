@@ -7,5 +7,5 @@ import retrofit2.http.Url
 
 interface PlaceAPIService {
     @GET
-    fun getNearbyGyms(@Url url:String):Call<GymPlaces>
+    fun getNearbyGyms(@Url url: String): Call<GymPlaces>
 }

@@ -167,7 +167,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             .show(supportFragmentManager, null)
 
         datePicker.addOnPositiveButtonClickListener {
-            dobET.setText(Date.getDateFromTimestamp(datePicker.selection!!/1000))
+            dobET.setText(Date.getDateFromTimestamp(datePicker.selection!! / 1000))
             datePicker.dismiss()
         }
 
@@ -203,7 +203,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun getGender(): Gender {
-        return when(genderDropdown.text.toString().lowercase()){
+        return when (genderDropdown.text.toString().lowercase()) {
             "m" -> Gender.MALE
             else -> Gender.FEMALE
         }

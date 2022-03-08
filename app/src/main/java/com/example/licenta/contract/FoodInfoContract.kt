@@ -10,16 +10,16 @@ import com.example.licenta.activity.diary.FoodInfoActivity
 import com.example.licenta.model.food.Food
 import com.example.licenta.util.IntentConstants
 
-class FoodInfoContract : ActivityResultContract<Bundle ,Boolean>() {
-    override fun createIntent(context: Context, input:Bundle): Intent {
+class FoodInfoContract : ActivityResultContract<Bundle, Boolean>() {
+    override fun createIntent(context: Context, input: Bundle): Intent {
         return Intent(context, FoodInfoActivity::class.java).apply {
             this.putExtra(IntentConstants.BUNDLE, input)
         }
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Boolean {
-        if(resultCode == Activity.RESULT_OK && intent != null){
-            return intent.getBooleanExtra(IntentConstants.IS_SELECTED_FOOD_SAVED,false)
+        if (resultCode == Activity.RESULT_OK && intent != null) {
+            return intent.getBooleanExtra(IntentConstants.IS_SELECTED_FOOD_SAVED, false)
         }
         return false
     }

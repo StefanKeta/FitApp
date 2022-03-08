@@ -44,6 +44,8 @@
         <entry key="app/src/main/res/layout/item_holder_add_food.xml" value="0.20989583333333334" />
         <entry key="app/src/main/res/layout/item_holder_exercise.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/item_holder_exercise_record.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/item_holder_meal.xml" value="0.209375" />
+        <entry key="app/src/main/res/layout/item_holder_meal_food.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/meal_food_item_holder.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/meal_item_holder.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/menu/menu_fragment_profile_info.xml" value="0.3697916666666667" />

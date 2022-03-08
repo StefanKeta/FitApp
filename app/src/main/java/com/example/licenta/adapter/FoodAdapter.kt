@@ -1,7 +1,6 @@
 package com.example.licenta.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,7 @@ class FoodAdapter(
             LayoutInflater
                 .from(ctx)
                 .inflate(
-                    R.layout.meal_food_item_holder,
+                    R.layout.item_holder_meal_food,
                     parent,
                     false
                 ),
@@ -64,7 +63,11 @@ class FoodAdapter(
         }
 
         override fun onLongClick(p0: View?): Boolean {
-            return onSelectedFoodLongClickListener.onSelectedFoodLongClick(getItem(absoluteAdapterPosition).id)
+            return onSelectedFoodLongClickListener.onSelectedFoodLongClick(
+                getItem(
+                    absoluteAdapterPosition
+                ).id
+            )
         }
 
         override fun onClick(p0: View?) {
@@ -73,10 +76,10 @@ class FoodAdapter(
     }
 
     interface OnSelectedFoodClickListener {
-        fun onSelectedFoodClick(id:String)
+        fun onSelectedFoodClick(id: String)
     }
 
     interface OnSelectedFoodLongClickListener {
-        fun onSelectedFoodLongClick(id: String):Boolean
+        fun onSelectedFoodLongClick(id: String): Boolean
     }
 }

@@ -1,6 +1,5 @@
 package com.example.licenta.fragment.main.diary
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,26 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.licenta.R
 import com.example.licenta.adapter.FoodAdapter
-import com.example.licenta.contract.AddedFoodForUserContract
+import com.example.licenta.adapter.MealsAdapter
+import com.example.licenta.animation.CircularProgressIndicatorAnimation
+import com.example.licenta.animation.LinearProgressIndicatorAnimation
+import com.example.licenta.contract.AddFoodForUserContract
 import com.example.licenta.data.LoggedUserData
 import com.example.licenta.data.LoggedUserGoals
 import com.example.licenta.firebase.db.FoodDB
+import com.example.licenta.firebase.db.MealsDB
 import com.example.licenta.firebase.db.SelectedFoodDB
 import com.example.licenta.fragment.main.OnDateChangedListener
-import com.example.licenta.model.food.FoodMeasureUnitEnum
+import com.example.licenta.model.food.Meal
 import com.example.licenta.model.food.SelectedFood
 import com.example.licenta.util.Date
-import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,8 +41,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FoodFragment(private var date: String = Date.setCurrentDay()) : Fragment(),
-    View.OnClickListener, OnDateChangedListener, FoodAdapter.OnSelectedFoodLongClickListener,
-    FoodAdapter.OnSelectedFoodClickListener {
+    View.OnClickListener, OnDateChangedListener, MealsAdapter.MealAdapterToFoodFragmentBridge {
     private lateinit var addFoodBtn: Button
     private lateinit var remainingProteinTV: TextView
     private lateinit var proteinPB: LinearProgressIndicator
@@ -52,9 +51,12 @@ class FoodFragment(private var date: String = Date.setCurrentDay()) : Fragment()
     private lateinit var fatPB: LinearProgressIndicator
     private lateinit var remainingCaloriesTV: TextView
     private lateinit var caloriesPB: CircularProgressIndicator
-    private lateinit var foodRV: RecyclerView
-    private lateinit var foodAdapter: FoodAdapter
-    private lateinit var addFoodForUserContract: ActivityResultLauncher<String>
+    private lateinit var addFoodForUserContract: ActivityResultLauncher<Bundle>
+
+    private lateinit var mealsRV: RecyclerView
+    private lateinit var mealsAdapter: MealsAdapter
+    private var foodAdapters: MutableList<FoodAdapter> = emptyList<FoodAdapter>().toMutableList()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -69,85 +71,50 @@ class FoodFragment(private var date: String = Date.setCurrentDay()) : Fragment()
         addFoodBtn.setOnClickListener(this)
         setUpProgressBars(view)
         setUpRecyclerView(view)
-        addFoodForUserContract = registerForActivityResult(AddedFoodForUserContract()) { isSaved ->
-            if (isSaved)
-                foodAdapter.notifyDataSetChanged()
-            else {
-                Toast.makeText(context, "Could not add to foods!", Toast.LENGTH_SHORT)
-                    .show()
+        addFoodForUserContract = registerForActivityResult(AddFoodForUserContract()) { isSaved ->
+            if (isSaved) {
+                updateMacros()
             }
         }
+        checkIfMealsAreGeneratedAndSaveEmpty()
     }
 
     override fun onClick(v: View?) {
-        when (v!!.id) {
-            R.id.fragment_diary_food_add_food_btn -> goToAddFoodActivity()
+//        when (v!!.id) {
+//         //   R.id.fragment_diary_food_add_food_btn -> goToAddFoodActivity()
+//        }
+    }
+
+    private fun checkIfMealsAreGeneratedAndSaveEmpty() {
+        MealsDB.getMealsFromDate(date) { meals ->
+            if (meals.isEmpty()) {
+                MealsDB.saveEmptyMeals(generateEmptyMeals()) {
+                    refreshMeals()
+                    updateMacros()
+                }
+            } else {
+                refreshMeals()
+                updateMacros()
+            }
         }
     }
 
-    override fun onSelectedFoodClick(id: String) {
-        val view = LayoutInflater
-            .from(context!!)
-            .inflate(R.layout.dialog_edit_selected_food, null, false)
-        val quantityTIL: TextInputLayout =
-            view.findViewById(R.id.dialog_edit_selected_food_quantity_til)
-        val quantityET: TextInputEditText =
-            view.findViewById(R.id.dialog_edit_selected_food_quantity_et)
-        val unitGroup: MaterialButtonToggleGroup =
-            view.findViewById(R.id.dialog_edit_selected_food_quantity_tbg)
-        val gBtn: Button = view.findViewById(R.id.dialog_edit_selected_food_g_rb)
-
-        AlertDialog
-            .Builder(context!!)
-            .setView(view)
-            .setTitle("Edit selected food")
-            .setIcon(R.drawable.ic_baseline_edit_24)
-            .setPositiveButton("Edit") { dialog, _ ->
-                if (quantityET.text.isNullOrEmpty()) {
-                    quantityTIL.error = "Please set the quantity"
-                } else {
-                    val quantity = quantityET.text.toString().trim().toDouble() / 100.0
-                    val unit =
-                        if (unitGroup.checkedButtonId == gBtn.id) FoodMeasureUnitEnum.GRAM else FoodMeasureUnitEnum.OZ
-                    SelectedFoodDB
-                        .updateSelectedFood(id, quantity, unit) { isEdited ->
-                            if (isEdited) {
-                                refreshFood()
-                                dialog.dismiss()
-                            } else {
-                                dialog.dismiss()
-                            }
-                        }
-                }
-            }
-            .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
-            .show()
+    private fun generateEmptyMeals(): MutableList<Meal> {
+        return mutableListOf(
+            generateMeal(1),
+            generateMeal(2),
+            generateMeal(3)
+        )
     }
 
-    override fun onSelectedFoodLongClick(id: String): Boolean {
-        AlertDialog
-            .Builder(context)
-            .setTitle("Are you sure you want to delete selected food?")
-            .setIcon(R.drawable.ic_baseline_delete_24)
-            .setPositiveButton("Yes") { dialog, _ ->
-                SelectedFoodDB.removeSelectedFood(id) { isRemoved ->
-                    if (isRemoved) {
-                        dialog.dismiss()
-                        refreshFood()
-                    } else {
-                        dialog.dismiss()
-                        Toast.makeText(context!!, "Could not remove food!", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
-        return true
+    private fun generateMeal(mealNo: Int): Meal {
+        return Meal(
+            UUID.randomUUID().toString(),
+            LoggedUserData.getLoggedUser().uuid,
+            mealNo,
+            date
+        )
     }
-
 
     private fun setUpProgressBars(view: View) {
         remainingProteinTV = view.findViewById(R.id.fragment_diary_food_protein_remaining_tv)
@@ -162,21 +129,28 @@ class FoodFragment(private var date: String = Date.setCurrentDay()) : Fragment()
         remainingCaloriesTV = view.findViewById(R.id.fragment_diary_food_calories_remaining_tv)
         caloriesPB = view.findViewById(R.id.fragment_diary_food_calories_remaining_pb)
         caloriesPB.max = LoggedUserGoals.getGoals().calories
-        SelectedFoodDB.getSelectedFoodByDateAndId(
+        SelectedFoodDB.getUserSelectedFoodByDate(
             date,
             ::updateMacrosAndCalories
         )
     }
 
     private fun setUpRecyclerView(view: View) {
-        foodRV = view.findViewById(R.id.fragment_diary_food_rv)
-        foodRV.layoutManager = LinearLayoutManager(context)
-        foodRV.hasFixedSize()
-        foodRV.itemAnimator = null
-        foodAdapter =
-            FoodAdapter(context!!, SelectedFoodDB.getSelectedFoodsOption(date), this, this)
-        foodRV.adapter = foodAdapter
+        mealsRV = view.findViewById(R.id.fragment_diary_meals_rv)
+        mealsRV.layoutManager = LinearLayoutManager(context)
+        mealsRV.hasFixedSize()
+        mealsRV.itemAnimator = null
+        mealsAdapter =
+            MealsAdapter(requireContext(), this, MealsDB.getMealsByDateOptions(date))
+        mealsRV.adapter = mealsAdapter
+        checkIfMealsAreGeneratedAndSaveEmpty()
     }
+
+    private fun refreshMeals() {
+        mealsAdapter.updateOptions(MealsDB.getMealsByDateOptions(date))
+        mealsAdapter.notifyDataSetChanged()
+    }
+
 
     private fun updateMacrosAndCalories(selectedFoods: List<SelectedFood>) {
         proteinPB.progress = 0
@@ -191,55 +165,80 @@ class FoodFragment(private var date: String = Date.setCurrentDay()) : Fragment()
         var carbsProgress = 0
         var fatProgress = 0
         var calorieProgress = 0
-        selectedFoods.map { selectedFood ->
+        selectedFoods.forEach { selectedFood ->
             FoodDB.getFoodById(selectedFood.foodId) { food ->
                 val quantity = selectedFood.quantity
                 proteinProgress += (food.protein * quantity).toInt()
                 carbsProgress += (food.carbs * quantity).toInt()
                 fatProgress += (food.fat * quantity).toInt()
                 calorieProgress += (food.calories * quantity).toInt()
-                proteinPB.progress = proteinProgress
-                carbsPB.progress = carbsProgress
-                fatPB.progress = fatProgress
-                caloriesPB.progress = calorieProgress
-                remainingProteinTV.text = (proteinPB.max - proteinProgress).toString()
-                remainingCarbsTV.text = (carbsPB.max - carbsProgress).toString()
-                remainingFatTV.text = (fatPB.max - fatProgress).toString()
-                remainingCaloriesTV.text = (caloriesPB.max - calorieProgress).toString()
+                val caloriesIndicatorAnimation = CircularProgressIndicatorAnimation(
+                    caloriesPB,
+                    remainingCaloriesTV,
+                    0f,
+                    calorieProgress.toFloat()
+                )
+                caloriesIndicatorAnimation.duration = 1000
+                caloriesPB.startAnimation(caloriesIndicatorAnimation)
+                animateLinearProgressBars(proteinPB, remainingProteinTV, proteinProgress)
+                animateLinearProgressBars(carbsPB, remainingCarbsTV, carbsProgress)
+                animateLinearProgressBars(fatPB, remainingFatTV, fatProgress)
             }
         }
     }
 
-    private fun goToAddFoodActivity() {
-        addFoodForUserContract.launch(date)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        foodAdapter.startListening()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        foodAdapter.stopListening()
+    private fun animateLinearProgressBars(
+        linearProgressIndicator: LinearProgressIndicator,
+        progressIndicatorTextView: TextView,
+        currentProgress: Int
+    ) {
+        val indicatorAnimation =
+            LinearProgressIndicatorAnimation(
+                linearProgressIndicator,
+                progressIndicatorTextView,
+                0f,
+                currentProgress.toFloat()
+            )
+        indicatorAnimation.duration = 1000
+        linearProgressIndicator.startAnimation(indicatorAnimation)
     }
 
     override fun changeDate(date: String) {
         this.date = date
-        foodAdapter.updateOptions(SelectedFoodDB.getSelectedFoodsOption(date))
-        SelectedFoodDB.getSelectedFoodByDateAndId(
-            date,
-            ::updateMacrosAndCalories
-        )
-        foodAdapter.notifyDataSetChanged()
+        foodAdapters.forEach { it.stopListening() }
+        foodAdapters.clear()
+        checkIfMealsAreGeneratedAndSaveEmpty()
     }
 
-    private fun refreshFood() {
-        SelectedFoodDB.getSelectedFoodByDateAndId(
+    override fun goToAddFoodActivity(mealId: String) {
+        Bundle().also { bundle ->
+            bundle.putString(SelectedFood.MEAL_ID, mealId)
+            bundle.putString(SelectedFood.DATE_SELECTED, date)
+            addFoodForUserContract.launch(bundle)
+        }
+    }
+
+    override fun updateMacros() {
+        SelectedFoodDB.getUserSelectedFoodByDate(
             date,
             ::updateMacrosAndCalories
         )
-        foodAdapter.notifyDataSetChanged()
+    }
+
+    override fun addAdapter(foodAdapter: FoodAdapter) {
+        foodAdapter.startListening()
+        foodAdapters.add(foodAdapter)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mealsAdapter.startListening()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mealsAdapter.stopListening()
+        foodAdapters.forEach { it.startListening() }
     }
 
     companion object {
@@ -261,4 +260,5 @@ class FoodFragment(private var date: String = Date.setCurrentDay()) : Fragment()
                 }
             }
     }
+
 }

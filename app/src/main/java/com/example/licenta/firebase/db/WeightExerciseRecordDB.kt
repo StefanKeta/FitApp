@@ -16,7 +16,7 @@ object WeightExerciseRecordDB {
 
     fun exerciseAdapterOptions(date: String): FirestoreRecyclerOptions<WeightExerciseRecord> {
         val query = collectionRef
-            .whereEqualTo(WeightExerciseRecord.USER_ID,LoggedUserData.getLoggedUser().uuid)
+            .whereEqualTo(WeightExerciseRecord.USER_ID, LoggedUserData.getLoggedUser().uuid)
             .whereEqualTo(WeightExerciseRecord.DATE, date)
 
         return FirestoreRecyclerOptions
@@ -59,7 +59,7 @@ object WeightExerciseRecordDB {
             .addOnCompleteListener { snapshot ->
                 if (snapshot.isSuccessful) {
                     if (snapshot.result.isEmpty)
-                        callback(false,0.0)
+                        callback(false, 0.0)
                     else {
                         var recordWeight = 0.0
                         val documents = snapshot.result.documents

@@ -24,7 +24,8 @@ private const val ARG_PARAM2 = "param2"
  * Use the [DiaryFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class DiaryFragment(private val selectedFragment: String = FOOD_FRAGMENT_CODE) : Fragment(),View.OnClickListener {
+class DiaryFragment(private val selectedFragment: String = FOOD_FRAGMENT_CODE) : Fragment(),
+    View.OnClickListener {
     private lateinit var tabLayout: TabLayout
     private lateinit var fragmentLayout: FrameLayout
     private lateinit var dateBtn: Button
@@ -80,7 +81,7 @@ class DiaryFragment(private val selectedFragment: String = FOOD_FRAGMENT_CODE) :
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id){
+        when (v!!.id) {
             R.id.fragment_diary_pick_date_btn -> openDatePicker()
             R.id.fragment_diary_next_navigation_btn -> {
                 val dayAfter = Date.goToDayAfter(dateBtn.text.toString())
@@ -99,14 +100,14 @@ class DiaryFragment(private val selectedFragment: String = FOOD_FRAGMENT_CODE) :
 
     private fun switchFragment(fragment: Fragment) {
         val fragmentManager = childFragmentManager
-        onDateChangedListener = if(tabLayout.selectedTabPosition == 0) fragment as FoodFragment
+        onDateChangedListener = if (tabLayout.selectedTabPosition == 0) fragment as FoodFragment
         else fragment as ExerciseFragment
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_diary_fragment_frame_layout, fragment)
         fragmentTransaction.commit()
     }
 
-    private fun openDatePicker(){
+    private fun openDatePicker() {
         val picker = MaterialDatePicker
             .Builder
             .datePicker()
@@ -124,7 +125,7 @@ class DiaryFragment(private val selectedFragment: String = FOOD_FRAGMENT_CODE) :
             picker.dismiss()
         }
 
-        picker.show(childFragmentManager,null)
+        picker.show(childFragmentManager, null)
     }
 
     companion object {
@@ -143,6 +144,6 @@ class DiaryFragment(private val selectedFragment: String = FOOD_FRAGMENT_CODE) :
 }
 
 
-interface OnDateChangedListener{
-    fun changeDate(date:String)
+interface OnDateChangedListener {
+    fun changeDate(date: String)
 }

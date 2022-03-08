@@ -2,6 +2,7 @@ package com.example.licenta.fragment.main
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.location.Location
 import androidx.fragment.app.Fragment
 
@@ -19,6 +20,7 @@ import com.example.licenta.R
 import com.example.licenta.api.APIHandler
 import com.example.licenta.api.PlaceAPIService
 import com.example.licenta.api.model.GymPlaces
+import com.example.licenta.util.PermissionsChecker
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -45,7 +47,7 @@ import java.math.RoundingMode
 class MapsFragment : Fragment(), PlaceSelectionListener, GoogleMap.OnCameraIdleListener,
     View.OnClickListener {
 
-    private lateinit var locationRequestLauncher : ActivityResultLauncher<Array<String>?>
+    private lateinit var locationRequestLauncher: ActivityResultLauncher<Array<String>?>
     private lateinit var mapView: View
     private lateinit var placesClient: PlacesClient
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -128,24 +130,28 @@ class MapsFragment : Fragment(), PlaceSelectionListener, GoogleMap.OnCameraIdleL
     }
 
     override fun onCameraIdle() {
-        val phoneLocation = LatLng(
-            BigDecimal(lastKnownLocation!!.latitude).setScale(4,RoundingMode.HALF_EVEN).toDouble(),
-            BigDecimal(lastKnownLocation!!.longitude).setScale(4,RoundingMode.HALF_EVEN).toDouble()
-        )
-        val centeredLocation = LatLng(
-            BigDecimal(map.cameraPosition.target.latitude).setScale(
-                4,
-                RoundingMode.HALF_EVEN
-            ).toDouble(),
-            BigDecimal(map.cameraPosition.target.longitude).setScale(4, RoundingMode.HALF_EVEN)
-                .toDouble()
-        )
+        if (locationGranted) {
+            val phoneLocation = LatLng(
+                BigDecimal(lastKnownLocation!!.latitude).setScale(4, RoundingMode.HALF_EVEN)
+                    .toDouble(),
+                BigDecimal(lastKnownLocation!!.longitude).setScale(4, RoundingMode.HALF_EVEN)
+                    .toDouble()
+            )
+            val centeredLocation = LatLng(
+                BigDecimal(map.cameraPosition.target.latitude).setScale(
+                    4,
+                    RoundingMode.HALF_EVEN
+                ).toDouble(),
+                BigDecimal(map.cameraPosition.target.longitude).setScale(4, RoundingMode.HALF_EVEN)
+                    .toDouble()
+            )
 
 
-        Log.d("setupPlaces", "onCameraIdle: ${map.cameraPosition.target} $phoneLocation}")
-        if (centeredLocation != phoneLocation) {
-            movedCameraLocation = centeredLocation
-            searchAreaBtn.visibility = View.VISIBLE
+            Log.d("setupPlaces", "onCameraIdle: ${map.cameraPosition.target} $phoneLocation}")
+            if (centeredLocation != phoneLocation) {
+                movedCameraLocation = centeredLocation
+                searchAreaBtn.visibility = View.VISIBLE
+            }
         }
     }
 

@@ -52,8 +52,9 @@ class AddExerciseAdapter(
 
         fun update(position: Int) {
             val record = recordsList
-                .find {personalRecord ->
-                    personalRecord.exerciseId == exercisesList[position].id}
+                .find { personalRecord ->
+                    personalRecord.exerciseId == exercisesList[position].id
+                }
                 ?.record ?: 0.0
             nameTV.text = exercisesList[position].name
             recordTV.text = record.toString()
@@ -66,6 +67,6 @@ class AddExerciseAdapter(
     }
 
     interface OnExerciseItemClickListener {
-        fun onExerciseItemClick(exerciseId:String)
+        fun onExerciseItemClick(exerciseId: String)
     }
 }

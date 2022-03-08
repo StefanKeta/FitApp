@@ -76,7 +76,7 @@ class FoodInfoActivity : AppCompatActivity(), View.OnClickListener {
                     this@FoodInfoActivity,
                     AddFoodActivity::class.java
                 ).also {
-                    setResult(RESULT_OK,it)
+                    setResult(RESULT_OK, it)
                     finish()
                 }
             R.id.activity_food_info_save_btn -> {
@@ -113,15 +113,17 @@ class FoodInfoActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun saveSelectedFood(quantity: Double, measureUnit: FoodMeasureUnitEnum) {
-        val bundle = intent.getBundleExtra(IntentConstants.BUNDLE)?:Bundle()
-        val date = bundle.getString(SelectedFood.DATE_SELECTED)?:Date.setCurrentDay()
+        val bundle = intent.getBundleExtra(IntentConstants.BUNDLE) ?: Bundle()
+        val mealId = bundle.getString(SelectedFood.MEAL_ID)
+        val date = bundle.getString(SelectedFood.DATE_SELECTED)
         val selectedFood = SelectedFood(
             UUID.randomUUID().toString(),
             food.id,
             LoggedUserData.getLoggedUser().uuid,
-            quantity/100,
+            mealId!!,
+            quantity / 100,
             measureUnit,
-            date
+            date!!
         )
 
         SelectedFoodDB

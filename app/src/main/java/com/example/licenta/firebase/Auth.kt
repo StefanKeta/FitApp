@@ -60,22 +60,22 @@ object Auth {
     fun loginUser(
         email: String,
         password: String,
-        callback:(Boolean)->Unit
-    ){
+        callback: (Boolean) -> Unit
+    ) {
         auth.signInWithEmailAndPassword(
             email,
             password
         )
             .addOnCompleteListener { authResult ->
-                if(authResult.isSuccessful){
+                if (authResult.isSuccessful) {
                     callback(true)
-                }else{
+                } else {
                     callback(false)
                 }
             }
     }
 
-    fun logUserOut(){
+    fun logUserOut() {
         auth.signOut()
     }
 

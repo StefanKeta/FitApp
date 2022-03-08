@@ -55,7 +55,7 @@ object UsersDB {
                         .update(User.WEIGHT, newWeight)
                         .addOnCompleteListener { result ->
                             if (result.isSuccessful) {
-                                getUser(LoggedUserData.getLoggedUser().uuid){
+                                getUser(LoggedUserData.getLoggedUser().uuid) {
                                     callback(it)
                                 }
                             } else

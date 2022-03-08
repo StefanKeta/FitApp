@@ -6,7 +6,7 @@ data class PersonalRecord(
     @DocumentId
     val id: String = "",
     val exerciseId: String = "",
-    val userId:String = "",
+    val userId: String = "",
     val record: Double = 0.0
 ) {
     companion object {
