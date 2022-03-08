@@ -44,30 +44,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/meal_item_add_btn"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
                 android:drawableLeft="@drawable/ic_baseline_add_24"
                 android:text="Add food" />
-
-            <Button
-                android:id="@+id/meal_item_remove_btn"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:drawableEnd="@drawable/ic_baseline_delete_24"
-                android:text="Remove food" />
-
-        </RelativeLayout>
 
     </LinearLayout>
 
