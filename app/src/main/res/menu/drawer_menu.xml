@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_menu_home"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/menu_bottom_main_home" />
+        <item
+            android:id="@+id/drawer_menu_diary"
+            android:icon="@drawable/ic_baseline_book_24"
+            android:title="@string/menu_main_bottom_diary" />
+        <item
+            android:id="@+id/drawer_menu_nearby_gyms"
+            android:icon="@drawable/ic_baseline_location_on_24"
+            android:title="@string/menu_main_bottom_nearby_gyms" />
+        <item
+            android:id="@+id/drawer_menu_profile"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="@string/menu_main_bottom_profile" />
+    </group>
+
+
+</menu>

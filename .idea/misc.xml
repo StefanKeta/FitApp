@@ -19,7 +19,7 @@
         <entry key="app/src/main/res/layout/activity_food_info.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/activity_loading.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/activity_register_food_to_db.xml" value="0.3546875" />
         <entry key="app/src/main/res/layout/activity_scan_barcode.xml" value="0.2" />
@@ -48,6 +48,8 @@
         <entry key="app/src/main/res/layout/item_holder_meal_food.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/meal_food_item_holder.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/meal_item_holder.xml" value="0.20729166666666668" />
+        <entry key="app/src/main/res/layout/nav_bar_header.xml" value="0.18271898533491876" />
+        <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/menu/menu_fragment_profile_info.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/menu/menu_main_activity_bottom_app_bar.xml" value="0.23541666666666666" />
         <entry key="app/src/main/res/xml/provider_paths.xml" value="0.16927083333333334" />

@@ -95,4 +95,7 @@
     <string name="places_api_key">AIzaSyDHzT5Q-MNVFHmgnXfdo4Zqvp-av7Tk0Dk</string>
     <string name="button_edit">Edit</string>
     <string name="button_search_area">Search this area</string>
+    <string name="menu_main_bottom_nearby_gyms">Nearby gyms</string>
+    <string name="nav_drawer_open">Action bar opened</string>
+    <string name="nav_drawer_close">Action bar closed</string>
 </resources>

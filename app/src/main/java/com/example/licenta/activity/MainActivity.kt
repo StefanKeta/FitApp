@@ -10,6 +10,10 @@ import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.licenta.R
 import com.example.licenta.activity.auth.LoginActivity
@@ -29,6 +33,7 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     private lateinit var fabLayout: LinearLayout
     private lateinit var addExerciseFab: FloatingActionButton
     private lateinit var addFoodFab: FloatingActionButton
+    private lateinit var drawer: DrawerLayout
     private val rotateOpenAnim: Animation by lazy {
         AnimationUtils.loadAnimation(this, R.anim.fab_rotate_open)
     }
@@ -51,6 +56,7 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     }
 
     private fun initComponents() {
+        createToolbar()
         navigationBar = findViewById(R.id.activity_main_navigation_view_bottom)
         fragmentLayout = findViewById(R.id.activity_main_fragment_layout)
         navigationBar.selectedItemId = R.id.menu_main_bottom_home
@@ -65,6 +71,22 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         switchFragments(HomeFragment())
     }
 
+    private fun createToolbar() {
+        val toolbar: Toolbar = findViewById(R.id.activity_main_nav_bar)
+        setSupportActionBar(toolbar)
+        drawer = findViewById(R.id.activity_main_drawer_layout)
+        val actionDrawerToggle = ActionBarDrawerToggle(
+            this@MainActivity,
+            drawer,
+            toolbar,
+            R.string.nav_drawer_open,
+            R.string.nav_drawer_close
+        )
+        drawer.addDrawerListener(actionDrawerToggle)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(true)
+        actionDrawerToggle.syncState()
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -150,6 +172,14 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
                     .show()
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
         }
     }
 
