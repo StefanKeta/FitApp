@@ -30,6 +30,7 @@
         <entry key="app/src/main/res/layout/dialog_edit_exercise_record.xml" value="0.2171875" />
         <entry key="app/src/main/res/layout/dialog_edit_selected_food.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/dialog_profile_fragment_edit_photo.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/layout/fragment_activity.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/layout/fragment_diary.xml" value="0.23229166666666667" />
         <entry key="app/src/main/res/layout/fragment_exercise.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/fragment_food.xml" value="0.22291666666666668" />

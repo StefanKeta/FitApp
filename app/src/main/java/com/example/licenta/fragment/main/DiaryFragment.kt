@@ -32,7 +32,7 @@ class DiaryFragment(private val selectedFragment: String = FOOD_FRAGMENT_CODE) :
     private lateinit var previousDayBtn: Button
     private lateinit var nextDayBtn: Button
     private lateinit var onDateChangedListener: OnDateChangedListener
-    private var date = Date.setCurrentDay()
+    private var date = Date.getCurrentDate()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -77,7 +77,7 @@ class DiaryFragment(private val selectedFragment: String = FOOD_FRAGMENT_CODE) :
         nextDayBtn.setOnClickListener(this)
         previousDayBtn = view.findViewById(R.id.fragment_diary_back_navigation_btn)
         previousDayBtn.setOnClickListener(this)
-        dateBtn.text = Date.setCurrentDay()
+        dateBtn.text = Date.getCurrentDate()
     }
 
     override fun onClick(v: View?) {

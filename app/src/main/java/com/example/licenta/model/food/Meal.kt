@@ -8,7 +8,7 @@ data class Meal(
     val id: String = "",
     val userId: String = "",
     val mealNumber: Int = 0,
-    val date: String = Date.setCurrentDay(),
+    val date: String = Date.getCurrentDate(),
 ) {
     companion object {
         const val ID = "id"

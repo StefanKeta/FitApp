@@ -9,7 +9,7 @@ data class CardioExerciseRecord(
     val exerciseId: String,
     val distance: Double,
     val time: Long,
-    val date: String = Date.setCurrentDay()
+    val date: String = Date.getCurrentDate()
 ) {
     companion object {
         const val ID = "id"

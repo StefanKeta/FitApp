@@ -2,7 +2,6 @@ package com.example.licenta.model.food
 
 import com.example.licenta.util.Date
 import com.google.firebase.firestore.DocumentId
-import java.time.LocalDate
 
 data class SelectedFood(
     @DocumentId
@@ -12,7 +11,7 @@ data class SelectedFood(
     val mealId: String = "",
     val quantity: Double = 0.0,
     val unit: FoodMeasureUnitEnum = FoodMeasureUnitEnum.GRAM,
-    val dateSelected: String = Date.setCurrentDay()
+    val dateSelected: String = Date.getCurrentDate()
 ) {
     companion object {
         const val ID = "id"

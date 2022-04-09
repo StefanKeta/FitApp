@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         addFoodFab.setOnClickListener(this)
         addExerciseFab = findViewById(R.id.activity_main_fab_exercise)
         addExerciseFab.setOnClickListener(this)
-        switchFragments(HomeFragment())
+        switchFragments(ActivityFragment())
     }
 
     private fun createToolbar() {
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_main_bottom_home -> switchFragments(HomeFragment())
+            R.id.menu_main_bottom_home -> switchFragments(ActivityFragment())
             R.id.menu_main_bottom_location -> switchFragments(MapsFragment())
             R.id.menu_main_bottom_diary -> switchFragments(DiaryFragment())
             R.id.menu_main_bottom_profile -> switchFragments(ProfileFragment())

@@ -57,7 +57,7 @@ class AddExerciseActivity : AppCompatActivity(), AdapterView.OnItemClickListener
     }
 
     private fun initComponents() {
-        date = intent.getStringExtra(WeightExerciseRecord.DATE) ?: Date.setCurrentDay()
+        date = intent.getStringExtra(WeightExerciseRecord.DATE) ?: Date.getCurrentDate()
         mainLL = findViewById(R.id.activity_exercise_main_ll)
         searchTIL = findViewById(R.id.activity_exercise_search_exercise_til)
         searchET = findViewById(R.id.activity_exercise_search_exercise_et)
