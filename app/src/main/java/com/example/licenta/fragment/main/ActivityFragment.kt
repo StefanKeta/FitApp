@@ -7,6 +7,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,9 +57,13 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
     private var sensorRunning = false
     private var totalSteps = 0f
     private var previousTotalSteps = 0f
-    private var currentSteps = 0
-    private var hoursWalked = 0.0
+    private var totalHoursWalked = 0.0
+    private var previousHoursWalked = 0.0
     private var dateTrackingFor = Date.getCurrentDate()
+    private var loggedUserId = LoggedUserData.getLoggedUser().uuid
+    private var todaysActivity = DailyUserActivity(
+        userId = loggedUserId
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,39 +90,11 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
         circularProgressSteps = view.findViewById(R.id.fragment_activity_circular_progress)
         datePickerBtn = view.findViewById(R.id.fragment_activity_pick_date_btn)
         datePickerBtn.text = dateTrackingFor
-        tomorrowBtn = view.findViewById<Button?>(R.id.fragment_activity_next_navigation_btn)
+        tomorrowBtn = view.findViewById<Button>(R.id.fragment_activity_next_navigation_btn)
             .also { it.setOnClickListener(this) }
-        yesterdayBtn = view.findViewById<Button?>(R.id.fragment_activity_back_navigation_btn)
+        yesterdayBtn = view.findViewById<Button>(R.id.fragment_activity_back_navigation_btn)
             .also { it.setOnClickListener(this) }
         loadStepsState()
-    }
-
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (sensorRunning) {
-            hoursWalked += 1.666 * 10.0.pow(-5.0) // SENSOR_DELAY_UI = 60 000µs
-            totalSteps = event!!.values[0]
-            currentSteps = (totalSteps.toLong() - previousTotalSteps.toLong()).toInt()
-            totalStepsTV.text = currentSteps.toString()
-            circularProgressSteps.progress = currentSteps
-            val distanceInKm = updateDistance(currentSteps)
-            distanceTV.text = distanceInKm.toString()
-            val averageSpeed = updateAverageSpeed(distanceInKm, hoursWalked)
-            averageSpeedTV.text = averageSpeed.toString()
-            val calories = updateCalories(currentSteps, averageSpeed)
-            caloriesBurntTV.text = calories.toString()
-            if (Date.getCurrentDate() != dateTrackingFor) {
-                val userActivity = DailyUserActivity(
-                    UUID.randomUUID().toString(),
-                    LoggedUserData.getLoggedUser().uuid,
-                    dateTrackingFor,
-                    currentSteps,
-                    distanceInKm,
-                    averageSpeed,
-                    calories
-                )
-                saveActivityForTheDay(userActivity)
-            }
-        }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, p1: Int) {
@@ -126,35 +103,44 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
     override fun onClick(clickedView: View?) {
         when (clickedView!!.id) {
             R.id.fragment_activity_next_navigation_btn -> {
-                Date.goToDayAfter(datePickerBtn.text.toString()).also { date ->
-                    datePickerBtn.text = date
-                    displayActivityForDate(date)
-                }
+                handleDateChange(Date.goToDayAfter(datePickerBtn.text.toString()))
             }
             R.id.fragment_activity_back_navigation_btn -> {
-                Date.goToDayBefore(datePickerBtn.text.toString()).also { date ->
-                    datePickerBtn.text = date
-                    displayActivityForDate(date)
-                }
+                handleDateChange(Date.goToDayBefore(datePickerBtn.text.toString()))
             }
         }
     }
 
-    private fun displayActivityForDate(date: String) {
-        ActivityDB.loadActivityForTheDay(
-            LoggedUserData.getLoggedUser().uuid,
-            date
-        ) { dailyUserActivity ->
-            if (dailyUserActivity != null) {
-                totalStepsTV.text = dailyUserActivity.steps.toString()
-                distanceTV.text = Util.roundDouble(dailyUserActivity.distance, 3).toString()
-                averageSpeedTV.text = Util.roundDouble(dailyUserActivity.averageSpeed, 2).toString()
-                caloriesBurntTV.text = dailyUserActivity.calories.toString()
-            } else {
-                totalStepsTV.text = 0.toString()
-                distanceTV.text = 0.toString()
-                averageSpeedTV.text = 0.toString()
-                caloriesBurntTV.text = 0.toString()
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (sensorRunning) {
+            totalHoursWalked += 1.666 * SharedPrefsConstants.FLOAT_NUMBER_SAVED_MULTIPLIER * 10.0.pow(
+                -5.0
+            )// SENSOR_DELAY_UI ~ 60 000µs -> converted to hour
+            totalSteps = event!!.values[0]
+            val currentWalkingHours = totalHoursWalked - previousHoursWalked
+            val currentSteps = (totalSteps.toLong() - previousTotalSteps.toLong()).toInt()
+            circularProgressSteps.progress = currentSteps
+            val distanceInKm = updateDistance(currentSteps)
+            val averageSpeed = updateAverageSpeed(distanceInKm, currentWalkingHours)
+            val calories = updateCalories(currentSteps, averageSpeed)
+            if (dateTrackingFor == datePickerBtn.text) {
+                totalStepsTV.text = currentSteps.toString()
+                distanceTV.text = distanceInKm.toString()
+                averageSpeedTV.text = averageSpeed.toString()
+                caloriesBurntTV.text = calories.toString()
+            }
+            if (Date.getCurrentDate() != dateTrackingFor) {
+                totalHoursWalked = previousHoursWalked
+                val userActivity = DailyUserActivity(
+                    UUID.randomUUID().toString(),
+                    loggedUserId,
+                    dateTrackingFor,
+                    currentSteps,
+                    distanceInKm,
+                    averageSpeed,
+                    calories
+                )
+                saveActivityForTheDay(userActivity)
             }
         }
     }
@@ -174,10 +160,59 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
         dateTrackingFor = Date.getCurrentDate()
     }
 
+    private fun handleDateChange(date: String) {
+        if (date == dateTrackingFor) {
+            loadTodaysActivity()
+        } else if (datePickerBtn.text.toString() == dateTrackingFor) {
+            saveTodaysActivity()
+        }
+        datePickerBtn.text = date
+        displayActivityForDate(date)
+    }
+
+    private fun loadTodaysActivity() {
+        totalStepsTV.text = todaysActivity.steps.toString()
+        distanceTV.text = todaysActivity.distance.toString()
+        averageSpeedTV.text = todaysActivity.averageSpeed.toString()
+        caloriesBurntTV.text = todaysActivity.calories.toString()
+        circularProgressSteps.progress = totalStepsTV.text.toString().toInt()
+    }
+
+    private fun saveTodaysActivity() {
+        todaysActivity = todaysActivity.copy(
+            date = dateTrackingFor,
+            steps = totalStepsTV.text.toString().toInt(),
+            averageSpeed = averageSpeedTV.text.toString().toDouble(),
+            distance = distanceTV.text.toString().toDouble(),
+            calories = caloriesBurntTV.text.toString().toInt()
+        )
+    }
+
+    private fun displayActivityForDate(date: String) {
+        ActivityDB.loadActivityForTheDay(
+            LoggedUserData.getLoggedUser().uuid,
+            date
+        ) { dailyUserActivity ->
+            if (dailyUserActivity != null) {
+                totalStepsTV.text = dailyUserActivity.steps.toString()
+                distanceTV.text = Util.roundDouble(dailyUserActivity.distance, 3).toString()
+                averageSpeedTV.text = Util.roundDouble(dailyUserActivity.averageSpeed, 2).toString()
+                caloriesBurntTV.text = dailyUserActivity.calories.toString()
+                circularProgressSteps.progress = dailyUserActivity.steps
+            } else if (date != dateTrackingFor) {
+                totalStepsTV.text = 0.toString()
+                distanceTV.text = 0.toString()
+                averageSpeedTV.text = 0.toString()
+                caloriesBurntTV.text = 0.toString()
+                circularProgressSteps.progress = 0
+            }
+        }
+    }
+
     private fun updateDistance(steps: Int): Double {
         val userHeight = LoggedUserData.getLoggedUser().height
-        val stepLength = ((userHeight.toDouble() / 100) * 0.414) / 1000
-        return Util.roundDouble(stepLength * steps, 3)
+        val stepLength = (userHeight.toDouble() * 0.414)
+        return stepLength * steps / 100 / 1000 // cm -> m -> km
     }
 
     private fun updateCalories(steps: Int, averageSpeed: Double = 4.823): Int {
@@ -190,28 +225,40 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
     }
 
     private fun updateAverageSpeed(distance: Double, hoursWalked: Double): Double {
-        return Util.roundDouble(distance / hoursWalked, 2) / 100
+        Log.d("pedometer", "updateAverageSpeed: $distance / $hoursWalked")
+        return distance / hoursWalked
     }
 
     private fun saveStepsState() {
         val prefs =
             requireActivity().getSharedPreferences(SharedPrefsConstants.STEPS, Context.MODE_PRIVATE)
         val editor = prefs.edit()
+        editor.putString(SharedPrefsConstants.USER_ID, LoggedUserData.getLoggedUser().uuid)
         editor.putFloat(SharedPrefsConstants.PREVIOUS_STEPS_KEY, previousTotalSteps)
+        editor.putFloat(
+            SharedPrefsConstants.PREVIOUS_HOURS_WALKED,
+            previousHoursWalked.toFloat()
+        )
         editor.apply()
     }
 
     private fun loadStepsState() {
         val prefs =
             requireActivity().getSharedPreferences(SharedPrefsConstants.STEPS, Context.MODE_PRIVATE)
+        loggedUserId =
+            prefs.getString(SharedPrefsConstants.USER_ID, LoggedUserData.getLoggedUser().uuid)!!
         previousTotalSteps = prefs.getFloat(SharedPrefsConstants.PREVIOUS_STEPS_KEY, 0f)
         circularProgressSteps.progress = previousTotalSteps.toInt()
+        val previousHoursFloat =
+            prefs.getFloat(SharedPrefsConstants.PREVIOUS_HOURS_WALKED, 0f)
+        previousHoursWalked =
+            (previousHoursFloat / SharedPrefsConstants.FLOAT_NUMBER_SAVED_MULTIPLIER).toDouble()
     }
 
     private fun resetSteps() {
         totalStepsTV.text = 0.toString()
         previousTotalSteps = totalSteps
-        hoursWalked = 0.0
+        previousHoursWalked = totalHoursWalked
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)

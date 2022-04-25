@@ -1,16 +1,17 @@
 package com.example.licenta.model.activity
 
 import com.google.firebase.firestore.DocumentId
+import java.util.*
 
 data class DailyUserActivity(
     @DocumentId
-    val id: String,
-    val userId: String,
-    val date: String,
-    val steps: Int,
-    val distance: Double,
-    val averageSpeed: Double,
-    val calories: Int,
+    val id: String = UUID.randomUUID().toString(),
+    val userId: String = "",
+    val date: String = "",
+    val steps: Int = 0,
+    val distance: Double = 0.0,
+    val averageSpeed: Double = 0.0,
+    val calories: Int = 0,
 ) {
     companion object {
         const val ACTIVITY_ID = "id"

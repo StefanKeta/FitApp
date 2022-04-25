@@ -1,5 +1,6 @@
 package com.example.licenta.firebase.db
 
+import android.util.Log
 import com.example.licenta.model.activity.DailyUserActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import java.lang.RuntimeException
@@ -22,7 +23,11 @@ object ActivityDB {
             }
     }
 
-    fun loadActivityForTheDay(userId: String, date: String, callback: (DailyUserActivity?) -> Unit) {
+    fun loadActivityForTheDay(
+        userId: String,
+        date: String,
+        callback: (DailyUserActivity?) -> Unit
+    ) {
         db
             .collection(CollectionsName.DAILY_USER_ACTIVITY)
             .whereEqualTo(DailyUserActivity.DATE, date)
@@ -37,8 +42,11 @@ object ActivityDB {
                         callback(activity)
                     } else if (docs.size > 2)
                         throw RuntimeException("There should be only one record for a specific date")
+                    else {
+                        callback(null)
+                    }
                 } else {
-                    throw RuntimeException("Ooops! there was an error when getting the activity")
+                    throw RuntimeException("There activities retrieval failed. Check your connection")
                 }
             }
     }

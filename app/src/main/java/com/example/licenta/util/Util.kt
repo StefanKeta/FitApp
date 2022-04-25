@@ -73,7 +73,7 @@ object Util {
 
     fun roundDouble(number: Double, decimals: Int): Double {
         val decimalFormat = if (decimals == 3) DecimalFormat("#.###") else DecimalFormat("#.##")
-        decimalFormat.roundingMode = RoundingMode.HALF_EVEN
+        decimalFormat.roundingMode = RoundingMode.CEILING
         return decimalFormat.format(number).toDouble()
     }
 }
