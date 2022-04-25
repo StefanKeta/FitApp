@@ -264,21 +264,29 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onResume() {
         super.onResume()
-        if (PermissionsChecker.isPedometerPermissionAccepted(requireActivity())) {
-            val stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-            if (stepSensor != null) {
-                sensorRunning = true
-                sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (PermissionsChecker.isPedometerPermissionAccepted(requireActivity())) {
+                val stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+                if (stepSensor != null) {
+                    sensorRunning = true
+                    sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "The phone has no step sensors",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    "The phone has no step sensors",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+                PermissionsChecker.askForPedometerPermission(requireActivity())
             }
         } else {
-            PermissionsChecker.askForPedometerPermission(requireActivity())
+            Toast.makeText(
+                requireContext(),
+                "Your device does not have access to the pedometer",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
