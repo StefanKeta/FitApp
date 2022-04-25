@@ -33,7 +33,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ExerciseFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ExerciseFragment(private var date: String = Date.setCurrentDay()) : Fragment(),
+class ExerciseFragment(private var date: String = Date.getCurrentDate()) : Fragment(),
     View.OnClickListener, OnDateChangedListener, ExerciseAdapter.OnExerciseLongClickListener,
     ExerciseAdapter.OnExerciseClickListener {
     private lateinit var addExerciseBtn: Button

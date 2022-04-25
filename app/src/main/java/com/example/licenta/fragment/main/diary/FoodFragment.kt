@@ -39,7 +39,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FoodFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FoodFragment(private var date: String = Date.setCurrentDay()) : Fragment(),
+class FoodFragment(private var date: String = Date.getCurrentDate()) : Fragment(),
     View.OnClickListener, OnDateChangedListener, MealsAdapter.MealAdapterToFoodFragmentBridge {
     private lateinit var addFoodBtn: Button
     private lateinit var remainingProteinTV: TextView

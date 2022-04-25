@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".fragment.main.ActivityFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/app_horizontal_padding_standard"
+        android:paddingVertical="@dimen/app_vertical_padding_standard"
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/fragment_activity_back_navigation_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/fragment_diary_calendar_before_btn"
+            android:gravity="start"
+            app:icon="@drawable/ic_baseline_navigate_before_24" />
+
+
+        <Button
+            android:id="@+id/fragment_activity_pick_date_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            tools:text="11/04/1999" />
+
+
+        <Button
+            android:id="@+id/fragment_activity_next_navigation_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/fragment_diary_calendar_before_btn"
+            android:gravity="start"
+            app:icon="@drawable/ic_baseline_navigate_next_24" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/app_padding_medium"
+        android:text="Your activity"
+        android:textSize="@dimen/text_size_titles"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_margin_medium"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="vertical">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/fragment_activity_circular_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="56"
+                app:indicatorSize="100dp" />
+
+            <TextView
+                android:id="@+id/fragment_activity_steps_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="0"
+                android:textSize="@dimen/text_size_titles"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Steps walked"
+            android:textSize="@dimen/text_size_paragraph"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/fragment_activity_distance_walked"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_margin_small"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_size_titles"
+        android:textStyle="bold"
+        tools:text="500" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_margin_medium"
+        android:gravity="center_horizontal"
+        android:text="Kilometers walked"
+        android:textSize="@dimen/text_size_paragraph"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/fragment_activity_speed_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_margin_small"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_size_titles"
+        android:textStyle="bold"
+        tools:text="2.4" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_margin_medium"
+        android:gravity="center"
+        android:text="Average walking speed"
+        android:textSize="@dimen/text_size_paragraph"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/fragment_activity_calories_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_margin_small"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_size_titles"
+        android:textStyle="bold"
+        tools:text="2.4" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Calories burned"
+        android:textSize="@dimen/text_size_paragraph"
+        android:textStyle="bold" />
+
+</LinearLayout>

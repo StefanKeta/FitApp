@@ -11,7 +11,7 @@ data class WeightExerciseRecord(
     val sets: Int = 0,
     val reps: Int = 0,
     val weight: Double = 0.0,
-    val date: String = Date.setCurrentDay()
+    val date: String = Date.getCurrentDate()
 ) {
     companion object {
         const val ID = "id"

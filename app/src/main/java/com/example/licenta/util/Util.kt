@@ -21,6 +21,7 @@ import android.graphics.drawable.Drawable
 import android.R
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import java.text.DecimalFormat
 
 
 object Util {
@@ -68,5 +69,11 @@ object Util {
             inputManager.hideSoftInputFromWindow(
                 activity.currentFocus?.windowToken, 0
             )
+    }
+
+    fun roundDouble(number: Double, decimals: Int): Double {
+        val decimalFormat = if (decimals == 3) DecimalFormat("#.###") else DecimalFormat("#.##")
+        decimalFormat.roundingMode = RoundingMode.CEILING
+        return decimalFormat.format(number).toDouble()
     }
 }

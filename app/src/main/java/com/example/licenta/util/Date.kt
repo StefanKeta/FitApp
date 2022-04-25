@@ -22,7 +22,7 @@ object Date {
         return formatter.format(date)
     }
 
-    fun setCurrentDay(): String {
+    fun getCurrentDate(): String {
         val timestamp = LocalDate
             .now()
             .atStartOfDay(ZoneId.systemDefault())
