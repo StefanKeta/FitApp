@@ -98,4 +98,5 @@
     <string name="menu_main_bottom_nearby_gyms">Nearby gyms</string>
     <string name="nav_drawer_open">Action bar opened</string>
     <string name="nav_drawer_close">Action bar closed</string>
+    <string name="activity_set_goals_steps_tv">Steps</string>
 </resources>

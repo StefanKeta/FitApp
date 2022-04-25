@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SetGoalsActivity"
-    android:paddingVertical="@dimen/app_vertical_padding_standard">
+    android:paddingVertical="@dimen/app_vertical_padding_standard"
+    tools:context=".activity.SetGoalsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,89 +83,81 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/login_form_fields_margin_between"
             android:orientation="vertical"
-            android:visibility="gone"
-            >
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="3"
                 android:orientation="horizontal"
-                >
+                android:weightSum="3">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="@dimen/app_padding_small"
                     android:orientation="vertical"
-                    >
+                    android:padding="@dimen/app_padding_small">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/activity_set_goals_protein_tv"
                         android:layout_gravity="center"
                         android:layout_marginBottom="@dimen/login_form_fields_margin_between"
-                        />
+                        android:text="@string/activity_set_goals_protein_tv" />
 
                     <TextView
                         android:id="@+id/activity_set_goal_protein_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="220g"
                         android:layout_gravity="center"
-                        android:textSize="@dimen/text_size_list_item_important"/>
+                        android:textSize="@dimen/text_size_list_item_important"
+                        tools:text="220g" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="@dimen/app_padding_small"
                     android:orientation="vertical"
-                    >
+                    android:padding="@dimen/app_padding_small">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/activity_set_goals_carbs_tv"
                         android:layout_gravity="center"
                         android:layout_marginBottom="@dimen/login_form_fields_margin_between"
-                        />
+                        android:text="@string/activity_set_goals_carbs_tv" />
 
                     <TextView
                         android:id="@+id/activity_set_goal_carbs_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="220g"
                         android:layout_gravity="center"
-                        android:textSize="@dimen/text_size_list_item_important"/>
+                        android:textSize="@dimen/text_size_list_item_important"
+                        tools:text="220g" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="@dimen/app_padding_small"
                     android:orientation="vertical"
-                    >
+                    android:padding="@dimen/app_padding_small">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/activity_set_goals_fat_tv"
                         android:layout_gravity="center"
                         android:layout_marginBottom="@dimen/login_form_fields_margin_between"
-                        />
+                        android:text="@string/activity_set_goals_fat_tv" />
 
                     <TextView
                         android:id="@+id/activity_set_goal_fat_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="220g"
                         android:layout_gravity="center"
-                        android:textSize="@dimen/text_size_list_item_important"/>
+                        android:textSize="@dimen/text_size_list_item_important"
+                        tools:text="220g" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -174,29 +166,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:weightSum="2">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_set_goals_calories_tv"
-                    android:textSize="@dimen/text_size_titles"
-                    />
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                <TextView
-                    android:id="@+id/activity_set_goal_calories_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="2600"
-                    android:textSize="@dimen/text_size_titles"
-                    />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/activity_set_goals_calories_tv"
+                            android:textSize="@dimen/text_size_titles" />
+
+                        <TextView
+                            android:id="@+id/activity_set_goal_calories_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_titles"
+                            tools:text="2600" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/activity_set_goals_steps_tv"
+                            android:textSize="@dimen/text_size_titles" />
+
+                        <TextView
+                            android:id="@+id/activity_set_goal_steps_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_titles"
+                            tools:text="2600" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
 
                 <Button
                     android:id="@+id/activity_set_goal_save_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_set_goals_save_goals_et"
-                    />
+                    android:text="@string/activity_set_goals_save_goals_et" />
             </LinearLayout>
 
         </LinearLayout>
@@ -207,41 +236,41 @@
             android:gravity="center"
             android:text="@string/activity_set_goals_i_want_to_tv"
             android:textSize="@dimen/text_size_list_item_important"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
 
-            <RadioGroup
-                android:id="@+id/activity_set_goal_goal_rg"
-                android:layout_width="match_parent"
+        <RadioGroup
+            android:id="@+id/activity_set_goal_goal_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/login_form_fields_margin_between"
+            android:checkedButton="@id/activity_set_goal_lose_fat_rb"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/app_horizontal_padding_standard"
+            android:weightSum="3">
+
+            <RadioButton
+                android:id="@+id/activity_set_goal_lose_fat_rb"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:checkedButton="@id/activity_set_goal_lose_fat_rb"
-                android:paddingHorizontal="@dimen/app_horizontal_padding_standard"
-                android:layout_marginBottom="@dimen/login_form_fields_margin_between">
+                android:layout_weight="1"
+                android:text="@string/activity_set_goals_lose_fat_tv" />
 
-                <RadioButton
-                    android:id="@+id/activity_set_goal_lose_fat_rb"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/activity_set_goals_lose_fat_tv" />
+            <RadioButton
+                android:id="@+id/activity_set_goal_maintain_rb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/activity_set_goals_maintain_tv" />
 
-                <RadioButton
-                    android:id="@+id/activity_set_goal_maintain_rb"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/activity_set_goals_maintain_tv" />
+            <RadioButton
+                android:id="@+id/activity_set_goal_gain_weight_rb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/activity_set_goals_gain_weight_tv" />
 
-                <RadioButton
-                    android:id="@+id/activity_set_goal_gain_weight_rb"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/activity_set_goals_gain_weight_tv" />
-
-            </RadioGroup>
+        </RadioGroup>
 
         <TextView
             android:layout_width="match_parent"
@@ -249,62 +278,55 @@
             android:gravity="center"
             android:text="@string/activity_set_goals_my_activity_is_tv"
             android:textSize="@dimen/text_size_list_item_important"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <RadioGroup
             android:id="@+id/activity_set_goal_activity_rg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:checkedButton="@id/activity_set_goal_activity_sedentary_rb"
-            android:paddingHorizontal="@dimen/app_horizontal_padding_standard"
             android:layout_marginBottom="@dimen/login_form_fields_margin_between"
-            >
+            android:checkedButton="@id/activity_set_goal_activity_sedentary_rb"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/app_horizontal_padding_standard">
 
             <RadioButton
                 android:id="@+id/activity_set_goal_activity_sedentary_rb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_set_goals_sedentary_tv"
-                />
+                android:text="@string/activity_set_goals_sedentary_tv" />
 
             <RadioButton
                 android:id="@+id/activity_set_goal_activity_light_rb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_set_goals_light_tv"
-                />
+                android:text="@string/activity_set_goals_light_tv" />
 
             <RadioButton
                 android:id="@+id/activity_set_goal_activity_moderate_rb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_set_goals_moderate_tv"
-                />
+                android:text="@string/activity_set_goals_moderate_tv" />
 
             <RadioButton
                 android:id="@+id/activity_set_goal_activity_active_rb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_set_goals_high_intensity_tv"
-                />
+                android:text="@string/activity_set_goals_high_intensity_tv" />
 
             <RadioButton
                 android:id="@+id/activity_set_goal_activity_very_active_rb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="2"
-                android:text="@string/activity_set_goals_very_high_intensity_tv"
-                />
+                android:text="@string/activity_set_goals_very_high_intensity_tv" />
         </RadioGroup>
 
         <Button
             android:id="@+id/activity_set_goal_calculate_btn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/activity_set_goals_calculate_btn"
-            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+            android:text="@string/activity_set_goals_calculate_btn" />
 
     </LinearLayout>
 

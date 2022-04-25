@@ -63,6 +63,7 @@ object GoalsDB {
         id: String,
         macros: Triple<Int, Int, Int>,
         calories: Int,
+        steps: Int,
         callback: (Boolean) -> Unit
     ) {
         db.collection(CollectionsName.GOALS)
@@ -71,7 +72,8 @@ object GoalsDB {
                 Goals.PROTEIN, macros.first,
                 Goals.FAT, macros.second,
                 Goals.CARBS, macros.third,
-                Goals.CALORIES, calories
+                Goals.CALORIES, calories,
+                Goals.STEPS, steps
             )
             .addOnCompleteListener {
                 if (it.isSuccessful)
