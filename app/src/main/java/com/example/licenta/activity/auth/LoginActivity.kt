@@ -33,7 +33,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        initComponents()
+        if(Auth.currentUser() != null){
+            userLoginCallback(true)
+        }else {
+            initComponents()
+        }
     }
 
     private fun initComponents() {
