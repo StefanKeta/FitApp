@@ -1,6 +1,7 @@
 package com.example.licenta.fragment.main.diary
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -75,7 +76,6 @@ class FoodFragment(private var date: String = Date.getCurrentDate()) : Fragment(
                 updateMacros()
             }
         }
-        checkIfMealsAreGeneratedAndSaveEmpty()
     }
 
     override fun onClick(v: View?) {
@@ -147,9 +147,7 @@ class FoodFragment(private var date: String = Date.getCurrentDate()) : Fragment(
 
     private fun refreshMeals() {
         mealsAdapter.updateOptions(MealsDB.getMealsByDateOptions(date))
-        mealsAdapter.notifyDataSetChanged()
     }
-
 
     private fun updateMacrosAndCalories(selectedFoods: List<SelectedFood>) {
         proteinPB.progress = 0

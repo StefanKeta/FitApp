@@ -49,7 +49,6 @@ class DiaryFragment(private val selectedFragment: String = FOOD_FRAGMENT_CODE) :
     private fun initComponents(view: View) {
         tabLayout = view.findViewById(R.id.fragment_diary_tab_layout)
         fragmentLayout = view.findViewById(R.id.fragment_diary_fragment_frame_layout)
-        switchFragment(FoodFragment())
         if (selectedFragment == EXERCISE_FRAGMENT_CODE) {
             tabLayout.getTabAt(1)!!.select()
             switchFragment(ExerciseFragment())
