@@ -11,11 +11,16 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.licenta.R
 import com.example.licenta.activity.auth.LoginActivity
+import com.example.licenta.data.LoggedUserData
+import com.example.licenta.firebase.Auth
+import com.example.licenta.firebase.db.GoalsDB
+import com.example.licenta.firebase.db.UsersDB
+import com.example.licenta.model.user.User
 import com.example.licenta.util.InternetConnectionTracker
+import java.lang.RuntimeException
 
 class LoadingActivity : AppCompatActivity() {
     private lateinit var loadingBar: ProgressBar
-    private var isLaunched = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loading)
@@ -38,21 +43,19 @@ class LoadingActivity : AppCompatActivity() {
 
     private fun trackInternetConnection() {
         InternetConnectionTracker.trackConnection(this)
-        InternetConnectionTracker.observe(this@LoadingActivity, { isConnected ->
+        InternetConnectionTracker.observe(this@LoadingActivity) { isConnected ->
             if (isConnected) {
-                if (!isLaunched) {
-                    goToLogin()
-                    isLaunched = true
-                } else
-                    goToLogin(1000)
+                tryToAuthenticateUser()
             } else showError()
-        })
+        }
     }
 
-    private fun goToLogin(duration: Long = 3000) {
-        Handler().postDelayed({
-            startActivity(Intent(this, LoginActivity::class.java))
-        }, duration)
+    private fun tryToAuthenticateUser() {
+        if (Auth.currentUser() != null) {
+            userLoginCallback()
+        } else {
+            startActivity(Intent(this@LoadingActivity, LoginActivity::class.java))
+        }
     }
 
     private fun showError() {
@@ -61,6 +64,42 @@ class LoadingActivity : AppCompatActivity() {
             .show()
     }
 
+    private fun userLoginCallback() {
+        UsersDB.getUser(Auth.currentUser()!!.uid, ::getUserCallback)
+    }
+
+    private fun getUserCallback(user: User?) {
+        if (user != null) {
+            LoggedUserData.setLoggedUser(user)
+            checkIfUserHasGoals()
+        } else {
+            throw RuntimeException("The user has no data in the database")
+        }
+    }
+
+    private fun checkIfUserHasGoals() {
+        val userId = LoggedUserData.getLoggedUser().uuid
+        GoalsDB.userHasGoals(userId) {
+            if (it) {
+                GoalsDB.getUserGoals(userId) { hasSetGoals ->
+                    checkIfGoalsAreSetCallback(hasSetGoals)
+                }
+            } else {
+                startActivity(Intent(this@LoadingActivity, SetGoalsActivity::class.java))
+                finish()
+            }
+        }
+    }
+
+    private fun checkIfGoalsAreSetCallback(areSet: Boolean) {
+        if (areSet) {
+            startActivity(Intent(this@LoadingActivity, MainActivity::class.java))
+            finish()
+        } else {
+            Toast.makeText(this@LoadingActivity, "Oops! Something went wrong!", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
 
     override fun onBackPressed() {
         super.onBackPressed()

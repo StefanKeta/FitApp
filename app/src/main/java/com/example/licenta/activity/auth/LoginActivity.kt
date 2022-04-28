@@ -3,7 +3,6 @@ package com.example.licenta.activity.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -20,7 +19,7 @@ import com.example.licenta.model.user.User
 import com.example.licenta.util.Util
 import com.google.android.material.textfield.TextInputLayout
 import java.lang.RuntimeException
-import java.util.*
+
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var emailLayout: TextInputLayout
