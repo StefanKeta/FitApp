@@ -2,6 +2,7 @@ package com.example.licenta.adapter.food
 
 import android.app.AlertDialog
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.licenta.R
+import com.example.licenta.adapter.OnShareClickListener
 import com.example.licenta.firebase.db.SelectedFoodDB
 import com.example.licenta.model.food.FoodMeasureUnitEnum
 import com.example.licenta.model.food.Meal
@@ -23,14 +25,16 @@ import com.google.android.material.textfield.TextInputLayout
 
 class MealsAdapter(
     private val ctx: Context,
+    options: FirestoreRecyclerOptions<Meal>,
     private val mealAdapterToFoodFragmentBridge: MealAdapterToFoodFragmentBridge,
-    options: FirestoreRecyclerOptions<Meal>
+    private val onShareClickListener: OnShareClickListener,
 ) : FirestoreRecyclerAdapter<Meal, MealsAdapter.MealsViewHolder>(options) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealsViewHolder {
         return MealsViewHolder(
             LayoutInflater.from(ctx)
                 .inflate(R.layout.item_holder_meal, parent, false),
-            mealAdapterToFoodFragmentBridge
+            mealAdapterToFoodFragmentBridge,
+            onShareClickListener
         )
     }
 
@@ -39,8 +43,9 @@ class MealsAdapter(
     }
 
     inner class MealsViewHolder(
-        val view: View,
-        private val mealAdapterToFoodFragmentBridge: MealAdapterToFoodFragmentBridge
+        view: View,
+        private val mealAdapterToFoodFragmentBridge: MealAdapterToFoodFragmentBridge,
+        private val onShareClickListener: OnShareClickListener
     ) :
         View.OnClickListener, RecyclerView.ViewHolder(view),
         FoodAdapter.OnSelectedFoodClickListener, FoodAdapter.OnSelectedFoodLongClickListener {
@@ -79,11 +84,7 @@ class MealsAdapter(
         override fun onClick(view: View?) {
             when (view!!.id) {
                 R.id.meal_item_add_btn -> mealAdapterToFoodFragmentBridge.goToAddFoodActivity(mealId)
-                R.id.meal_item_button_share -> Toast.makeText(
-                    ctx,
-                    "Share clicked",
-                    Toast.LENGTH_SHORT
-                ).show()
+                R.id.meal_item_button_share -> onShareClickListener.onShare(mealId)
             }
         }
 

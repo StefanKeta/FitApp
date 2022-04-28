@@ -1,5 +1,6 @@
 package com.example.licenta.fragment.main.diary
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.licenta.R
+import com.example.licenta.adapter.OnShareClickListener
 import com.example.licenta.adapter.food.FoodAdapter
 import com.example.licenta.adapter.food.MealsAdapter
 import com.example.licenta.animation.CircularProgressIndicatorAnimation
@@ -23,9 +25,11 @@ import com.example.licenta.firebase.db.FoodDB
 import com.example.licenta.firebase.db.MealsDB
 import com.example.licenta.firebase.db.SelectedFoodDB
 import com.example.licenta.fragment.main.OnDateChangedListener
+import com.example.licenta.model.food.Food
 import com.example.licenta.model.food.Meal
 import com.example.licenta.model.food.SelectedFood
 import com.example.licenta.util.Date
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import java.util.*
@@ -41,7 +45,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FoodFragment(private var date: String = Date.getCurrentDate()) : Fragment(),
-    View.OnClickListener, OnDateChangedListener, MealsAdapter.MealAdapterToFoodFragmentBridge {
+    View.OnClickListener, OnDateChangedListener, MealsAdapter.MealAdapterToFoodFragmentBridge,
+    OnShareClickListener {
     private lateinit var addFoodBtn: Button
     private lateinit var remainingProteinTV: TextView
     private lateinit var proteinPB: LinearProgressIndicator
@@ -82,6 +87,44 @@ class FoodFragment(private var date: String = Date.getCurrentDate()) : Fragment(
 //        when (v!!.id) {
 //         //   R.id.fragment_diary_food_add_food_btn -> goToAddFoodActivity()
 //        }
+    }
+
+    override fun changeDate(date: String) {
+        this.date = date
+        foodAdapters.forEach { it.stopListening() }
+        foodAdapters.clear()
+        checkIfMealsAreGeneratedAndSaveEmpty()
+    }
+
+    override fun goToAddFoodActivity(mealId: String) {
+        Bundle().also { bundle ->
+            bundle.putString(SelectedFood.MEAL_ID, mealId)
+            bundle.putString(SelectedFood.DATE_SELECTED, date)
+            addFoodForUserContract.launch(bundle)
+        }
+    }
+
+    override fun updateMacros() {
+        SelectedFoodDB.getUserSelectedFoodByDate(
+            date,
+            ::updateMacrosAndCalories
+        )
+    }
+
+    override fun addAdapter(foodAdapter: FoodAdapter) {
+        foodAdapter.startListening()
+        foodAdapters.add(foodAdapter)
+    }
+
+    override fun onShare(id: String) {
+        constructSharingMessage(id) { message ->
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.type = "text/plain"
+            startActivity(
+                intent.putExtra(Intent.EXTRA_TEXT, message)
+            )
+        }
     }
 
     private fun checkIfMealsAreGeneratedAndSaveEmpty() {
@@ -140,7 +183,7 @@ class FoodFragment(private var date: String = Date.getCurrentDate()) : Fragment(
         mealsRV.hasFixedSize()
         mealsRV.itemAnimator = null
         mealsAdapter =
-            MealsAdapter(requireContext(), this, MealsDB.getMealsByDateOptions(date))
+            MealsAdapter(requireContext(), MealsDB.getMealsByDateOptions(date), this, this)
         mealsRV.adapter = mealsAdapter
         checkIfMealsAreGeneratedAndSaveEmpty()
     }
@@ -200,32 +243,42 @@ class FoodFragment(private var date: String = Date.getCurrentDate()) : Fragment(
         linearProgressIndicator.startAnimation(indicatorAnimation)
     }
 
-    override fun changeDate(date: String) {
-        this.date = date
-        foodAdapters.forEach { it.stopListening() }
-        foodAdapters.clear()
-        checkIfMealsAreGeneratedAndSaveEmpty()
-    }
+    private fun constructSharingMessage(mealId: String, callback: (String) -> Unit) {
+        SelectedFoodDB.getSelectedFoodsInMeal(mealId) { selectedFoods ->
+            val allFoods = mutableListOf<Food>()
+            var foodsLength = 0
+            selectedFoods.forEach { selectedFood ->
+                FoodDB.getFoodById(selectedFood.foodId) { food ->
+                    foodsLength += 1
+                    allFoods.add(
+                        Food(
+                            food.id,
+                            food.name,
+                            food.barcode,
+                            (food.calories * selectedFood.quantity).toInt(),
+                            (food.protein * selectedFood.quantity).toInt(),
+                            (food.carbs * selectedFood.quantity).toInt(),
+                            (food.fat * selectedFood.quantity).toInt()
+                        )
+                    )
+                    val totalProtein = allFoods.sumOf { it.protein }
+                    val totalCarbs = allFoods.sumOf { it.carbs }
+                    val totalFat = allFoods.sumOf { it.fat }
+                    val totalCalories = allFoods.sumOf { it.calories }
+                    val concatenatedNames = allFoods.map { it.name }
 
-    override fun goToAddFoodActivity(mealId: String) {
-        Bundle().also { bundle ->
-            bundle.putString(SelectedFood.MEAL_ID, mealId)
-            bundle.putString(SelectedFood.DATE_SELECTED, date)
-            addFoodForUserContract.launch(bundle)
+                    if (foodsLength == selectedFoods.size) {
+                        callback(
+                            "For a meal on $date, I had: \n${
+                                concatenatedNames.joinToString("\n")
+                            }.\nMeal macros are: \n Protein: $totalProtein \n Carbs:$totalCarbs \n Fat: $totalFat \n Calories: $totalCalories"
+                        )
+                    }
+                }
+            }
         }
     }
 
-    override fun updateMacros() {
-        SelectedFoodDB.getUserSelectedFoodByDate(
-            date,
-            ::updateMacrosAndCalories
-        )
-    }
-
-    override fun addAdapter(foodAdapter: FoodAdapter) {
-        foodAdapter.startListening()
-        foodAdapters.add(foodAdapter)
-    }
 
     override fun onStart() {
         super.onStart()

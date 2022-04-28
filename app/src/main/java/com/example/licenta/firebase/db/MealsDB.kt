@@ -13,6 +13,24 @@ object MealsDB {
         FirebaseFirestore.getInstance()
     }
 
+    fun getMealById(mealId: String, callback: (Meal?) -> Unit) {
+        db
+            .collection(CollectionsName.MEALS)
+            .document(mealId)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val meal = task.result.toObject(Meal::class.java)
+                    if (meal != null)
+                        callback(meal)
+                    else
+                        throw RuntimeException("Could not parse the meal!")
+                } else {
+                    callback(null)
+                }
+            }
+    }
+
     fun getMealsFromDate(date: String, callback: (List<Meal>) -> Unit) {
         db
             .collection(CollectionsName.MEALS)
