@@ -59,8 +59,8 @@ class MapsFragment : Fragment(), PlaceSelectionListener, GoogleMap.OnCameraIdleL
     private var currentGyms: GymPlaces? = null
     private var locationMarker: Marker? = null
     private var locationGranted = false
-    private var lastKnownLocation: Location? = null
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
+    private var lastKnownLocation: Location? = null
 
 
     override fun onCreateView(
@@ -84,7 +84,7 @@ class MapsFragment : Fragment(), PlaceSelectionListener, GoogleMap.OnCameraIdleL
         searchAreaBtn.setOnClickListener(this)
         autocompleteSupportFragment.setOnPlaceSelectedListener(this)
         apiService = APIHandler.googlePlacesService
-        mapView = mapFragment.view!!
+        mapView = mapFragment.requireView()
         locationRequestLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { map ->
@@ -108,7 +108,7 @@ class MapsFragment : Fragment(), PlaceSelectionListener, GoogleMap.OnCameraIdleL
     }
 
     override fun onError(error: Status) {
-        Toast.makeText(context!!, "Failed with $error", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Failed with $error", Toast.LENGTH_SHORT).show()
     }
 
     override fun onPlaceSelected(place: Place) {
@@ -122,8 +122,8 @@ class MapsFragment : Fragment(), PlaceSelectionListener, GoogleMap.OnCameraIdleL
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM.toFloat()))
     }
 
-    override fun onClick(view: View?) {
-        if (view!!.id == R.id.fragment_maps_search_area) {
+    override fun onClick(v: View?) {
+        if (v!!.id == R.id.fragment_maps_search_area) {
             getPlaces(movedCameraLocation, null)
             searchAreaBtn.visibility = View.GONE
         }
@@ -131,26 +131,31 @@ class MapsFragment : Fragment(), PlaceSelectionListener, GoogleMap.OnCameraIdleL
 
     override fun onCameraIdle() {
         if (locationGranted) {
-            val phoneLocation = LatLng(
-                BigDecimal(lastKnownLocation!!.latitude).setScale(4, RoundingMode.HALF_EVEN)
-                    .toDouble(),
-                BigDecimal(lastKnownLocation!!.longitude).setScale(4, RoundingMode.HALF_EVEN)
-                    .toDouble()
-            )
-            val centeredLocation = LatLng(
-                BigDecimal(map.cameraPosition.target.latitude).setScale(
-                    4,
-                    RoundingMode.HALF_EVEN
-                ).toDouble(),
-                BigDecimal(map.cameraPosition.target.longitude).setScale(4, RoundingMode.HALF_EVEN)
-                    .toDouble()
-            )
+            if (lastKnownLocation != null) {
+                val phoneLocation = LatLng(
+                    BigDecimal(lastKnownLocation!!.latitude).setScale(4, RoundingMode.HALF_EVEN)
+                        .toDouble(),
+                    BigDecimal(lastKnownLocation!!.longitude).setScale(4, RoundingMode.HALF_EVEN)
+                        .toDouble()
+                )
+                val centeredLocation = LatLng(
+                    BigDecimal(map.cameraPosition.target.latitude).setScale(
+                        4,
+                        RoundingMode.HALF_EVEN
+                    ).toDouble(),
+                    BigDecimal(map.cameraPosition.target.longitude).setScale(
+                        4,
+                        RoundingMode.HALF_EVEN
+                    )
+                        .toDouble()
+                )
 
 
-            Log.d("setupPlaces", "onCameraIdle: ${map.cameraPosition.target} $phoneLocation}")
-            if (centeredLocation != phoneLocation) {
-                movedCameraLocation = centeredLocation
-                searchAreaBtn.visibility = View.VISIBLE
+                Log.d("setupPlaces", "onCameraIdle: ${map.cameraPosition.target} $phoneLocation}")
+                if (centeredLocation != phoneLocation) {
+                    movedCameraLocation = centeredLocation
+                    searchAreaBtn.visibility = View.VISIBLE
+                }
             }
         }
     }
@@ -164,9 +169,9 @@ class MapsFragment : Fragment(), PlaceSelectionListener, GoogleMap.OnCameraIdleL
     }
 
     private fun setUpClient() {
-        Places.initialize(context!!, getString(R.string.google_maps_key))
-        placesClient = Places.createClient(context!!)
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context!!)
+        Places.initialize(requireContext(), getString(R.string.google_maps_key))
+        placesClient = Places.createClient(requireContext())
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
     }
 
     private fun getPlaces(userLocation: LatLng, locationName: String?) {
@@ -237,7 +242,7 @@ class MapsFragment : Fragment(), PlaceSelectionListener, GoogleMap.OnCameraIdleL
         try {
             if (locationGranted) {
                 val locationResult = fusedLocationProviderClient.lastLocation
-                locationResult.addOnCompleteListener(activity!!) { task ->
+                locationResult.addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
                         lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
