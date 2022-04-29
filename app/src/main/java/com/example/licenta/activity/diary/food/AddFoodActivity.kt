@@ -38,8 +38,6 @@ class AddFoodActivity : AppCompatActivity(), View.OnClickListener,
     private lateinit var barcodeScannerActivityResult: ActivityResultLauncher<Unit>
     private lateinit var foodInfoActivityResult: ActivityResultLauncher<Bundle>
     private lateinit var registerFoodActivityResult: ActivityResultLauncher<String>
-    private lateinit var mealId: String
-    private lateinit var date: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_food)
@@ -139,10 +137,13 @@ class AddFoodActivity : AppCompatActivity(), View.OnClickListener,
         val foodExists = extras.getBoolean(IntentConstants.EXISTS)
         if (foodExists) {
             if (extras.getString(Food.ID) != null) {
-                val id = extras.getString(Food.ID)
-                val mealId = extras.getString(SelectedFood.MEAL_ID)
-                val date = extras.getString(SelectedFood.DATE_SELECTED)
-                launchFoodInfoActivity(id!!, mealId!!, date!!)
+                val bundle = intent.getBundleExtra(IntentConstants.BUNDLE)
+                if (bundle != null) {
+                    val id = extras.getString(Food.ID)
+                    val dateSelected = bundle.getString(SelectedFood.DATE_SELECTED)
+                    val mealId = bundle.getString(SelectedFood.MEAL_ID)
+                    launchFoodInfoActivity(id!!, mealId!!, dateSelected!!)
+                }
             }
         } else {
             if (extras.getString(Food.BARCODE) != null) {
