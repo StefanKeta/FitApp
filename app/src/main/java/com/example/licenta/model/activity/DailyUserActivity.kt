@@ -10,7 +10,6 @@ data class DailyUserActivity(
     val date: String = "",
     val steps: Int = 0,
     val distance: Double = 0.0,
-    val averageSpeed: Double = 0.0,
     val calories: Int = 0,
 ) {
     companion object {

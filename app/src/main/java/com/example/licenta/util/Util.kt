@@ -71,7 +71,7 @@ object Util {
             )
     }
 
-    fun roundDouble(number: Double, decimals: Int=3): Double {
+    fun roundDouble(number: Double, decimals: Int=2): Double {
         val decimalFormat =
             when (decimals) {
                 3 -> DecimalFormat("#.###")
