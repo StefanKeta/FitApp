@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.work.*
-import com.example.licenta.data.LoggedUserData
 import com.example.licenta.firebase.db.ActivityDB
 import com.example.licenta.model.activity.DailyUserActivity
 import java.util.*
