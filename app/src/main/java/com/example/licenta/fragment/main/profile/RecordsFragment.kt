@@ -1,7 +1,6 @@
 package com.example.licenta.fragment.main.profile
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -77,13 +76,11 @@ class RecordsFragment : Fragment(), AdapterView.OnItemClickListener,
     }
 
     private fun retrieveExercisesForAllRecords() {
-        Log.d("clicked", "records size: ${usersRecords.size}")
         exercises = ArrayList()
         for (record in usersRecords) {
             ExercisesDB.getExerciseById(record.exerciseId) {
                 exercises.add(it)
                 if (exercises.size == usersRecords.size) {
-                    Log.d("clicked", "exercises size: ${exercises.size}")
                     initGroups()
                 }
             }
@@ -106,7 +103,6 @@ class RecordsFragment : Fragment(), AdapterView.OnItemClickListener,
             .collect(Collectors.toList())
             .toMutableList()
 
-        Log.d("clicked", "filteredExercises : ${filteredExercises.size}")
         exercisesAdapter = AddExerciseAdapter(context!!, this, filteredExercises, usersRecords)
         exercisesRV.adapter = exercisesAdapter
     }
@@ -120,7 +116,6 @@ class RecordsFragment : Fragment(), AdapterView.OnItemClickListener,
             .distinct()
             .collect(Collectors.toSet())
             .toMutableList()
-        Log.d("clicked", "onItemClick: ")
         val adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, groups)
         groupACTV.setAdapter(adapter)
     }

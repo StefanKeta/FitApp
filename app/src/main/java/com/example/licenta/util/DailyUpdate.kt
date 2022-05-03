@@ -1,7 +1,6 @@
 package com.example.licenta.util
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.work.*
 import com.example.licenta.firebase.db.ActivityDB
@@ -28,8 +27,6 @@ class DailyUpdate(private val ctx: Context, private val workerParameters: Worker
         if (refreshDate.before(now))
             refreshDate.add(Calendar.HOUR_OF_DAY, 24)
 
-        Log.d("totalSteps", "DailyUpdate total steps: $totalSteps")
-        Log.d("totalSteps", "DailyUpdate previous total steps: $previousTotalSteps")
         totalSteps =
             workerParameters.inputData.getFloat(SharedPrefsConstants.TOTAL_STEPS, totalSteps)
         loadState()

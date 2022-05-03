@@ -7,7 +7,6 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -117,7 +116,6 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
         if (sensorRunning) {
             if (activity != null) {
                 totalSteps = event!!.values[0]
-                Log.d("totalSteps", "onSensorChanged total steps: ${circularProgressSteps.max}")
                 currentSteps = (totalSteps.toLong() - previousTotalSteps.toLong()).toInt()
                 circularProgressSteps.progress = currentSteps
                 distanceInKm = updateDistance(currentSteps)

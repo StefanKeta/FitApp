@@ -1,12 +1,10 @@
 package com.example.licenta.fragment.main
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -148,7 +146,6 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
             ) { dialog, _ -> dialog!!.dismiss() }
             .create()
 
-        Log.d("ProfileFragment", "openEditPhotoDialog: ")
         editPhotoDialog.show()
     }
 

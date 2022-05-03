@@ -1,6 +1,5 @@
 package com.example.licenta.firebase.db
 
-import android.util.Log
 import com.example.licenta.data.LoggedUserData
 import com.example.licenta.model.food.Meal
 import com.firebase.ui.firestore.FirestoreRecyclerOptions

@@ -1,6 +1,5 @@
 package com.example.licenta.math
 
-import android.util.Log
 import com.example.licenta.data.LoggedUserData
 import com.example.licenta.model.user.Gender
 import com.example.licenta.util.Date
@@ -14,7 +13,6 @@ object CalorieCalculator {
     ): Int {
         val user = LoggedUserData.getLoggedUser()
         val userAge = Date.parseAge(user.dob)
-        Log.d("setGoals", "userAge: $userAge")
         return when (preference) {
             PersonalWeightPreference.FAT_LOSS -> calculateForFatLoss(
                 user.gender,

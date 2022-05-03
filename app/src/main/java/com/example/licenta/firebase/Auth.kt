@@ -1,14 +1,11 @@
 package com.example.licenta.firebase
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import com.example.licenta.R
 import com.example.licenta.firebase.db.UsersDB
 import com.example.licenta.model.user.Gender
 import com.example.licenta.model.user.User
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser

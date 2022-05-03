@@ -1,6 +1,5 @@
 package com.example.licenta.firebase.db
 
-import android.util.Log
 import com.example.licenta.model.activity.DailyUserActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import java.lang.RuntimeException

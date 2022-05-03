@@ -2,12 +2,10 @@ package com.example.licenta.fragment.main
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.location.Location
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -149,9 +147,6 @@ class MapsFragment : Fragment(), PlaceSelectionListener, GoogleMap.OnCameraIdleL
                     )
                         .toDouble()
                 )
-
-
-                Log.d("setupPlaces", "onCameraIdle: ${map.cameraPosition.target} $phoneLocation}")
                 if (centeredLocation != phoneLocation) {
                     movedCameraLocation = centeredLocation
                     searchAreaBtn.visibility = View.VISIBLE
@@ -171,7 +166,8 @@ class MapsFragment : Fragment(), PlaceSelectionListener, GoogleMap.OnCameraIdleL
     private fun setUpClient() {
         Places.initialize(requireContext(), getString(R.string.google_maps_key))
         placesClient = Places.createClient(requireContext())
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
     }
 
     private fun getPlaces(userLocation: LatLng, locationName: String?) {
