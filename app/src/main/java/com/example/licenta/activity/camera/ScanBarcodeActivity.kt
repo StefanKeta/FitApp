@@ -21,6 +21,7 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
+import java.lang.RuntimeException
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -112,9 +113,9 @@ class ScanBarcodeActivity : AppCompatActivity() {
                     this, cameraSelector, previewUseCase, imageAnalysis
                 )
             } catch (illegalStateException: IllegalStateException) {
-                Log.e("illegalException", illegalStateException.message.orEmpty())
+                throw RuntimeException(illegalStateException.message)
             } catch (illegalArgumentException: IllegalArgumentException) {
-                Log.e("illegalException", illegalArgumentException.message.orEmpty())
+                throw RuntimeException(illegalArgumentException.message)
             }
         }, ContextCompat.getMainExecutor(this))
     }
