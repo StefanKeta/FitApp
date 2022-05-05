@@ -5,66 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.diary.food.AddFoodActivity"
-    android:paddingVertical="@dimen/app_vertical_padding_standard">
+    android:paddingVertical="@dimen/app_vertical_padding_standard"
+    tools:context=".activity.diary.food.AddFoodActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/app_padding_small"
-        >
+        android:paddingHorizontal="@dimen/app_padding_small">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/activity_add_food_search_for_food_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            app:boxBackgroundColor="@android:color/white"
             android:layout_height="wrap_content"
-            app:startIconDrawable= "@drawable/ic_baseline_search_24"
             android:hint="@string/activity_food_search_for_food_til"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            app:boxBackgroundColor="@android:color/white"
+            app:startIconDrawable="@drawable/ic_baseline_search_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/activity_add_food_search_for_food_et"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:baselineAligned="true"
+            android:gravity="center"
             android:orientation="horizontal"
             android:padding="@dimen/app_padding_medium"
-            android:gravity="center"
-            android:weightSum="2"
-            >
+            android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
 
                 <Button
                     android:id="@+id/activity_add_food_add_btn"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     app:icon="@drawable/ic_baseline_add_24"
-                    app:iconGravity="textEnd"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    />
+                    app:iconGravity="textEnd" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add custom food"
                     android:layout_gravity="center"
-                    />
+                    android:text="@string/button_add_custom" />
 
             </LinearLayout>
 
@@ -73,23 +68,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/activity_add_food_barcode_btn"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/activity_add_food_barcode_icon_size"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     app:icon="@drawable/ic_barcode_scan"
-                    app:iconGravity="textEnd"/>
+                    app:iconGravity="textEnd" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Search by barcode"
-                    />
+                    android:text="@string/add_food_text_search_by_barcode" />
 
             </LinearLayout>
 
@@ -103,7 +96,6 @@
         android:id="@+id/activity_add_food_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
-        />
+        android:clickable="true" />
 
 </LinearLayout>

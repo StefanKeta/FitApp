@@ -17,16 +17,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_baseline_camera_alt_24"
-            android:text="Camera"
-            android:layout_marginEnd="@dimen/app_margin_medium"
-            />
+            android:text="@string/button_camera"
+            android:layout_marginEnd="@dimen/app_margin_medium"/>
 
         <Button
             android:id="@+id/dialog_profile_open_gallery_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_baseline_photo_24"
-            android:text="Gallery"
+            android:text="@string/button_gallery"
             android:layout_marginStart="@dimen/app_margin_medium"
             />
 

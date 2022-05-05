@@ -213,7 +213,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Update goals (leave empty if your weight remained unchanged)"
+            android:text="@string/fragment_goals_update_goals"
             android:textSize="@dimen/text_size_list_item_important"
             android:textStyle="bold" />
 
@@ -277,7 +277,7 @@
             android:id="@+id/fragment_goals_update_weight_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update goals" />
+            android:text="@string/button_update_goals" />
     </LinearLayout>
 
 </LinearLayout>

@@ -99,4 +99,23 @@
     <string name="nav_drawer_open">Action bar opened</string>
     <string name="nav_drawer_close">Action bar closed</string>
     <string name="activity_set_goals_steps_tv">Steps</string>
+    <string name="exercise_text_group">Group</string>
+    <string name="exercise_text_name">Name</string>
+    <string name="button_add">Add</string>
+    <string name="button_add_custom">Add custom</string>
+    <string name="add_food_text_search_by_barcode">Search by barcode</string>
+    <string name="button_back">Back</string>
+    <string name="button_save">Save</string>
+    <string name="dialog_exercise_add_an_exercise_to_your_day">Add an exercise to your day</string>
+    <string name="dialog_exercise_time">Time</string>
+    <string name="dialog_exercise_distance">Distance</string>
+    <string name="button_camera">Camera</string>
+    <string name="button_gallery">Gallery</string>
+    <string name="fragment_activity_your_activity">Your activity</string>
+    <string name="fragment_activity_steps_walked">Steps walked</string>
+    <string name="fragment_activity_kilometers_walked">Kilometers walked</string>
+    <string name="fragment_activity_calories_burned">Calories burned</string>
+    <string name="fragment_goals_update_goals">Update goals (leave empty if your weight remained unchanged)</string>
+    <string name="button_update_goals">Update goals</string>
+    <string name="log_out">button_log_out</string>
 </resources>

@@ -2,7 +2,6 @@
 <LinearLayout
     android:id="@+id/activity_add_custom_exercise_main_ll"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +14,7 @@
             android:id="@+id/activity_add_custom_exercise_group_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Group"
+            android:hint="@string/exercise_text_group"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="@dimen/app_margin_medium"
             >
@@ -32,7 +31,7 @@
         android:id="@+id/activity_add_custom_exercise_name_til"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name"
+        android:hint="@string/exercise_text_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_marginBottom="@dimen/app_margin_medium"
         >
@@ -57,14 +56,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:text="Cancel"/>
+                android:text="@string/button_cancel"/>
 
             <Button
                 android:id="@+id/activity_add_custom_exercise_save_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="Add" />
+                android:text="@string/button_add" />
 
         </RelativeLayout>
 

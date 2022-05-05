@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/app_margin_medium"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-        android:hint="Group"
         android:layout_marginBottom="@dimen/app_margin_small"
         >
 
@@ -24,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:hint="@string/exercise_text_group"
             android:inputType="none"
             />
 

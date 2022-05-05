@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
+    android:paddingHorizontal="@dimen/app_margin_small"
     android:orientation="vertical"
     tools:context=".fragment.main.ActivityFragment">
 
@@ -13,7 +14,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/app_horizontal_padding_standard"
         android:paddingVertical="@dimen/app_vertical_padding_standard"
         android:weightSum="4">
 
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="@dimen/app_padding_medium"
-        android:text="Your activity"
+        android:text="@string/fragment_activity_your_activity"
         android:textSize="@dimen/text_size_titles"
         android:textStyle="bold" />
 
@@ -85,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="0"
+                    tools:text="0"
                     android:textSize="@dimen/text_size_titles"
                     android:textStyle="bold" />
 
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Steps walked"
+                android:text="@string/fragment_activity_steps_walked"
                 android:textSize="@dimen/text_size_paragraph"
                 android:textStyle="bold" />
 
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/app_margin_medium"
             android:gravity="center"
-            android:text="Kilometers walked"
+            android:text="@string/fragment_activity_kilometers_walked"
             android:textSize="@dimen/text_size_paragraph"
             android:textStyle="bold" />
 
@@ -135,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Calories burned"
+            android:text="@string/fragment_activity_calories_burned"
             android:textSize="@dimen/text_size_paragraph"
             android:textStyle="bold" />
 

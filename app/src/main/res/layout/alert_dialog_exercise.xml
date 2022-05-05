@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Add an exercise to your day"
+        android:text="@string/dialog_exercise_add_an_exercise_to_your_day"
         android:textSize="@dimen/text_size_titles"
         android:layout_marginBottom="@dimen/login_form_fields_margin_between"/>
     
@@ -24,7 +24,7 @@
         >
         <AutoCompleteTextView
             android:id="@+id/dialog_exercise_group_actv"
-            android:hint="Group"
+            android:hint="@string/exercise_text_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
@@ -41,7 +41,7 @@
 
         <AutoCompleteTextView
             android:id="@+id/dialog_exercise_name_actv"
-            android:hint="Name"
+            android:hint="@string/exercise_text_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
@@ -71,7 +71,7 @@
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dialog_exercise_weight_et"
-                android:hint="Weight"
+                android:hint="@string/exercise_weight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="numberDecimal"
@@ -121,7 +121,7 @@
             android:id="@+id/dialog_exercise_time_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Time"
+            android:hint="@string/dialog_exercise_time"
             android:layout_marginBottom="@dimen/app_margin_medium"
             >
 
@@ -157,7 +157,7 @@
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/dialog_exercise_distance_et"
-                    android:hint="Distance"
+                    android:hint="@string/dialog_exercise_distance"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="numberDecimal"

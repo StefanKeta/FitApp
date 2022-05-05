@@ -21,7 +21,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/activity_exercise_search_exercise_til"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="7"
             app:startIconDrawable= "@drawable/ic_baseline_search_24"
             android:hint="@string/activity_exercise_search_for_exercises_et">
@@ -40,7 +40,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             app:icon = "@drawable/ic_baseline_add_24"
-            android:text="Add custom"/>
+            android:text="@string/button_add_custom"/>
 
     </LinearLayout>
 
@@ -53,7 +53,7 @@
         >
         <AutoCompleteTextView
             android:id="@+id/activity_exercise_group_actv"
-            android:hint="Group"
+            android:hint="@string/exercise_text_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"

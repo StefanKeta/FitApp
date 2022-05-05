@@ -12,25 +12,26 @@
         <entry key="app/src/main/res/drawable/item_exercise_border.xml" value="0.3861538461538462" />
         <entry key="app/src/main/res/drawable/navigation_bar_custom_borders.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout-v28/activity_main.xml" value="0.23541666666666666" />
-        <entry key="app/src/main/res/layout/activity_add_custom_exercise.xml" value="0.37604166666666666" />
-        <entry key="app/src/main/res/layout/activity_add_exercise.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/activity_add_food.xml" value="0.20729166666666668" />
+        <entry key="app/src/main/res/layout/activity_add_custom_exercise.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_add_exercise.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_add_food.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_add_meal.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/activity_food_info.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/activity_food_info.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_loading.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/layout/activity_register_food_to_db.xml" value="0.3546875" />
+        <entry key="app/src/main/res/layout/activity_register_food_to_db.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_scan_barcode.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/activity_set_goals.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_set_goals.xml" value="0.1" />
         <entry key="app/src/main/res/layout/add_food_view_holder.xml" value="0.20729166666666668" />
-        <entry key="app/src/main/res/layout/alert_dialog_exercise.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/alert_dialog_exercise.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog_add_exercise.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/dialog_edit_exercise_record.xml" value="0.2171875" />
-        <entry key="app/src/main/res/layout/dialog_edit_selected_food.xml" value="0.21197916666666666" />
-        <entry key="app/src/main/res/layout/dialog_profile_fragment_edit_photo.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/layout/dialog_edit_selected_food.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_profile_fragment_edit_photo.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_activity.xml" value="0.22864583333333333" />
+        <entry key="app/src/main/res/layout/fragment_connections.xml" value="0.23854166666666668" />
         <entry key="app/src/main/res/layout/fragment_diary.xml" value="0.23229166666666667" />
         <entry key="app/src/main/res/layout/fragment_exercise.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/fragment_food.xml" value="0.22291666666666668" />

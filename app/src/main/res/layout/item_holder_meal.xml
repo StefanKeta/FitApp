@@ -26,7 +26,8 @@
                 android:layout_centerInParent="true"
                 android:textSize="@dimen/text_size_list_item_important"
                 android:textStyle="bold"
-                tools:text="Meal 1" />
+                tools:text="Meal 1"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:id="@+id/meal_item_button_share"
@@ -36,7 +37,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/app_margin_medium"
                 android:src="@drawable/ic_baseline_share_24"
-                />
+                tools:ignore="ContentDescription" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -51,8 +52,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_baseline_add_24"
-                android:text="Add food" />
+                android:drawableStart="@drawable/ic_baseline_add_24"
+                android:text="@string/fragment_profile_add_food_btn" />
 
     </LinearLayout>
 
