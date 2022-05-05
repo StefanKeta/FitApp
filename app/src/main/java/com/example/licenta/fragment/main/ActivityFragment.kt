@@ -95,7 +95,6 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
         yesterdayBtn = view.findViewById<Button>(R.id.fragment_activity_back_navigation_btn)
             .also { it.setOnClickListener(this) }
         loadState()
-        datePickerBtn.text = dateTrackingFor
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, p1: Int) {
@@ -116,6 +115,11 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
         if (sensorRunning) {
             if (activity != null) {
                 totalSteps = event!!.values[0]
+                val prefs = requireActivity().getSharedPreferences(
+                    SharedPrefsConstants.STEPS,
+                    Context.MODE_PRIVATE
+                )
+                prefs.edit().putFloat(SharedPrefsConstants.TOTAL_STEPS, totalSteps).apply()
                 currentSteps = (totalSteps.toLong() - previousTotalSteps.toLong()).toInt()
                 circularProgressSteps.progress = currentSteps
                 distanceInKm = updateDistance(currentSteps)
@@ -177,8 +181,8 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
         todaysActivity = todaysActivity.copy(
             date = dateTrackingFor,
             steps = totalStepsTV.text.toString().toInt(),
-            distance = distanceTV.text.toString().toDouble(),
-            calories = caloriesBurntTV.text.toString().toInt()
+            distance = distanceInKm,
+            calories = calories,
         )
     }
 
@@ -220,6 +224,7 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
         val prefs =
             requireActivity().getSharedPreferences(SharedPrefsConstants.STEPS, Context.MODE_PRIVATE)
         previousTotalSteps = prefs.getFloat(SharedPrefsConstants.PREVIOUS_STEPS_KEY, 0f)
+        totalSteps = prefs.getFloat(SharedPrefsConstants.TOTAL_STEPS, 0f)
         distanceInKm =
             Util.roundDouble(prefs.getFloat(SharedPrefsConstants.DISTANCE, 0f).toDouble(), 2)
         calories = prefs.getInt(SharedPrefsConstants.CALORIES, 0)
@@ -228,6 +233,7 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
             prefs.getString(SharedPrefsConstants.DATE_TRACKING_FOR, Date.getCurrentDate())!!
         loggedUserId =
             prefs.getString(SharedPrefsConstants.USER_ID, LoggedUserData.getLoggedUser().uuid)!!
+        setTexts()
     }
 
     private fun resetState() {
@@ -249,6 +255,13 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
         editor.putInt(SharedPrefsConstants.CALORIES, calories)
         editor.putString(SharedPrefsConstants.DATE_TRACKING_FOR, dateTrackingFor)
         editor.apply()
+    }
+
+    private fun setTexts() {
+        totalStepsTV.text = (totalSteps.toInt() - previousTotalSteps.toInt()).toString()
+        distanceTV.text = distanceInKm.toString()
+        caloriesBurntTV.text = calories.toString()
+        datePickerBtn.text = dateTrackingFor
     }
 
     private fun scheduleJob() {
