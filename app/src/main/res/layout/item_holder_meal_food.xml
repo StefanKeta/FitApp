@@ -13,6 +13,7 @@
         tools:text="Chicken breast"
         android:textSize="@dimen/text_size_list_item_important"
         android:textStyle="bold"
+        android:gravity="center_horizontal"
         />
 
     <RelativeLayout

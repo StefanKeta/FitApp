@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Widget.App.Button.ToggleGroup.LeftButton"
-        parent="Widget.MaterialComponents.Button.OutlinedButton">
+
+    <style name="Widget.App.Button.ToggleGroup.LeftButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:radius">16dp</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
@@ -12,8 +12,7 @@
         <item name="shapeAppearanceOverlay">@style/toggle_button_left_corner_cut</item>
     </style>
 
-    <style name="Widget.App.Button.ToggleGroup.RightButton"
-        parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="Widget.App.Button.ToggleGroup.RightButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:radius">16dp</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
@@ -43,9 +42,28 @@
     </style>
 
 
-    <style name="ShapePhoto.Round"
-        parent="">
+    <style name="ShapePhoto.Round" parent="">
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="App.Widget.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/color_primary</item>
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="App.Widget.Button" parent= "Widget.MaterialComponents.Button">
+    </style>
+
+    <style name="App.Widget.TextView.Light" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/color_accent</item>
+    </style>
+
+    <style name="App.Widget.TextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/color_primary_dark</item>
+    </style>
+
+    <style name="App.Widget.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/color_primary_dark</item>
     </style>
 
 </resources>

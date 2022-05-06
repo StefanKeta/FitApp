@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.Licenta" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryVariant">@color/color_primary_dark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,6 +12,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/open_sans_variable</item>
+
         <item name="android:windowContentOverlay">@null</item>
+        <item name="floatingActionButtonStyle">@style/App.Widget.FloatingActionButton</item>
+        <item name="android:textViewStyle">@style/App.Widget.TextView</item>
+        <item name="borderlessButtonStyle">@style/App.Widget.Button.TextButton</item>
+        <item name="materialButtonStyle">@style/App.Widget.Button</item>
     </style>
 </resources>

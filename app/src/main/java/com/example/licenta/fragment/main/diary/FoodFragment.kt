@@ -46,7 +46,6 @@ private const val ARG_PARAM2 = "param2"
 class FoodFragment(private var date: String = Date.getCurrentDate()) : Fragment(),
     View.OnClickListener, OnDateChangedListener, MealsAdapter.MealAdapterToFoodFragmentBridge,
     OnShareClickListener {
-    private lateinit var addFoodBtn: Button
     private lateinit var remainingProteinTV: TextView
     private lateinit var proteinPB: LinearProgressIndicator
     private lateinit var remainingCarbsTV: TextView
@@ -71,8 +70,6 @@ class FoodFragment(private var date: String = Date.getCurrentDate()) : Fragment(
     }
 
     private fun initComponents(view: View) {
-        addFoodBtn = view.findViewById(R.id.fragment_diary_food_add_food_btn)
-        addFoodBtn.setOnClickListener(this)
         setUpProgressBars(view)
         setUpRecyclerView(view)
         addFoodForUserContract = registerForActivityResult(AddFoodForUserContract()) { isSaved ->

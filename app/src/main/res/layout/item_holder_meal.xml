@@ -26,8 +26,8 @@
                 android:layout_centerInParent="true"
                 android:textSize="@dimen/text_size_list_item_important"
                 android:textStyle="bold"
-                tools:text="Meal 1"
-                tools:ignore="RelativeOverlap" />
+                tools:ignore="RelativeOverlap"
+                tools:text="Meal 1" />
 
             <ImageView
                 android:id="@+id/meal_item_button_share"
@@ -45,14 +45,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-
             <Button
                 android:id="@+id/meal_item_add_btn"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                style="@style/App.Widget.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:drawableStart="@drawable/ic_baseline_add_24"
+                android:textStyle="bold"
                 android:text="@string/fragment_profile_add_food_btn" />
 
     </LinearLayout>

@@ -72,19 +72,17 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     }
 
     private fun createToolbar() {
-        val toolbar: Toolbar = findViewById(R.id.activity_main_nav_bar)
-        setSupportActionBar(toolbar)
+//        val toolbar: Toolbar = findViewById(R.id.activity_main_nav_bar)
+//        setSupportActionBar(toolbar)
         drawer = findViewById(R.id.activity_main_drawer_layout)
         val actionDrawerToggle = ActionBarDrawerToggle(
             this@MainActivity,
             drawer,
-            toolbar,
+            null,
             R.string.nav_drawer_open,
             R.string.nav_drawer_close
         )
         drawer.addDrawerListener(actionDrawerToggle)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(true)
         actionDrawerToggle.syncState()
     }
 

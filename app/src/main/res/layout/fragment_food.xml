@@ -30,10 +30,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:orientation="vertical"
-                    android:paddingVertical="@dimen/app_vertical_padding_standard"
-                    android:paddingHorizontal="@dimen/app_horizontal_padding_standard">
+                    android:paddingHorizontal="@dimen/app_horizontal_padding_standard"
+                    android:paddingVertical="@dimen/app_vertical_padding_standard">
 
                     <TextView
+                        style="@style/App.Widget.TextView.Light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/fragment_diary_food_protein_tv" />
@@ -51,11 +52,12 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            app:indicatorColor="@android:color/black"
+                            app:indicatorColor="@color/color_sunglow"
                             app:trackColor="@android:color/white" />
 
                         <TextView
                             android:id="@+id/fragment_diary_food_protein_remaining_tv"
+                            style="@style/App.Widget.TextView.Light"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -69,6 +71,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/App.Widget.TextView.Light"
                         android:text="@string/fragment_diary_food_carbs_tv" />
 
                     <LinearLayout
@@ -83,7 +86,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            app:indicatorColor="@android:color/black"
+                            app:indicatorColor="@color/color_sky_blue"
                             app:trackColor="@android:color/white" />
 
                         <TextView
@@ -94,6 +97,7 @@
                             android:gravity="center"
                             android:textSize="@dimen/text_size_paragraph"
                             android:textStyle="bold"
+                            style="@style/App.Widget.TextView.Light"
                             tools:text="200" />
 
                     </LinearLayout>
@@ -101,6 +105,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/App.Widget.TextView.Light"
                         android:text="@string/fragment_diary_food_fat_tv" />
 
                     <LinearLayout
@@ -116,12 +121,12 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:visibility="visible"
-                            app:indicatorColor="@android:color/black"
+                            app:indicatorColor="@color/color_rosso_corsa"
                             app:trackColor="@android:color/white" />
-
 
                         <TextView
                             android:id="@+id/fragment_diary_food_fat_remaining_tv"
+                            style="@style/App.Widget.TextView.Light"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -149,6 +154,7 @@
                         android:maxLines="1"
                         android:text="@string/fragment_food_calories_remaining_tv"
                         android:textSize="@dimen/text_size_list_item_important"
+                        style="@style/App.Widget.TextView.Light"
                         tools:ignore="NestedWeights" />
 
                     <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -157,7 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/fragment_food_margin_between"
-                        app:indicatorColor="@android:color/black"
+                        app:indicatorColor="@color/color_primary_dark"
                         app:indicatorDirectionCircular="clockwise"
                         app:showDelay="100"
                         app:trackColor="@android:color/white"
@@ -171,28 +177,9 @@
                         android:layout_marginTop="8dp"
                         android:textSize="@dimen/text_size_titles"
                         android:textStyle="bold"
+                        style="@style/App.Widget.TextView.Light"
                         tools:text="2500" />
-
-
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical"
-                app:layout_anchor="@id/fragment_diary_food_macros_ll"
-                app:layout_anchorGravity="center_horizontal|bottom">
-
-                <Button
-                    android:id="@+id/fragment_diary_food_add_food_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="150dp"
-                    android:text="@string/fragment_profile_add_food_btn"
-                    app:icon="@drawable/ic_baseline_add_24"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </LinearLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
