@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="bottom"
+    android:gravity="center_horizontal"
     android:padding="@dimen/app_padding_medium"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:background="@color/color_primary_dark">
@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/app_margin_medium"
         tools:text="Profile name"
+        style="@style/App.Widget.TextView.Light"
         android:textSize="@dimen/text_size_titles"
         />
 

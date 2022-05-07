@@ -117,5 +117,5 @@
     <string name="fragment_activity_calories_burned">Calories burned</string>
     <string name="fragment_goals_update_goals">Update goals (leave empty if your weight remained unchanged)</string>
     <string name="button_update_goals">Update goals</string>
-    <string name="log_out">button_log_out</string>
+    <string name="button_log_out">Log out</string>
 </resources>

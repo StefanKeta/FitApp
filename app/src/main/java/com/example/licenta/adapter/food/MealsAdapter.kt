@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.licenta.R
@@ -70,6 +71,8 @@ class MealsAdapter(
             foodRV.itemAnimator = null
             foodRV.layoutManager = LinearLayoutManager(ctx)
             foodRV.hasFixedSize()
+            val itemDecoration = DividerItemDecoration(ctx, DividerItemDecoration.VERTICAL)
+            foodRV.addItemDecoration(itemDecoration)
             foodAdapter = FoodAdapter(
                 ctx,
                 SelectedFoodDB.getSelectedFoodsInMealOption(meal.id),

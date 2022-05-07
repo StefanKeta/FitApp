@@ -66,4 +66,8 @@
         <item name="android:textColor">@color/color_primary_dark</item>
     </style>
 
+    <style name="App.Widget.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_titles</item>
+    </style>
 </resources>

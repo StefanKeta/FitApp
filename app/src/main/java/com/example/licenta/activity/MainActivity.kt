@@ -7,9 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -23,6 +21,7 @@ import com.example.licenta.fragment.main.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener,
@@ -34,6 +33,9 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     private lateinit var addExerciseFab: FloatingActionButton
     private lateinit var addFoodFab: FloatingActionButton
     private lateinit var drawer: DrawerLayout
+    private lateinit var navigationView: NavigationView
+    private lateinit var profilePhotoIV: ImageView
+    private lateinit var nameTV: TextView
     private val rotateOpenAnim: Animation by lazy {
         AnimationUtils.loadAnimation(this, R.anim.fab_rotate_open)
     }
@@ -72,9 +74,16 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     }
 
     private fun createToolbar() {
-//        val toolbar: Toolbar = findViewById(R.id.activity_main_nav_bar)
-//        setSupportActionBar(toolbar)
         drawer = findViewById(R.id.activity_main_drawer_layout)
+        navigationView = findViewById(R.id.activity_main_nav_view)
+        profilePhotoIV =
+            navigationView.getHeaderView(0).findViewById(R.id.nav_bar_header_profile_iv)
+        nameTV =
+            navigationView.getHeaderView(0).findViewById<TextView?>(R.id.nav_bar_header_name_tv)
+                .also {
+                    it.text =
+                        "${LoggedUserData.getLoggedUser().firstName} ${LoggedUserData.getLoggedUser().lastName}"
+                }
         val actionDrawerToggle = ActionBarDrawerToggle(
             this@MainActivity,
             drawer,
