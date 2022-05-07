@@ -5,9 +5,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
-import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import com.example.licenta.R
 import com.example.licenta.activity.auth.LoginActivity
@@ -17,14 +16,17 @@ import com.example.licenta.firebase.db.GoalsDB
 import com.example.licenta.firebase.db.UsersDB
 import com.example.licenta.model.user.User
 import com.example.licenta.util.InternetConnectionTracker
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import java.lang.RuntimeException
 
 class LoadingActivity : AppCompatActivity() {
-    private lateinit var loadingBar: ProgressBar
+    private lateinit var loadingBar: CircularProgressIndicator
+    private lateinit var loadingTv: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loading)
         loadingBar = findViewById(R.id.activity_loading_progress_bar)
+        loadingTv = findViewById(R.id.activity_loading_tv)
         checkConnection()
     }
 
@@ -45,6 +47,7 @@ class LoadingActivity : AppCompatActivity() {
         InternetConnectionTracker.trackConnection(this)
         InternetConnectionTracker.observe(this@LoadingActivity) { isConnected ->
             if (isConnected) {
+                loadingTv.text = getString(R.string.activity_loading_retrieving_user_text)
                 tryToAuthenticateUser()
             } else showError()
         }
@@ -59,9 +62,8 @@ class LoadingActivity : AppCompatActivity() {
     }
 
     private fun showError() {
-        loadingBar.visibility = View.GONE
-        Toast.makeText(this, "No internet connection!", Toast.LENGTH_LONG)
-            .show()
+        loadingBar.visibility = View.INVISIBLE
+        loadingTv.text = getString(R.string.activity_loading_turn_on_connection)
     }
 
     private fun userLoginCallback() {

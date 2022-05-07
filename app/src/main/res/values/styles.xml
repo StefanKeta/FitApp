@@ -60,6 +60,7 @@
 
     <style name="App.Widget.TextView" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/color_primary_dark</item>
+        <item name="maxLines">1</item>
     </style>
 
     <style name="App.Widget.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">

@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/login_screen_padding"
-    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
     android:gravity="center"
     android:orientation="vertical"
     android:weightSum="10"
@@ -30,6 +29,13 @@
             android:layout_marginBottom="@dimen/login_form_fields_margin_between"
             android:textSize="@dimen/text_size_titles"
             android:textStyle="bold"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/logo_small"
+            android:layout_height="@dimen/logo_small"
+            android:src="@drawable/spartan_icon"
+            android:layout_marginVertical="@dimen/app_margin_small"
             />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -91,7 +97,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_paragraph"
+                android:textSize="@dimen/text_size_headers"
                 android:text="@string/activity_login_no_account_tv"
                 />
 
@@ -101,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_login_sign_up_btn"
                 android:textSize="@dimen/text_size_button"
+                android:textStyle="bold"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 />
 
@@ -118,15 +125,19 @@
         android:visibility="invisible"
         >
 
-        <ProgressBar
-            android:id="@+id/activity_login_loading_pb"
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:indicatorColor="@color/color_primary_dark"
+            android:indeterminate="true"
+            app:trackColor="@android:color/transparent"
+            app:indicatorSize="@dimen/logo_small"
             android:layout_marginBottom="@dimen/login_form_fields_margin_between"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/activity_login_checking_your_credentials_tv"
             />
 

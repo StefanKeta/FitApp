@@ -118,4 +118,8 @@
     <string name="fragment_goals_update_goals">Update goals (leave empty if your weight remained unchanged)</string>
     <string name="button_update_goals">Update goals</string>
     <string name="button_log_out">Log out</string>
+    <string name="custom_exercise_create_custom_text">Create your custom exercise</string>
+    <string name="activity_loading_tv_checking_connection">Checking internet connection...</string>
+    <string name="activity_loading_retrieving_user_text">Retrieving user data...</string>
+    <string name="activity_loading_turn_on_connection">Please turn on your internet connection</string>
 </resources>

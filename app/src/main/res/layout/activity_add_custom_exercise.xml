@@ -10,6 +10,21 @@
     android:padding="@dimen/app_padding_large"
     tools:context=".activity.diary.exercise.AddCustomExerciseActivity">
 
+    <ImageView
+        android:layout_width="@dimen/logo_large"
+        android:layout_height="@dimen/logo_large"
+        android:src="@drawable/spartan_icon"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/custom_exercise_create_custom_text"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size_titles"
+        android:layout_marginVertical="@dimen/app_margin_medium"
+        />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/activity_add_custom_exercise_group_til"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

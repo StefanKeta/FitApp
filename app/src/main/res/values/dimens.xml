@@ -5,6 +5,7 @@
     <dimen name="login_screen_padding">32dp</dimen>
     <dimen name="login_form_fields_margin_between">16dp</dimen>
     <dimen name="text_size_titles">24sp</dimen>
+    <dimen name="text_size_headers">18sp</dimen>
     <dimen name="text_size_paragraph">14sp</dimen>
     <dimen name="text_size_list_item">14sp</dimen>
     <dimen name="text_size_list_item_important">16sp</dimen>
@@ -26,4 +27,7 @@
     <dimen name="app_margin_medium">16dp</dimen>
     <dimen name="app_margin_large">48dp</dimen>
     <dimen name="card_view_radius_standard">12dp</dimen>
+    <dimen name="logo_small">48dp</dimen>
+    <dimen name="logo_medium">96dp</dimen>
+    <dimen name="logo_large">200dp</dimen>
 </resources>

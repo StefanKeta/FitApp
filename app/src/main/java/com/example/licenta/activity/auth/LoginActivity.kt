@@ -4,10 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import com.example.licenta.R
 import com.example.licenta.activity.MainActivity
 import com.example.licenta.activity.SetGoalsActivity
@@ -17,6 +14,7 @@ import com.example.licenta.firebase.db.GoalsDB
 import com.example.licenta.firebase.db.UsersDB
 import com.example.licenta.model.user.User
 import com.example.licenta.util.Util
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputLayout
 import java.lang.RuntimeException
 
@@ -29,12 +27,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var loginBtn: Button
     private lateinit var signUpBtn: Button
     private lateinit var rootLayout: LinearLayout
+    private lateinit var checkingCredentialsLayout: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        if(Auth.currentUser() != null){
+        if (Auth.currentUser() != null) {
             userLoginCallback(true)
-        }else {
+        } else {
             initComponents()
         }
     }
@@ -51,6 +50,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         loginBtn.setOnClickListener(this)
         signUpBtn = findViewById(R.id.activity_login_sign_up_btn)
         signUpBtn.setOnClickListener(this)
+        checkingCredentialsLayout = findViewById(R.id.activity_login_checking_credentials_layout)
+
     }
 
     override fun onClick(v: View?) {
@@ -71,9 +72,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun loginUser(email: String, password: String) {
+        checkingCredentialsLayout.visibility = View.VISIBLE
         loginBtn.isClickable = false
         Util.hideKeyboard(this)
         if (!validateEmail(email) || !validatePassword(password)) {
+            checkingCredentialsLayout.visibility = View.INVISIBLE
             Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT)
                 .show()
             loginBtn.isClickable = true
@@ -130,6 +133,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             )
                 .show()
             loginBtn.isClickable = true
+            checkingCredentialsLayout.visibility = View.INVISIBLE
         }
     }
 

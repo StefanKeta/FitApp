@@ -8,8 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.diary.exercise.AddExerciseActivity"
     android:orientation="vertical"
-    android:paddingVertical="@dimen/app_vertical_padding_standard"
-    android:paddingHorizontal="@dimen/app_horizontal_padding_standard">
+    android:paddingVertical="@dimen/app_vertical_padding_standard">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,6 +23,7 @@
             android:layout_height="0dp"
             android:layout_weight="7"
             app:startIconDrawable= "@drawable/ic_baseline_search_24"
+            android:layout_marginHorizontal="@dimen/app_horizontal_padding_standard"
             android:hint="@string/activity_exercise_search_for_exercises_et">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -40,15 +40,25 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             app:icon = "@drawable/ic_baseline_add_24"
+            android:layout_marginVertical="@dimen/app_margin_small"
             android:text="@string/button_add_custom"/>
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/logo_small"
+        android:layout_height="@dimen/logo_small"
+        android:layout_gravity="center"
+        android:src="@drawable/icon_dumbbell"
+        android:layout_marginBottom="@dimen/app_margin_small"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/activity_exercise_group_til"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/login_form_fields_margin_between"
+        android:layout_marginHorizontal="@dimen/app_horizontal_padding_standard"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         >
         <AutoCompleteTextView

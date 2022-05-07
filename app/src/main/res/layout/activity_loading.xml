@@ -8,17 +8,33 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
+    <ImageView
+        android:layout_width="@dimen/logo_large"
+        android:layout_height="@dimen/logo_large"
+        android:src="@drawable/spartan_icon"
+        />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/activity_loading_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:text="WELCOME!"
-        android:textSize="36sp"
+        android:layout_marginBottom="@dimen/app_margin_medium"
+        app:indicatorColor="@color/color_primary_dark"
+        android:indeterminate="true"
+        app:trackColor="@android:color/transparent"
+        app:indicatorSize="@dimen/logo_small"
+        android:layout_marginVertical="@dimen/app_margin_medium"
+        />
+
+
+    <TextView
+        android:id="@+id/activity_loading_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/app_padding_medium"
+        android:textSize="@dimen/text_size_titles"
+        android:text="@string/activity_loading_tv_checking_connection"
         android:gravity="center"/>
 
-    <ProgressBar
-        android:id="@+id/activity_loading_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/login_form_fields_margin_between"/>
 </LinearLayout>
