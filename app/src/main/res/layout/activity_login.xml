@@ -34,7 +34,7 @@
         <ImageView
             android:layout_width="@dimen/logo_small"
             android:layout_height="@dimen/logo_small"
-            android:src="@drawable/spartan_icon"
+            android:src="@drawable/icon_spartan"
             android:layout_marginVertical="@dimen/app_margin_small"
             />
 

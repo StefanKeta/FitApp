@@ -19,5 +19,6 @@
         <item name="android:textViewStyle">@style/App.Widget.TextView</item>
         <item name="borderlessButtonStyle">@style/App.Widget.Button.TextButton</item>
         <item name="materialButtonStyle">@style/App.Widget.Button</item>
+        <item name="android:radioButtonStyle">@style/App.Widget.RadioGroup</item>
     </style>
 </resources>

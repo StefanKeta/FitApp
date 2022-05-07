@@ -13,7 +13,7 @@
     <ImageView
         android:layout_width="@dimen/logo_large"
         android:layout_height="@dimen/logo_large"
-        android:src="@drawable/spartan_icon"
+        android:src="@drawable/icon_spartan"
         />
 
     <TextView

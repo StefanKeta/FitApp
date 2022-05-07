@@ -38,6 +38,13 @@
                 android:textSize="@dimen/text_size_titles"
                 android:textStyle="bold" />
 
+            <ImageView
+                android:layout_width="@dimen/logo_small"
+                android:layout_height="@dimen/logo_small"
+                android:src="@drawable/icon_spartan"
+                android:layout_marginVertical="@dimen/app_margin_small"
+                />
+
 
             <LinearLayout
                 android:layout_width="match_parent"

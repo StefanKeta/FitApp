@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/app_margin_small"
         android:gravity="center"
-        android:textStyle="italic"
+        android:textStyle="italic|bold"
         tools:text="Group" />
 
 
@@ -42,12 +42,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="@string/exercise_sets" />
 
             <TextView
                 android:id="@+id/item_exercise_record_sets_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
@@ -60,12 +62,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="@string/exercise_reps" />
 
             <TextView
                 android:id="@+id/item_exercise_record_reps_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
@@ -79,12 +83,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="@string/exercise_weight" />
 
             <TextView
                 android:id="@+id/item_exercise_record_weight_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 

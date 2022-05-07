@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Chicken breast"
-        android:textSize="@dimen/text_size_list_item_important"
+        android:textSize="@dimen/text_size_headers"
         android:textStyle="bold"
         android:gravity="center_horizontal"
         />
@@ -33,8 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="100"
-                android:textSize="@dimen/text_size_paragraph"
-                android:textStyle="italic"
+                android:textSize="@dimen/text_size_list_item_important"
+                android:textStyle="italic|bold"
                 />
 
             <TextView
@@ -42,8 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="g"
-                android:textSize="@dimen/text_size_paragraph"
-                android:textStyle="italic"
+                android:textSize="@dimen/text_size_list_item_important"
+                android:textStyle="italic|bold"
                 />
         </LinearLayout>
 

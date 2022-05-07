@@ -29,6 +29,14 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+        android:layout_width="@dimen/logo_small"
+        android:layout_height="@dimen/logo_small"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/icon_medal"
+        android:layout_marginVertical="@dimen/app_margin_small"
+        tools:ignore="ContentDescription" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_records_rv"
         android:layout_width="match_parent"

@@ -69,6 +69,10 @@
 
     <style name="App.Widget.TabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/text_size_titles</item>
+        <item name="android:textSize">@dimen/text_size_paragraph</item>
+    </style>
+
+    <style name="App.Widget.RadioGroup" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:buttonTint">@color/color_primary</item>
     </style>
 </resources>

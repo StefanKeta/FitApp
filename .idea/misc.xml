@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/exercise_holder_bottom_line_separator.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/drawable/ic_barcode_scan.xml" value="0.22395833333333334" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2515625" />
+        <entry key="app/src/main/res/drawable/ic_baseline_food_24_temp.xml" value="0.2075" />
         <entry key="app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.1375" />
         <entry key="app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.3859375" />
         <entry key="app/src/main/res/drawable/icon_login_activity_email.xml" value="0.2385" />
@@ -25,15 +26,15 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/layout/activity_register_food_to_db.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_register_food_to_db.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_scan_barcode.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/activity_set_goals.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_set_goals.xml" value="0.33" />
         <entry key="app/src/main/res/layout/add_food_view_holder.xml" value="0.20729166666666668" />
-        <entry key="app/src/main/res/layout/alert_dialog_exercise.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/alert_dialog_exercise.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_add_exercise.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/dialog_edit_exercise_record.xml" value="0.2171875" />
-        <entry key="app/src/main/res/layout/dialog_edit_selected_food.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/dialog_profile_fragment_edit_photo.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_edit_selected_food.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog_profile_fragment_edit_photo.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_activity.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/layout/fragment_connections.xml" value="0.23854166666666668" />
         <entry key="app/src/main/res/layout/fragment_diary.xml" value="0.23229166666666667" />
@@ -47,11 +48,12 @@
         <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/layout/fragment_records.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.37025641025641026" />
         <entry key="app/src/main/res/layout/item_holder_add_food.xml" value="0.20989583333333334" />
         <entry key="app/src/main/res/layout/item_holder_exercise.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/item_holder_exercise_record.xml" value="0.37604166666666666" />
-        <entry key="app/src/main/res/layout/item_holder_meal.xml" value="0.209375" />
-        <entry key="app/src/main/res/layout/item_holder_meal_food.xml" value="0.209375" />
+        <entry key="app/src/main/res/layout/item_holder_meal.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_holder_meal_food.xml" value="0.25" />
         <entry key="app/src/main/res/layout/meal_food_item_holder.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/meal_item_holder.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/layout/nav_bar_header.xml" value="0.18271898533491876" />

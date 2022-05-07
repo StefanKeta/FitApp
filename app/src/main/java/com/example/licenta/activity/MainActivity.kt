@@ -3,14 +3,15 @@ package com.example.licenta.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.licenta.R
@@ -18,6 +19,7 @@ import com.example.licenta.activity.auth.LoginActivity
 import com.example.licenta.data.LoggedUserData
 import com.example.licenta.firebase.db.UsersDB
 import com.example.licenta.fragment.main.*
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
@@ -26,7 +28,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener,
     View.OnClickListener {
-    private lateinit var navigationBar: BottomNavigationView
+    private lateinit var bottomNavBar: BottomNavigationView
+    private lateinit var bottomAppBar: BottomAppBar
     private lateinit var fragmentLayout: FrameLayout
     private lateinit var addFab: FloatingActionButton
     private lateinit var fabLayout: LinearLayout
@@ -59,10 +62,11 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
 
     private fun initComponents() {
         createToolbar()
-        navigationBar = findViewById(R.id.activity_main_navigation_view_bottom)
+        bottomNavBar = findViewById(R.id.activity_main_navigation_view_bottom)
+        bottomNavBar.selectedItemId = R.id.menu_main_bottom_home
+        bottomNavBar.setOnItemSelectedListener(this)
+        bottomAppBar = findViewById(R.id.activity_main_app_bar_bottom)
         fragmentLayout = findViewById(R.id.activity_main_fragment_layout)
-        navigationBar.selectedItemId = R.id.menu_main_bottom_home
-        navigationBar.setOnItemSelectedListener(this)
         fabLayout = findViewById(R.id.activity_main_fab_layout)
         addFab = findViewById(R.id.activity_main_fab_add)
         addFab.setOnClickListener(this)
