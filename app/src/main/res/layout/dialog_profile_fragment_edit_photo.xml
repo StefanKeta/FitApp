@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/app_margin_medium"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/app_margin_medium">
+
+    <ImageView
+        android:layout_width="@dimen/logo_small"
+        android:layout_height="@dimen/logo_small"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/app_margin_small"
+        android:src="@drawable/icon_spartan" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,18 +23,17 @@
             android:id="@+id/dialog_profile_open_camera_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/app_margin_medium"
             android:drawableTop="@drawable/ic_baseline_camera_alt_24"
-            android:text="@string/button_camera"
-            android:layout_marginEnd="@dimen/app_margin_medium"/>
+            android:text="@string/button_camera" />
 
         <Button
             android:id="@+id/dialog_profile_open_gallery_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_baseline_photo_24"
-            android:text="@string/button_gallery"
             android:layout_marginStart="@dimen/app_margin_medium"
-            />
+            android:drawableTop="@drawable/ic_baseline_photo_24"
+            android:text="@string/button_gallery" />
 
     </LinearLayout>
 
@@ -35,8 +41,7 @@
         android:id="@+id/dialog_profile_uploading_pb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
         android:indeterminate="true"
-        />
+        android:visibility="invisible" />
 
 </LinearLayout>

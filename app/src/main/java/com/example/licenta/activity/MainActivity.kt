@@ -1,5 +1,6 @@
 package com.example.licenta.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment
 import com.example.licenta.R
 import com.example.licenta.activity.auth.LoginActivity
 import com.example.licenta.data.LoggedUserData
+import com.example.licenta.data.LoggedUserProfilePhoto
 import com.example.licenta.firebase.db.UsersDB
 import com.example.licenta.fragment.main.*
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -77,11 +79,20 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         switchFragments(ActivityFragment())
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables", "SetTextI18n")
     private fun createToolbar() {
         drawer = findViewById(R.id.activity_main_drawer_layout)
         navigationView = findViewById(R.id.activity_main_nav_view)
         profilePhotoIV =
-            navigationView.getHeaderView(0).findViewById(R.id.nav_bar_header_profile_iv)
+            navigationView.getHeaderView(0).findViewById<ImageView?>(R.id.nav_bar_header_profile_iv).also { imageView ->
+                Log.d("profilePhoto", "createToolbar: ${LoggedUserProfilePhoto.getProfilePhoto()}")
+                if (LoggedUserProfilePhoto.getProfilePhoto() != null) {
+                    imageView
+                        .setImageBitmap(LoggedUserProfilePhoto.getProfilePhoto())
+                } else {
+                    imageView.setImageDrawable(resources.getDrawable(R.drawable.icon_user,null))
+                }
+            }
         nameTV =
             navigationView.getHeaderView(0).findViewById<TextView?>(R.id.nav_bar_header_name_tv)
                 .also {

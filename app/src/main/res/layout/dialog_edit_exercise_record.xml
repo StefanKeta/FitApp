@@ -6,6 +6,13 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/app_padding_medium">
 
+    <ImageView
+        android:layout_width="@dimen/logo_small"
+        android:layout_height="@dimen/logo_small"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/icon_spartan"
+        android:layout_marginBottom="@dimen/app_margin_small"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_edit_exercise_sets_tila"
         android:layout_width="match_parent"

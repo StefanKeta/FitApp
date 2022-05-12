@@ -13,11 +13,11 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
-import com.example.licenta.BuildConfig
 import com.example.licenta.R
 import com.example.licenta.activity.auth.LoginActivity
 import com.example.licenta.data.LoggedUserData
 import com.example.licenta.data.LoggedUserGoals
+import com.example.licenta.data.LoggedUserProfilePhoto
 import com.example.licenta.firebase.Auth
 import com.example.licenta.fragment.main.profile.ConnectionsFragment
 import com.example.licenta.fragment.main.profile.GoalsFragment
@@ -51,7 +51,7 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
     private lateinit var currentImageUri: Uri
     private val storage: FirebaseStorage = FirebaseStorage.getInstance()
     private val profilePhotoReference: StorageReference =
-        storage.reference.child("profile-pics/${LoggedUserData.getLoggedUser().uuid}.jpg")
+        storage.reference.child("profile-pics/JPEG_${LoggedUserData.getLoggedUser().uuid}.jpg")
 
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
@@ -62,10 +62,6 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
         registerForActivityResult(ActivityResultContracts.TakePicture()) { isTaken ->
             if (isTaken) savePhotoToStorage(currentImageUri)
         }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     private fun initComponents(view: View) {
         fragmentFrameLayout = view.findViewById(R.id.fragment_profile_items_fragment)
@@ -91,7 +87,6 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
         initComponents(view)
         return view
@@ -109,6 +104,7 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
     private fun logOutUser() {
         Auth.logUserOut()
         LoggedUserData.setLoggedUser(null)
+        LoggedUserProfilePhoto.resetProfilePhoto()
         LoggedUserGoals.setGoals(null)
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()
@@ -116,14 +112,7 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
 
     private fun setProfilePhoto(view: View) {
         profilePhoto = view.findViewById(R.id.fragment_profile_photo_profile_iv)
-        profilePhotoReference.getBytes(Long.MAX_VALUE)
-            .addOnSuccessListener { array ->
-                val photoBitmap = BitmapFactory.decodeByteArray(array, 0, array.size)
-                profilePhoto.setImageBitmap(photoBitmap)
-            }
-            .addOnFailureListener { exception ->
-                exception.printStackTrace()
-            }
+        profilePhoto.setImageBitmap(LoggedUserProfilePhoto.getProfilePhoto())
         profilePhoto.setOnClickListener(this)
     }
 
@@ -153,7 +142,7 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
         if (PermissionsChecker.isCameraAndStoragePermissionAccepted(requireActivity())) {
             currentImageUri = FileProvider.getUriForFile(
                 requireContext(),
-                BuildConfig.APPLICATION_ID + ".file_provider",
+                requireContext().packageName + ".provider",
                 createImage()
             )
             cameraLauncher.launch(currentImageUri)
@@ -175,7 +164,7 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
     private fun createImage(): File {
         val workingDirectory = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
-            "profile_${LoggedUserData.getLoggedUser().uuid}",
+            "JPEG_${LoggedUserData.getLoggedUser().uuid}",
             ".jpg",
             workingDirectory
         )
@@ -183,17 +172,23 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
 
     private fun savePhotoToStorage(uri: Uri) {
         savingPhotoPb.visibility = View.VISIBLE
-        profilePhotoReference
-            .putFile(uri)
-            .addOnCompleteListener { isUploaded ->
-                if (isUploaded.isSuccessful) {
-                    profilePhoto.setImageURI(uri)
+        LoggedUserProfilePhoto.saveProfilePhoto(uri,LoggedUserData.getLoggedUser().uuid) { saved ->
+            if (saved) {
+                LoggedUserProfilePhoto.setProfilePhoto(
+                    requireContext(),
+                    LoggedUserData.getLoggedUser().uuid
+                ) {
+                    profilePhoto.setImageBitmap(LoggedUserProfilePhoto.getProfilePhoto())
                     savingPhotoPb.visibility = View.INVISIBLE
                     editPhotoDialog.cancel()
-                } else {
-                    savingPhotoPb.visibility = View.INVISIBLE
                 }
+            } else {
+                Toast.makeText(requireContext(), "Could not save the photo", Toast.LENGTH_SHORT)
+                    .show()
+                savingPhotoPb.visibility = View.INVISIBLE
+                editPhotoDialog.cancel()
             }
+        }
     }
 
     companion object {

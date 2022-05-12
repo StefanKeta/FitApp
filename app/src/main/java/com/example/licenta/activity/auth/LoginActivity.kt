@@ -9,6 +9,7 @@ import com.example.licenta.R
 import com.example.licenta.activity.MainActivity
 import com.example.licenta.activity.SetGoalsActivity
 import com.example.licenta.data.LoggedUserData
+import com.example.licenta.data.LoggedUserProfilePhoto
 import com.example.licenta.firebase.Auth
 import com.example.licenta.firebase.db.GoalsDB
 import com.example.licenta.firebase.db.UsersDB
@@ -140,7 +141,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun getUserCallback(user: User?) {
         if (user != null) {
             LoggedUserData.setLoggedUser(user)
-            checkIfUserHasGoals()
+            LoggedUserProfilePhoto.setProfilePhoto(this@LoginActivity,user.uuid, ::checkIfUserHasGoals)
         } else {
             throw RuntimeException("The user has no data in the database")
         }

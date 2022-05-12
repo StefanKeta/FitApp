@@ -122,8 +122,9 @@ class SetGoalsActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun goToMainActivityAttemptCallback(addedSuccessfully: Boolean, goals: Goals?) {
         if (addedSuccessfully) {
-            startActivity(Intent(this@SetGoalsActivity, MainActivity::class.java))
             LoggedUserGoals.setGoals(goals!!)
+            startActivity(Intent(this@SetGoalsActivity, MainActivity::class.java))
+            finish()
         } else
             Toast
                 .makeText(

@@ -227,6 +227,7 @@
                     android:id="@+id/activity_set_goal_save_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="@string/activity_set_goals_save_goals_et" />
             </LinearLayout>
 
@@ -256,6 +257,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:buttonTint="@color/color_primary"
                 android:text="@string/activity_set_goals_lose_fat_tv" />
 
             <RadioButton
@@ -263,6 +265,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:buttonTint="@color/color_primary"
                 android:text="@string/activity_set_goals_maintain_tv" />
 
             <RadioButton
@@ -270,6 +273,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:buttonTint="@color/color_primary"
                 android:text="@string/activity_set_goals_gain_weight_tv" />
 
         </RadioGroup>
@@ -295,24 +299,28 @@
                 android:id="@+id/activity_set_goal_activity_sedentary_rb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/color_primary"
                 android:text="@string/activity_set_goals_sedentary_tv" />
 
             <RadioButton
                 android:id="@+id/activity_set_goal_activity_light_rb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/color_primary"
                 android:text="@string/activity_set_goals_light_tv" />
 
             <RadioButton
                 android:id="@+id/activity_set_goal_activity_moderate_rb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/color_primary"
                 android:text="@string/activity_set_goals_moderate_tv" />
 
             <RadioButton
                 android:id="@+id/activity_set_goal_activity_active_rb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/color_primary"
                 android:text="@string/activity_set_goals_high_intensity_tv" />
 
             <RadioButton
@@ -320,6 +328,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="2"
+                android:buttonTint="@color/color_primary"
                 android:text="@string/activity_set_goals_very_high_intensity_tv" />
         </RadioGroup>
 

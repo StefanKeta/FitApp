@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/app_padding_small"
-    >
+    android:orientation="vertical"
+    android:padding="@dimen/app_padding_small">
+
+    <ImageView
+        android:layout_width="@dimen/logo_small"
+        android:layout_height="@dimen/logo_small"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/icon_spartan"
+        android:layout_marginBottom="@dimen/app_margin_small"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_add_exercise_sets_til"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:hint="@string/hint_exercise_sets"
         android:layout_marginBottom="@dimen/fragment_food_margin_between"
-        >
+        android:hint="@string/hint_exercise_sets">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dialog_add_exercise_sets_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_add_exercise_reps_til"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:hint="@string/hint_exercise_reps"
         android:layout_marginBottom="@dimen/fragment_food_margin_between"
-        >
+        android:hint="@string/hint_exercise_reps">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dialog_add_exercise_reps_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_add_exercise_weight_til"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:hint="@string/hint_exercise_weight"
-        >
+        android:hint="@string/hint_exercise_weight">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dialog_add_exercise_weight_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
-
-
 
 
 </LinearLayout>

@@ -83,12 +83,10 @@ class GoalsFragment : Fragment(), View.OnClickListener {
                     if (user != null) {
                         LoggedUserData.setLoggedUser(user)
                         startActivity(intent)
-                        activity!!.finish()
                     }
                 }
             } else {
                 startActivity(intent)
-                activity!!.finish()
             }
         }
     }

@@ -25,6 +25,7 @@
     <dimen name="fragment_food_margin_between">8dp</dimen>
     <dimen name="app_margin_small">8dp</dimen>
     <dimen name="app_margin_medium">16dp</dimen>
+    <dimen name="app_margim_average">32dp</dimen>
     <dimen name="app_margin_large">48dp</dimen>
     <dimen name="card_view_radius_standard">12dp</dimen>
     <dimen name="logo_small">48dp</dimen>

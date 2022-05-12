@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:paddingHorizontal="@dimen/app_margin_small"
     android:orientation="vertical"
+    android:paddingHorizontal="@dimen/app_margin_small"
     tools:context=".fragment.main.ActivityFragment">
 
     <LinearLayout
@@ -58,16 +58,15 @@
     <ImageView
         android:layout_width="@dimen/logo_small"
         android:layout_height="@dimen/logo_small"
-        android:src="@drawable/icon_spartan"
         android:layout_marginVertical="@dimen/app_margin_small"
-        />
+        android:src="@drawable/icon_spartan" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:padding="@dimen/app_padding_medium"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/app_padding_medium">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -77,25 +76,33 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:orientation="vertical">
+                android:layout_height="150dp"
+                android:gravity="center">
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/fragment_activity_circular_progress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     app:indicatorSize="150dp" />
+
+                <ImageView
+                    android:layout_width="@dimen/logo_small"
+                    android:layout_height="@dimen/logo_small"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/app_margim_average"
+                    android:src="@drawable/icon_steps" />
 
                 <TextView
                     android:id="@+id/fragment_activity_steps_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    tools:text="0"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/app_margim_average"
                     android:textSize="@dimen/text_size_titles"
-                    android:textStyle="bold" />
-
+                    android:textStyle="bold"
+                    tools:text="0" />
             </RelativeLayout>
 
             <TextView
@@ -108,15 +115,26 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/fragment_activity_distance_walked"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/app_margin_small"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/text_size_titles"
-            android:textStyle="bold"
-            tools:text="500" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/fragment_activity_distance_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/text_size_titles"
+                android:textStyle="bold"
+                tools:text="500" />
+
+            <ImageView
+                android:layout_width="@dimen/logo_small"
+                android:layout_height="@dimen/logo_small"
+                android:layout_marginStart="@dimen/app_margin_medium"
+                android:layout_toEndOf="@id/fragment_activity_distance_tv"
+                android:src="@drawable/icon_distance" />
+        </RelativeLayout>
 
 
         <TextView
@@ -128,15 +146,28 @@
             android:textSize="@dimen/text_size_paragraph"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/fragment_activity_calories_tv"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/app_margin_small"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/text_size_titles"
-            android:textStyle="bold"
-            tools:text="2.4" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/fragment_activity_calories_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/text_size_titles"
+                android:textStyle="bold"
+                tools:text="2.4" />
+
+            <ImageView
+                android:layout_width="@dimen/logo_small"
+                android:layout_height="@dimen/logo_small"
+                android:layout_marginStart="@dimen/app_margin_medium"
+                android:layout_toEndOf="@id/fragment_activity_calories_tv"
+                android:src="@drawable/icon_calories" />
+        </RelativeLayout>
+
 
         <TextView
             android:layout_width="match_parent"

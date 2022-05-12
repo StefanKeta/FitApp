@@ -5,12 +5,14 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.example.licenta.R
 import com.example.licenta.activity.auth.LoginActivity
 import com.example.licenta.data.LoggedUserData
+import com.example.licenta.data.LoggedUserProfilePhoto
 import com.example.licenta.firebase.Auth
 import com.example.licenta.firebase.db.GoalsDB
 import com.example.licenta.firebase.db.UsersDB
@@ -73,7 +75,8 @@ class LoadingActivity : AppCompatActivity() {
     private fun getUserCallback(user: User?) {
         if (user != null) {
             LoggedUserData.setLoggedUser(user)
-            checkIfUserHasGoals()
+            Log.d("profilePhoto", "getUserCallback: ${user.uuid}")
+            LoggedUserProfilePhoto.setProfilePhoto(this@LoadingActivity,user.uuid, ::checkIfUserHasGoals)
         } else {
             throw RuntimeException("The user has no data in the database")
         }

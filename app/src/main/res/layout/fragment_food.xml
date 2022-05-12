@@ -7,6 +7,7 @@
     tools:context=".fragment.main.diary.FoodFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/fragment_food_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -190,7 +191,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_diary_meals_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_margin_large"
+        app:layout_anchor="@id/fragment_food_app_bar_layout"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

@@ -84,7 +84,7 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
 
     private fun initComponents(view: View) {
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        distanceTV = view.findViewById(R.id.fragment_activity_distance_walked)
+        distanceTV = view.findViewById(R.id.fragment_activity_distance_tv)
         caloriesBurntTV = view.findViewById(R.id.fragment_activity_calories_tv)
         totalStepsTV = view.findViewById(R.id.fragment_activity_steps_tv)
         circularProgressSteps = view.findViewById(R.id.fragment_activity_circular_progress)

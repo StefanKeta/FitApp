@@ -9,6 +9,13 @@
     android:padding="@dimen/app_padding_small"
     android:weightSum="7">
 
+    <ImageView
+        android:layout_width="@dimen/logo_small"
+        android:layout_height="@dimen/logo_small"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/app_margin_small"
+        android:src="@drawable/icon_spartan" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_edit_selected_food_quantity_til"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

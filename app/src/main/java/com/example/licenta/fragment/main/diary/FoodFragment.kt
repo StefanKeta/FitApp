@@ -186,6 +186,7 @@ class FoodFragment(private var date: String = Date.getCurrentDate()) : Fragment(
 
     private fun refreshMeals() {
         mealsAdapter.updateOptions(MealsDB.getMealsByDateOptions(date))
+        mealsRV.scrollToPosition(0)
     }
 
     private fun updateMacrosAndCalories(selectedFoods: List<SelectedFood>) {
