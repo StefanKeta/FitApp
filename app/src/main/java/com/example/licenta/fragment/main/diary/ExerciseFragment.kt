@@ -2,12 +2,14 @@ package com.example.licenta.fragment.main.diary
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,9 +17,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.licenta.R
 import com.example.licenta.adapter.exercise.ExerciseAdapter
 import com.example.licenta.contract.AddExerciseContract
+import com.example.licenta.data.LoggedUserData
+import com.example.licenta.firebase.db.ExercisesDB
 import com.example.licenta.firebase.db.PersonalRecordsDB
 import com.example.licenta.firebase.db.WeightExerciseRecordDB
 import com.example.licenta.fragment.main.OnDateChangedListener
+import com.example.licenta.model.exercise.Exercise
 import com.example.licenta.util.Date
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -39,6 +44,7 @@ class ExerciseFragment(private var date: String = Date.getCurrentDate()) : Fragm
     private lateinit var exercisesRV: RecyclerView
     private lateinit var adapter: ExerciseAdapter
     private lateinit var addExerciseContract: ActivityResultLauncher<String>
+    private lateinit var shareExerciseBtn: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +66,8 @@ class ExerciseFragment(private var date: String = Date.getCurrentDate()) : Fragm
         exercisesRV.layoutManager = LinearLayoutManager(context!!)
         exercisesRV.hasFixedSize()
         exercisesRV.itemAnimator = null
+        shareExerciseBtn = view.findViewById(R.id.fragment_diary_exercise_share_btn)
+        shareExerciseBtn.setOnClickListener(this)
         setUpAdapter()
         addExerciseContract = registerForActivityResult(
             AddExerciseContract(),
@@ -70,6 +78,7 @@ class ExerciseFragment(private var date: String = Date.getCurrentDate()) : Fragm
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.fragment_diary_exercise_add_btn -> addExerciseContract.launch(date)
+            R.id.fragment_diary_exercise_share_btn -> startSharingIntent()
         }
     }
 
@@ -147,14 +156,14 @@ class ExerciseFragment(private var date: String = Date.getCurrentDate()) : Fragm
         val view = LayoutInflater
             .from(context!!)
             .inflate(R.layout.dialog_edit_exercise_record, null, false)
-        var setsTIL: TextInputLayout = view.findViewById(R.id.dialog_edit_exercise_sets_tila)
-        var setsET: TextInputEditText = view.findViewById(R.id.dialog_edit_exercise_sets_et)
-        var repsTIL: TextInputLayout = view.findViewById(R.id.dialog_edit_exercise_reps_tila)
-        var repsET: TextInputEditText = view.findViewById(R.id.dialog_edit_exercise_reps_et)
-        var weightTIL: TextInputLayout = view.findViewById(R.id.dialog_edit_exercise_weight_tila)
-        var weightET: TextInputEditText = view.findViewById(R.id.dialog_edit_exercise_weight_et)
-        var cancelBtn: Button = view.findViewById(R.id.dialog_edit_exercise_cancel_btn)
-        var editBtn: Button = view.findViewById(R.id.dialog_edit_exercise_edit_btn)
+        val setsTIL: TextInputLayout = view.findViewById(R.id.dialog_edit_exercise_sets_tila)
+        val setsET: TextInputEditText = view.findViewById(R.id.dialog_edit_exercise_sets_et)
+        val repsTIL: TextInputLayout = view.findViewById(R.id.dialog_edit_exercise_reps_tila)
+        val repsET: TextInputEditText = view.findViewById(R.id.dialog_edit_exercise_reps_et)
+        val weightTIL: TextInputLayout = view.findViewById(R.id.dialog_edit_exercise_weight_tila)
+        val weightET: TextInputEditText = view.findViewById(R.id.dialog_edit_exercise_weight_et)
+        val cancelBtn: Button = view.findViewById(R.id.dialog_edit_exercise_cancel_btn)
+        val editBtn: Button = view.findViewById(R.id.dialog_edit_exercise_edit_btn)
 
         val dialog = AlertDialog
             .Builder(context!!)
@@ -190,6 +199,34 @@ class ExerciseFragment(private var date: String = Date.getCurrentDate()) : Fragm
             }
         }
     }
+
+    private fun startSharingIntent() {
+        constructMessage { message ->
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.type = "text/plain"
+            startActivity(
+                intent.putExtra(Intent.EXTRA_TEXT, message)
+            )
+        }
+    }
+
+    private fun constructMessage(callback: (String) -> Unit) =
+        WeightExerciseRecordDB.getRecordsByDate(
+            LoggedUserData.getLoggedUser().uuid,
+            date
+        ) { records ->
+            var exercisesRetrieved = 0
+            var message = "The exercises I performed on $date:\n"
+            records.forEach { record ->
+                ExercisesDB.getExerciseById(record.exerciseId) { exercise ->
+                    exercisesRetrieved += 1
+                    message += "${exercise.name} - ${record.weight}kg - ${record.sets} sets - ${record.reps} reps\n"
+                    if (exercisesRetrieved == records.size)
+                        callback(message)
+                }
+            }
+        }
 
 
     override fun onStart() {

@@ -4,18 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingVertical="@dimen/app_vertical_padding_standard"
     android:orientation="vertical"
+    android:paddingVertical="@dimen/app_vertical_padding_standard"
     tools:context=".fragment.main.diary.ExerciseFragment">
 
-    <Button
-        android:id="@+id/fragment_diary_exercise_add_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/fragment_diary_exercise_add_exercise_btn"
-        app:icon="@drawable/ic_baseline_add_24" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <Button
+            android:id="@+id/fragment_diary_exercise_add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/fragment_diary_exercise_add_exercise_btn"
+            app:icon="@drawable/ic_baseline_add_24" />
+
+        <ImageView
+            android:id="@+id/fragment_diary_exercise_share_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/app_margin_medium"
+            android:src="@drawable/ic_baseline_share_24" />
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_diary_exercise_rv"

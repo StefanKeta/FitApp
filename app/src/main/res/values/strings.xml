@@ -122,4 +122,5 @@
     <string name="activity_loading_tv_checking_connection">Checking internet connection...</string>
     <string name="activity_loading_retrieving_user_text">Retrieving user data...</string>
     <string name="activity_loading_turn_on_connection">Please turn on your internet connection</string>
+    <string name="button_add_meal">Add meal</string>
 </resources>

@@ -99,4 +99,28 @@ object WeightExerciseRecordDB {
                     callback(false)
             }
     }
+
+    fun getRecordsByDate(
+        userId: String,
+        date: String,
+        callback: (List<WeightExerciseRecord>) -> Unit
+    ) {
+        db
+            .collection(CollectionsName.WEIGHT_EXERCISE_RECORDS)
+            .whereEqualTo(WeightExerciseRecord.USER_ID, userId)
+            .whereEqualTo(WeightExerciseRecord.DATE, date)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val documents = task.result.documents
+                    val exercises = documents.map { documentSnapshot ->
+                        documentSnapshot.toObject(WeightExerciseRecord::class.java)
+                            ?: throw RuntimeException("Could not parse the exercise record: ${documentSnapshot.toString()}!")
+                    }
+                    callback(exercises)
+                }else{
+                    throw RuntimeException("Failed to receive daily exercise record!")
+                }
+            }
+    }
 }
