@@ -43,6 +43,7 @@ class AddExerciseActivity : AppCompatActivity(), AdapterView.OnItemClickListener
     private lateinit var groupsSet: MutableSet<String>
     private lateinit var recordsList: MutableList<PersonalRecord>
     private lateinit var addCustomExerciseContract: ActivityResultLauncher<Unit>
+    private lateinit var exerciseNameTV: TextView
     private lateinit var setsTIL: TextInputLayout
     private lateinit var setsET: TextInputEditText
     private lateinit var repsTIL: TextInputLayout
@@ -100,8 +101,8 @@ class AddExerciseActivity : AppCompatActivity(), AdapterView.OnItemClickListener
         populateExercises(groupExercises)
     }
 
-    override fun onExerciseItemClick(exerciseId: String) {
-        openAddDialog(exerciseId)
+    override fun onExerciseItemClick(exerciseId: String, exerciseName: String) {
+        openAddDialog(exerciseId, exerciseName)
     }
 
     override fun onBackPressed() {
@@ -151,10 +152,13 @@ class AddExerciseActivity : AppCompatActivity(), AdapterView.OnItemClickListener
         finish()
     }
 
-    private fun openAddDialog(exerciseId: String) {
+    private fun openAddDialog(exerciseId: String, exerciseName: String) {
         val view = LayoutInflater
             .from(this@AddExerciseActivity)
             .inflate(R.layout.dialog_add_exercise, null, false)
+
+        exerciseNameTV = view.findViewById(R.id.dialog_add_exercise_name_tv)
+        exerciseNameTV.text = exerciseName
         setsTIL = view.findViewById(R.id.dialog_add_exercise_sets_til)
         setsET = view.findViewById(R.id.dialog_add_exercise_sets_et)
         repsTIL = view.findViewById(R.id.dialog_add_exercise_reps_til)

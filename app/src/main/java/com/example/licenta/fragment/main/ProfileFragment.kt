@@ -1,7 +1,6 @@
 package com.example.licenta.fragment.main
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -19,9 +18,7 @@ import com.example.licenta.data.LoggedUserData
 import com.example.licenta.data.LoggedUserGoals
 import com.example.licenta.data.LoggedUserProfilePhoto
 import com.example.licenta.firebase.Auth
-import com.example.licenta.fragment.main.profile.ConnectionsFragment
 import com.example.licenta.fragment.main.profile.GoalsFragment
-import com.example.licenta.fragment.main.profile.PostsFragment
 import com.example.licenta.fragment.main.profile.RecordsFragment
 import com.example.licenta.util.PermissionsChecker
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -213,10 +210,8 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
         when (tab!!.position) {
-            0 -> switchFragment(PostsFragment())
-            1 -> switchFragment(GoalsFragment())
-            2 -> switchFragment(RecordsFragment())
-            3 -> switchFragment(ConnectionsFragment())
+            0 -> switchFragment(GoalsFragment())
+            1 -> switchFragment(RecordsFragment())
         }
     }
 

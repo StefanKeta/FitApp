@@ -62,11 +62,11 @@ class AddExerciseAdapter(
 
         override fun onClick(view: View?) {
             val id = exercisesList[absoluteAdapterPosition].id
-            onExerciseItemClickListener.onExerciseItemClick(id)
+            onExerciseItemClickListener.onExerciseItemClick(id,exercisesList[absoluteAdapterPosition].name)
         }
     }
 
     interface OnExerciseItemClickListener {
-        fun onExerciseItemClick(exerciseId: String)
+        fun onExerciseItemClick(exerciseId: String,exerciseName:String)
     }
 }

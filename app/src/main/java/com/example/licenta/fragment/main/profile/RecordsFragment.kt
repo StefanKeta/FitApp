@@ -71,7 +71,7 @@ class RecordsFragment : Fragment(), AdapterView.OnItemClickListener,
         refreshRecords(adapterView!!.getItemAtPosition(position).toString())
     }
 
-    override fun onExerciseItemClick(exerciseId: String) {
+    override fun onExerciseItemClick(exerciseId: String, exerciseName: String) {
         //No implementation so far
     }
 

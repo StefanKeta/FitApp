@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="@dimen/app_padding_small">
 
@@ -11,6 +12,16 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/icon_spartan"
         android:layout_marginBottom="@dimen/app_margin_small"/>
+
+    <TextView
+        android:id="@+id/dialog_add_exercise_name_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text = "Bench press"
+        android:textSize="@dimen/text_size_titles"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_add_exercise_sets_til"
