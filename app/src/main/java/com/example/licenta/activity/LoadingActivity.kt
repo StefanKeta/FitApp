@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -69,13 +68,12 @@ class LoadingActivity : AppCompatActivity() {
     }
 
     private fun userLoginCallback() {
-        UsersDB.getUser(Auth.currentUser()!!.uid, ::getUserCallback)
+        UsersDB.getUser(Auth.currentUser()!!.uid, ::getUserDataAndLogin)
     }
 
-    private fun getUserCallback(user: User?) {
+    private fun getUserDataAndLogin(user: User?) {
         if (user != null) {
             LoggedUserData.setLoggedUser(user)
-            Log.d("profilePhoto", "getUserCallback: ${user.uuid}")
             LoggedUserProfilePhoto.setProfilePhoto(this@LoadingActivity,user.uuid, ::checkIfUserHasGoals)
         } else {
             throw RuntimeException("The user has no data in the database")

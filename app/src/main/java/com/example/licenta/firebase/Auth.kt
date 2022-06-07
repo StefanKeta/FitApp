@@ -13,17 +13,7 @@ import com.google.firebase.auth.FirebaseUser
 object Auth {
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
-    fun registerUser(
-        context: Context,
-        firstName: String,
-        lastName: String,
-        email: String,
-        dob: Long,
-        gender: Gender,
-        height: Int,
-        weight: Int,
-        password: String
-    ) {
+    fun registerUser(context: Context, firstName: String, lastName: String, email: String, dob: Long, gender: Gender, height: Int, weight: Int, password: String) {
         auth
             .createUserWithEmailAndPassword(
                 email,

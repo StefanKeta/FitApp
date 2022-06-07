@@ -18,7 +18,6 @@ import com.example.licenta.R
 import com.example.licenta.api.APIHandler
 import com.example.licenta.api.PlaceAPIService
 import com.example.licenta.api.model.GymPlaces
-import com.example.licenta.util.PermissionsChecker
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices

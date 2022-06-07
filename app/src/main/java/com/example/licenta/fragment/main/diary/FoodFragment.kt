@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,7 +27,6 @@ import com.example.licenta.model.food.Food
 import com.example.licenta.model.food.Meal
 import com.example.licenta.model.food.SelectedFood
 import com.example.licenta.util.Date
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import java.util.*
