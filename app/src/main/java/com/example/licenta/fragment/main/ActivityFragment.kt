@@ -53,7 +53,7 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
     private lateinit var tomorrowBtn: Button
     private lateinit var yesterdayBtn: Button
 
-    private lateinit var dateTrackingFor: String
+    private var dateTrackingFor: String = Date.getCurrentDate()
     private lateinit var sensorManager: SensorManager
     private var loggedUserId = LoggedUserData.getLoggedUser().uuid
     private var sensorRunning = false
@@ -115,11 +115,6 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
         if (sensorRunning) {
             if (activity != null) {
                 totalSteps = event!!.values[0]
-                val prefs = requireActivity().getSharedPreferences(
-                    SharedPrefsConstants.STEPS,
-                    Context.MODE_PRIVATE
-                )
-                prefs.edit().putFloat(SharedPrefsConstants.TOTAL_STEPS, totalSteps).apply()
                 currentSteps = (totalSteps.toLong() - previousTotalSteps.toLong()).toInt()
                 circularProgressSteps.progress = currentSteps
                 distanceInKm = updateDistance(currentSteps)
@@ -229,8 +224,6 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
             Util.roundDouble(prefs.getFloat(SharedPrefsConstants.DISTANCE, 0f).toDouble(), 2)
         calories = prefs.getInt(SharedPrefsConstants.CALORIES, 0)
         circularProgressSteps.progress = previousTotalSteps.toInt()
-        dateTrackingFor =
-            prefs.getString(SharedPrefsConstants.DATE_TRACKING_FOR, Date.getCurrentDate())!!
         loggedUserId =
             prefs.getString(SharedPrefsConstants.USER_ID, LoggedUserData.getLoggedUser().uuid)!!
         setTexts()
@@ -253,7 +246,6 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
         editor.putFloat(SharedPrefsConstants.PREVIOUS_STEPS_KEY, previousTotalSteps)
         editor.putFloat(SharedPrefsConstants.DISTANCE, distanceInKm.toFloat())
         editor.putInt(SharedPrefsConstants.CALORIES, calories)
-        editor.putString(SharedPrefsConstants.DATE_TRACKING_FOR, dateTrackingFor)
         editor.apply()
     }
 

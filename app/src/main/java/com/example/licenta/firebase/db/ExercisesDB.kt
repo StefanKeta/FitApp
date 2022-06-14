@@ -33,7 +33,7 @@ object ExercisesDB {
                             if (it != null)
                                 callback(it)
                             else
-                                throw RuntimeException("Ooops! Could not parse the document as Exercise object")
+                                throw RuntimeException("Could not parse the document as Exercise object")
                         }
                 }
             }
