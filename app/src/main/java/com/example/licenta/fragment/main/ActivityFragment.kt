@@ -7,6 +7,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -206,12 +207,12 @@ class ActivityFragment : Fragment(), SensorEventListener, View.OnClickListener {
         return Util.roundDouble(stepLength * steps / 100 / 1000) // cm -> m -> km
     }
 
-    private fun updateCalories(steps: Int, averageSpeed: Double = 5.65): Int {
+    private fun updateCalories(steps: Int, averageSpeed: Double = 6.45): Int {
         val userWeight = LoggedUserData.getLoggedUser().weight
         val userHeight = LoggedUserData.getLoggedUser().height
         val age = Date.parseAge(LoggedUserData.getLoggedUser().dob)
         val bmi = BMICalculator.calculateBMI(userWeight, userHeight)
-        val calories = steps * 0.04 * bmi * age * averageSpeed
+        val calories = steps * 0.05 * bmi * age * averageSpeed
         return if (calories - calories.toInt() > 0.5) calories.toInt() + 1 else calories.toInt()
     }
 

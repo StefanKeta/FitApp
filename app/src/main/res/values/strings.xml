@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Licenta</string>
+    <string name="app_name">FitApp</string>
     <string name="activity_login_login_btn">Log in</string>
     <string name="activity_login_no_account_tv">Don\'t have an account?</string>
     <string name="activity_login_sign_in_tv">Sign in</string>
