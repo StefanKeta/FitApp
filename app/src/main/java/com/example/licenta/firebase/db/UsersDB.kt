@@ -2,6 +2,7 @@ package com.example.licenta.firebase.db
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import com.example.licenta.activity.auth.LoginActivity
 import com.example.licenta.data.LoggedUserData
@@ -31,14 +32,19 @@ object UsersDB {
 
     fun getUser(id: String, callback: (User?) -> Unit) {
         collection
-            .whereEqualTo(User.USER_UUID, id)
             .get()
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    if (it.result.documents[0] != null)
-                        callback(it.result!!.documents[0].toObject(User::class.java))
-                } else
-                    callback(null)
+            .addOnCompleteListener{query ->
+                query.result.documents.forEach{ doc -> Log.d("[Users]", "getUser: ${doc.data}")}
+                collection
+                    .whereEqualTo(User.USER_UUID, id)
+                    .get()
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            if (it.result.documents[0] != null)
+                                callback(it.result!!.documents[0].toObject(User::class.java))
+                        } else
+                            callback(null)
+                    }
             }
     }
 

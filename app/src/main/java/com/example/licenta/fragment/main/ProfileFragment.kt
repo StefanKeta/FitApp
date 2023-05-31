@@ -70,6 +70,7 @@ class ProfileFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnClic
         nameTV.text =
             "${LoggedUserData.getLoggedUser().firstName} ${LoggedUserData.getLoggedUser().lastName}"
         logOut.setOnClickListener(this)
+        switchFragment(GoalsFragment())
     }
 
 

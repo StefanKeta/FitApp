@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "914124891433",
-    "project_id": "licenta-bb97e",
-    "storage_bucket": "licenta-bb97e.appspot.com"
+    "project_number": "491939717286",
+    "project_id": "mcca-6fad2",
+    "storage_bucket": "mcca-6fad2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:914124891433:android:98f1b2204fe14528474338",
+        "mobilesdk_app_id": "1:491939717286:android:e19361c5d90bd9ededd467",
         "android_client_info": {
           "package_name": "com.example.licenta"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "914124891433-krpo7i38nrdoo44pq7jgnuc1qlra04if.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCh6vHZJlplebVbnxlj-kDgDG5p8Epo7ZQ"
+          "current_key": "AIzaSyAsMzuZy7cKLcVD6Wyb4b-5gD2cs5H__m0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "914124891433-krpo7i38nrdoo44pq7jgnuc1qlra04if.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

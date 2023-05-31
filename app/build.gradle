@@ -1,10 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     viewBinding {
         enabled = true
@@ -13,7 +14,7 @@ android {
     defaultConfig {
         applicationId "com.example.licenta"
         minSdk 26
-        targetSdk 31
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -39,6 +40,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android-extensions'
 
 dependencies {
+    implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'

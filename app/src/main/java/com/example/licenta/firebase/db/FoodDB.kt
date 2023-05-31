@@ -54,7 +54,7 @@ object FoodDB {
     fun initialAddFoodAdapterListOptions(limit: Long = 20): FirestoreRecyclerOptions<Food> {
         val query = db
             .collection(CollectionsName.FOOD)
-            .orderBy(Food.NAME, Query.Direction.DESCENDING)
+            .orderBy(Food.NAME, Query.Direction.ASCENDING)
             .limit(limit)
 
         return FirestoreRecyclerOptions.Builder<Food>()
